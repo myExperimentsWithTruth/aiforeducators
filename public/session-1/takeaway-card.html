@@ -6,13 +6,13 @@
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --maroon:#79211C; --mink:#2A0E0C; --rust:#962901; --gold:#C89B3C;
-  --agri:#1B7A3D; --paper:#FFFFFF; --paper2:#F6F6F4;
-  --line:#D9D2C4; --lines:#E7E1D3; --ink:#1B1B1A; --graph:#333333; --mid:#7A7368;
+  --maroon:#FF5A36; --mink:#F4F4F8; --rust:#FF7A56; --gold:#FFC857;
+  --agri:#3DDC84; --paper:#0E0E16; --paper2:#14141D;
+  --line:#2B2B37; --lines:#24242F; --ink:#F4F4F8; --graph:#A2A2B0; --mid:#8A8A99;
   --serif:"EB Garamond",Garamond,Georgia,serif; --sans:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-html,body{background:#ddd;font-family:var(--sans);color:var(--ink);}
+html,body{background:#2B2B37;font-family:var(--sans);color:var(--ink);}
 .page{width:210mm;height:297mm;overflow:hidden;margin:8mm auto;background:var(--paper);
   padding:11mm 12mm;box-shadow:0 4px 24px rgba(0,0,0,.25);}
 
@@ -40,7 +40,7 @@ html,body{background:#ddd;font-family:var(--sans);color:var(--ink);}
 .share td{padding:2.2mm 0;border-bottom:1px solid var(--lines);vertical-align:middle;}
 .share tr:last-child td{border-bottom:none;}
 .share .v{white-space:nowrap;font-weight:600;text-align:right;}
-.share .go{color:var(--agri);} .share .care{color:#8A6A1B;} .share .stop{color:var(--rust);}
+.share .go{color:var(--agri);} .share .care{color:#FFC857;} .share .stop{color:var(--rust);}
 .share .dot{font-size:7pt;}
 
 .map{display:flex;flex-wrap:wrap;gap:2.2mm;}
@@ -62,11 +62,12 @@ html,body{background:#ddd;font-family:var(--sans);color:var(--ink);}
   font-size:8pt;color:var(--mid);display:flex;justify-content:space-between;}
 
 @media print{
-  html,body{background:#fff;}
+  html,body{background:#0E0E16;}
   .page{margin:0;box-shadow:none;}
   @page{size:A4;margin:0;}
 }
-</style></head>
+</style><style>:root{color-scheme:dark;}html,body{background:#0E0E16;}</style>
+</head>
 <body>
 <div class="page">
   <div class="head">

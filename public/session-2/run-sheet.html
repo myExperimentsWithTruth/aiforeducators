@@ -6,13 +6,13 @@
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --maroon:#79211C; --mink:#2A0E0C; --rust:#962901; --gold:#C89B3C; --agri:#1B7A3D;
-  --paper:#FFFFFF; --paper2:#F6F6F4; --line:#D9D2C4; --lines:#E7E1D3;
-  --ink:#1B1B1A; --graph:#333333; --mid:#7A7368;
+  --maroon:#FF5A36; --mink:#F4F4F8; --rust:#FF7A56; --gold:#FFC857; --agri:#3DDC84;
+  --paper:#0E0E16; --paper2:#14141D; --line:#2B2B37; --lines:#24242F;
+  --ink:#F4F4F8; --graph:#A2A2B0; --mid:#8A8A99;
   --serif:"EB Garamond",Georgia,serif; --sans:"IBM Plex Sans",Arial,sans-serif; --mono:"IBM Plex Mono",Consolas,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:#e6e6e6;font-family:var(--sans);color:var(--ink);line-height:1.5;}
+body{background:#24242F;font-family:var(--sans);color:var(--ink);line-height:1.5;}
 .doc{max-width:200mm;margin:8mm auto;background:var(--paper);padding:16mm 16mm 14mm;box-shadow:0 4px 24px rgba(0,0,0,.22);}
 .head{border-bottom:2.5px solid var(--maroon);padding-bottom:5mm;margin-bottom:7mm;}
 .head .eb{font-size:10pt;letter-spacing:2.6px;text-transform:uppercase;color:var(--maroon);}
@@ -30,7 +30,7 @@ body{background:#e6e6e6;font-family:var(--sans);color:var(--ink);line-height:1.5
 .arc{font-size:11pt;line-height:1.6;margin-bottom:5mm;}
 .arc b{color:var(--maroon);} .arc .g{color:var(--agri);font-weight:600;} .arc .n{color:var(--maroon);font-weight:600;}
 
-.crtfnote{border:1px solid var(--gold);background:#FBF6EA;padding:3.5mm 5mm;margin-bottom:8mm;font-size:10pt;line-height:1.55;}
+.crtfnote{border:1px solid var(--gold);background:#1B1710;padding:3.5mm 5mm;margin-bottom:8mm;font-size:10pt;line-height:1.55;}
 .crtfnote b{color:var(--maroon);}
 .crtfnote .keys{color:var(--gold);font-weight:600;}
 
@@ -39,14 +39,14 @@ body{background:#e6e6e6;font-family:var(--sans);color:var(--ink);line-height:1.5
 .step .top{display:flex;align-items:baseline;gap:3mm;margin-bottom:2.5mm;}
 .step .num{font-family:var(--serif);font-size:19pt;color:var(--maroon);font-weight:600;line-height:1;}
 .step h3{font-size:13pt;color:var(--mink);flex:1;}
-.tag{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;padding:1mm 2.4mm;border-radius:2px;color:#fff;white-space:nowrap;}
+.tag{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;padding:1mm 2.4mm;border-radius:2px;color:#0E0E16;white-space:nowrap;}
 .tag.gem{background:var(--agri);} .tag.nb{background:var(--maroon);}
 .plabel{font-size:7.5pt;letter-spacing:1.2px;text-transform:uppercase;font-weight:600;margin:2.5mm 0 1mm;}
 .plabel.bad{color:var(--rust);} .plabel.good{color:var(--agri);}
-.badp{font-family:var(--mono);font-size:8.7pt;line-height:1.4;background:#F5EDEC;color:#875C58;border-left:2px solid var(--rust);padding:2.5mm 3.5mm;border-radius:2px;}
-.prompt{font-family:var(--mono);font-size:9pt;line-height:1.55;background:#2A0E0C;color:#EDE4D3;padding:3.5mm 4mm;border-radius:2px;white-space:pre-wrap;}
-.prompt .lbl{color:#E4B85A;font-weight:500;text-transform:uppercase;font-size:7.5pt;letter-spacing:1.2px;}
-.prompt .c{color:#E4B85A;}
+.badp{font-family:var(--mono);font-size:8.7pt;line-height:1.4;background:#1B1113;color:#875C58;border-left:2px solid var(--rust);padding:2.5mm 3.5mm;border-radius:2px;}
+.prompt{font-family:var(--mono);font-size:9pt;line-height:1.55;background:#F4F4F8;color:#1D1B14;padding:3.5mm 4mm;border-radius:2px;white-space:pre-wrap;}
+.prompt .lbl{color:#FFC857;font-weight:500;text-transform:uppercase;font-size:7.5pt;letter-spacing:1.2px;}
+.prompt .c{color:#FFC857;}
 .say{font-size:9.5pt;color:var(--graph);margin:2.5mm 0 0;padding-left:3mm;border-left:2px solid var(--gold);}
 .say b{color:var(--maroon);}
 .out{font-size:9pt;color:var(--agri);font-weight:600;margin-top:2mm;}
@@ -61,16 +61,17 @@ body{background:#e6e6e6;font-family:var(--sans);color:var(--ink);line-height:1.5
 .finale b{color:var(--maroon);} .finale i{color:var(--graph);}
 
 .foot{margin-top:8mm;border-top:1px solid var(--lines);padding-top:3mm;font-size:8.5pt;color:var(--mid);display:flex;justify-content:space-between;}
-@media print{ body{background:#fff;} .doc{margin:0;box-shadow:none;max-width:none;padding:14mm;} @page{size:A4;margin:0;} }
+@media print{ body{background:#0E0E16;} .doc{margin:0;box-shadow:none;max-width:none;padding:14mm;} @page{size:A4;margin:0;} }
 </style>
 <style>
-.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#79211C;background:rgba(255,255,255,.94);border:1px solid #E2DBCC;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 8px rgba(42,14,12,.08);}
-.s2back:hover{border-color:#79211C;background:#fff;text-decoration:none;}
+.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#FF5A36;background:rgba(255,255,255,.94);border:1px solid #2B2B37;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 8px rgba(42,14,12,.08);}
+.s2back:hover{border-color:#FF5A36;background:#0E0E16;text-decoration:none;}
 @media print{.s2back{display:none;}}
 </style>
+<style>:root{color-scheme:dark;}html,body{background:#0E0E16;}</style>
 </head>
 <body>
-<a class="s2back" href="../session-2.html">Back to Session 2</a>
+<a class="s2back" href="../#/session-2">Back to Session 2</a>
 
 <div class="doc">
   <div class="head">

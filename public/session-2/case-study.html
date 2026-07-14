@@ -6,13 +6,13 @@
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --maroon:#79211C; --mink:#2A0E0C; --rust:#962901; --gold:#C89B3C;
-  --agri:#1B7A3D; --paper:#FFFFFF; --paper2:#F6F6F4;
-  --line:#D9D2C4; --lines:#E7E1D3; --ink:#1B1B1A; --graph:#333333; --mid:#7A7368;
+  --maroon:#FF5A36; --mink:#F4F4F8; --rust:#FF7A56; --gold:#FFC857;
+  --agri:#3DDC84; --paper:#0E0E16; --paper2:#14141D;
+  --line:#2B2B37; --lines:#24242F; --ink:#F4F4F8; --graph:#A2A2B0; --mid:#8A8A99;
   --serif:"EB Garamond",Garamond,Georgia,serif; --sans:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-html,body{background:#ddd;font-family:var(--sans);color:var(--ink);}
+html,body{background:#2B2B37;font-family:var(--sans);color:var(--ink);}
 .page{width:210mm;height:297mm;overflow:hidden;margin:8mm auto;background:var(--paper);
   padding:11mm 12mm;box-shadow:0 4px 24px rgba(0,0,0,.25);}
 
@@ -33,7 +33,7 @@ html,body{background:#ddd;font-family:var(--sans);color:var(--ink);}
 
 .phase{display:flex;align-items:center;gap:3mm;margin:0 0 3mm;}
 .phase .lbl{font-family:var(--serif);font-size:13pt;color:var(--maroon);white-space:nowrap;}
-.phase .tag{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;padding:0.8mm 2.2mm;border-radius:2px;color:#fff;}
+.phase .tag{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;padding:0.8mm 2.2mm;border-radius:2px;color:#0E0E16;}
 .phase .tag.gem{background:var(--agri);} .phase .tag.nb{background:var(--maroon);}
 .phase .rule{flex:1;height:1px;background:var(--line);}
 
@@ -59,16 +59,17 @@ html,body{background:#ddd;font-family:var(--sans);color:var(--ink);}
 .resp b{color:var(--maroon);}
 .foot{margin-top:3mm;font-size:8pt;color:var(--mid);display:flex;justify-content:space-between;}
 
-@media print{ html,body{background:#fff;} .page{margin:0;box-shadow:none;} @page{size:A4;margin:0;} }
+@media print{ html,body{background:#0E0E16;} .page{margin:0;box-shadow:none;} @page{size:A4;margin:0;} }
 </style>
 <style>
-.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#79211C;background:rgba(255,255,255,.94);border:1px solid #E2DBCC;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 8px rgba(42,14,12,.08);}
-.s2back:hover{border-color:#79211C;background:#fff;text-decoration:none;}
+.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#FF5A36;background:rgba(255,255,255,.94);border:1px solid #2B2B37;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 8px rgba(42,14,12,.08);}
+.s2back:hover{border-color:#FF5A36;background:#0E0E16;text-decoration:none;}
 @media print{.s2back{display:none;}}
 </style>
+<style>:root{color-scheme:dark;}html,body{background:#0E0E16;}</style>
 </head>
 <body>
-<a class="s2back" href="../session-2.html">Back to Session 2</a>
+<a class="s2back" href="../#/session-2">Back to Session 2</a>
 
 <div class="page">
   <div class="head">
