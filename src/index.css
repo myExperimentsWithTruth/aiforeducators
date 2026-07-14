@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+@theme {
+  /* Futuristic palette — GBPUAT maroon pushed to an ember that glows on black */
+  --color-void: #05050a;
+  --color-void-2: #0a0a12;
+  --color-ember: #ff5a36;
+  --color-ember-deep: #79211c;
+  --color-gold: #ffc857;
+  --color-violet: #7c5cff;
+  --color-cyan: #34e5ff;
+  --color-mist: #f4f4f8;
+  --color-muted: #a2a2b0;
+
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-mist);
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Keyboard focus stays visible no matter how dark the theme gets */
+:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* ---- Aurora field: slow-drifting colour behind everything ---- */
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(6%, -8%, 0) scale(1.15);
+  }
+  66% {
+    transform: translate3d(-7%, 5%, 0) scale(0.95);
+  }
+}
+.aurora {
+  animation: drift 24s ease-in-out infinite;
+  will-change: transform;
+}
+.aurora-slow {
+  animation: drift 34s ease-in-out infinite reverse;
+  will-change: transform;
+}
+
+/* ---- Film grain, to keep the gradients from banding ---- */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: -50%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.16;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- Conic border glow for the session cards ---- */
+@property --a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.halo::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from var(--a, 0deg),
+    transparent 0deg,
+    var(--color-ember) 60deg,
+    var(--color-gold) 110deg,
+    transparent 190deg
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.45s;
+}
+.halo:hover::before {
+  opacity: 1;
+}
+
+/* ---- Kinetic gradient text ---- */
+@keyframes hue {
+  to {
+    background-position: 200% center;
+  }
+}
+.kinetic {
+  background: linear-gradient(
+    100deg,
+    var(--color-mist) 0%,
+    var(--color-gold) 25%,
+    var(--color-ember) 45%,
+    var(--color-mist) 70%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: hue 7s linear infinite;
+}
+
+/* ---- Honour the user's motion preference. Non-negotiable. ---- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .aurora,
+  .aurora-slow,
+  .kinetic {
+    animation: none !important;
+  }
+  .kinetic {
+    background: none;
+    color: var(--color-mist);
+  }
+}

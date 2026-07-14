@@ -7,49 +7,58 @@ judgement rather than hype.
 The workshop is based on the idea of **Brain 3.0**, an initiative of the
 Hon'ble Vice-Chancellor, Dr. Shivendra Kumar Kashyap.
 
-This repository is the workshop's website and its session material. Everything
-here — the slides, the run sheets, and the site itself — was built with the
-same AI tools the sessions teach, and grounded and verified the way the
-sessions show.
+**Live at [myexperimentswithtruth.github.io/aiforeducators](https://myexperimentswithtruth.github.io/aiforeducators/)**
 
-## What's here
+Everything here — the slides, the run sheets, and the site itself — was built
+with the same AI tools the sessions teach, and grounded and verified the way
+the sessions show.
+
+## Stack
+
+React 19, Vite, Tailwind CSS 4 and Motion, built to static files and served by
+GitHub Pages.
+
+```bash
+npm install
+npm run dev      # local dev server
+npm run build    # production build to dist/
+npm run preview  # serve the production build
+```
+
+Pushing to `main` builds and deploys automatically via
+`.github/workflows/deploy.yml`.
+
+## Layout
 
 | Path | Purpose |
 |------|---------|
-| `index.html` | The workshop home page. |
-| `session-1.html` | Session 1 — Foundations and landscape. |
-| `session-1/deck.html` | The Session 1 slide deck. |
-| `session-1/takeaway-card.html` | The Session 1 takeaway card. |
-| `session-2.html` | Session 2 — Grounded material with NotebookLM. |
-| `session-2/case-study.html` | Case study: inventing a course with AI. |
-| `session-2/run-sheet.html` | The Session 2 class run sheet. |
-| `session-2/takeaways.html` | The Session 2 key takeaways. |
-| `assets/style.css` | The shared stylesheet for the site pages. |
-| `LICENSE` | MIT License. |
+| `src/App.tsx` | Router and page shell. |
+| `src/data.ts` | The single source of truth for sessions and their material. |
+| `src/pages/` | Home and the session page. |
+| `src/components/Primitives.tsx` | Motion primitives: reveal, scroll-fade, aurora, progress. |
+| `src/components/Chrome.tsx` | The floating navigation rail and footer. |
+| `src/index.css` | Theme tokens and keyframes. |
+| `public/session-*/` | Session material, served verbatim. |
 
-Sessions 3 to 5 are added as they run.
+### Adding a session
 
-## How it's built
+Add an entry to `SESSIONS` in `src/data.ts` and drop its material into
+`public/session-N/`. The rail, the programme list and the routes all read from
+that array, so nothing else needs touching.
 
-Plain, static HTML. No build step, no dependencies, no JavaScript framework —
-edit a file and push, and the change is live.
+## Design notes
 
-- **Type and layout** follow an Apple-style system: the native system font
-  stack (`-apple-system`, SF Pro), large tight-tracked headlines, and generous
-  spacing. Nothing is downloaded from a font CDN, so the site pages make no
-  external requests and render instantly offline.
-- **Colour** is GBPUAT maroon (`#79211C`) on Apple's neutral greys. Every text
-  and background pair meets the WCAG AA contrast minimum of 4.5:1.
-- **Accessibility** is built in: a skip link, visible focus rings for keyboard
-  users, `aria-current` on the active session, and full support for
-  `prefers-reduced-motion`.
-- **The session pages** share `assets/style.css`. The session material — decks,
-  cards, run sheets — is deliberately self-contained in a single file each, so
-  any one of them can be saved, mailed, or opened on its own.
-
-## Running it locally
-
-Open `index.html` in a browser. That's it.
+- **Hash routing** (`#/session-1`) is deliberate. GitHub Pages has no rewrite
+  rule, so a real path would 404 on refresh or on a shared deep link.
+- **Session material is self-contained.** Each deck, card and run sheet is a
+  single standalone file with its own styles, so any one of them can be saved,
+  mailed, or opened on its own. They are served as static files and are not
+  part of the React build.
+- **Motion respects the user.** Every animation — the aurora, the kinetic
+  headline, the scroll-linked hero, the magnetic buttons — switches off under
+  `prefers-reduced-motion`. Reveals degrade to a plain fade.
+- **The system font stack** (`-apple-system`, SF Pro) means no font CDN and no
+  external requests.
 
 ## License
 
