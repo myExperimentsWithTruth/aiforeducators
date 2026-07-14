@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<title>Session 2 · Case study — Inventing a course with AI</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --maroon:#79211C; --mink:#2A0E0C; --rust:#962901; --gold:#C89B3C;
+  --agri:#1B7A3D; --paper:#FFFFFF; --paper2:#F6F6F4;
+  --line:#D9D2C4; --lines:#E7E1D3; --ink:#1B1B1A; --graph:#333333; --mid:#7A7368;
+  --serif:"EB Garamond",Garamond,Georgia,serif; --sans:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:#ddd;font-family:var(--sans);color:var(--ink);}
+.page{width:210mm;height:297mm;overflow:hidden;margin:8mm auto;background:var(--paper);
+  padding:11mm 12mm;box-shadow:0 4px 24px rgba(0,0,0,.25);}
+
+.head{border-bottom:2px solid var(--maroon);padding-bottom:3.5mm;margin-bottom:4.5mm;
+  display:flex;justify-content:space-between;align-items:flex-end;}
+.head .eb{font-size:9pt;letter-spacing:2.4px;text-transform:uppercase;color:var(--maroon);}
+.head h1{font-family:var(--serif);font-weight:600;font-size:25pt;color:var(--mink);line-height:1.02;margin-top:1.5mm;}
+.head .r{text-align:right;font-size:8.5pt;color:var(--mid);line-height:1.55;}
+.head .r .m{color:var(--maroon);}
+
+.example{background:var(--paper2);border-left:3px solid var(--maroon);padding:3mm 4mm;margin-bottom:4mm;}
+.example b{color:var(--maroon);}
+.example .t{font-size:11pt;line-height:1.4;}
+.example .s{font-size:8.5pt;color:var(--mid);margin-top:1mm;}
+
+.frame{font-size:10pt;line-height:1.5;margin-bottom:4.5mm;}
+.frame .g{color:var(--agri);font-weight:600;} .frame .n{color:var(--maroon);font-weight:600;}
+
+.phase{display:flex;align-items:center;gap:3mm;margin:0 0 3mm;}
+.phase .lbl{font-family:var(--serif);font-size:13pt;color:var(--maroon);white-space:nowrap;}
+.phase .tag{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;padding:0.8mm 2.2mm;border-radius:2px;color:#fff;}
+.phase .tag.gem{background:var(--agri);} .phase .tag.nb{background:var(--maroon);}
+.phase .rule{flex:1;height:1px;background:var(--line);}
+
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 6mm;margin-bottom:5mm;}
+.step{display:flex;gap:2.5mm;}
+.step .n{font-family:var(--serif);font-size:15pt;color:var(--maroon);font-weight:600;line-height:1;min-width:6mm;}
+.step .b h3{font-size:10pt;color:var(--mink);margin-bottom:0.3mm;}
+.step .b p{font-size:8.7pt;color:var(--graph);line-height:1.32;}
+.step .b .o{font-size:8.2pt;color:var(--agri);margin-top:0.6mm;}
+.step .b .o.nbo{color:var(--maroon);}
+
+.ground{background:var(--paper2);border-top:3px solid var(--maroon);padding:4.5mm 5mm;margin-bottom:4mm;}
+.ground .row{display:flex;gap:3.5mm;align-items:flex-start;}
+.ground .n{font-family:var(--serif);font-size:22pt;color:var(--maroon);font-weight:600;line-height:0.9;}
+.ground h3{font-size:12pt;color:var(--mink);margin-bottom:1.5mm;}
+.ground p{font-size:10pt;line-height:1.5;color:var(--ink);}
+.ground p b{color:var(--maroon);}
+.ground .o{font-size:9pt;color:var(--maroon);margin-top:2mm;font-weight:600;}
+
+.bottom{font-size:10.5pt;line-height:1.5;}
+.bottom b{color:var(--maroon);}
+.resp{font-size:8.5pt;color:var(--mid);margin-top:3mm;line-height:1.4;border-top:1px solid var(--lines);padding-top:2.5mm;}
+.resp b{color:var(--maroon);}
+.foot{margin-top:3mm;font-size:8pt;color:var(--mid);display:flex;justify-content:space-between;}
+
+@media print{ html,body{background:#fff;} .page{margin:0;box-shadow:none;} @page{size:A4;margin:0;} }
+</style>
+<style>
+.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#79211C;background:rgba(255,255,255,.94);border:1px solid #E2DBCC;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 8px rgba(42,14,12,.08);}
+.s2back:hover{border-color:#79211C;background:#fff;text-decoration:none;}
+@media print{.s2back{display:none;}}
+</style>
+</head>
+<body>
+<a class="s2back" href="../session-2.html">Back to Session 2</a>
+
+<div class="page">
+  <div class="head">
+    <div>
+      <div class="eb">AI for Educators · Session 2 · Lead-by-example</div>
+      <h1>Case study — inventing a course with AI</h1>
+    </div>
+    <div class="r">Gemini Pro <span class="m">+</span> NotebookLM<br>G.B. Pant University of<br>Agriculture &amp; Technology</div>
+  </div>
+
+  <div class="example">
+    <div class="t"><b>The example:</b> invent <b>“Introduction to Food Safety”</b> — a one-month, 12-lecture undergraduate elective, built from real sources.</div>
+    <div class="s">Chosen because every discipline relates to it and it is rich in open courseware and papers. The method is identical for any topic — swap it freely.</div>
+  </div>
+
+  <div class="frame">
+    <span class="g">Gemini Pro</span> gathers and drafts fast — but ungrounded, it can invent a fact or a citation. <span class="n">NotebookLM</span> grounds everything in your own sources and cites every claim. Used together, scattered readings become a course you can trust.
+  </div>
+
+  <div class="phase"><span class="lbl">Create &amp; gather</span><span class="tag gem">Gemini Pro</span><span class="rule"></span></div>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div class="b"><h3>Write the course objectives</h3><p>Frame learning outcomes against UGC norms and how leading universities teach the topic.</p><div class="o">→ objectives &amp; outcomes</div></div></div>
+    <div class="step"><div class="n">2</div><div class="b"><h3>Summarise the research</h3><p>Pull key reviews and papers; capture the current state of the field in brief.</p><div class="o">→ research brief</div></div></div>
+    <div class="step"><div class="n">3</div><div class="b"><h3>Draft the course outline</h3><p>Shape the one-month course into coherent modules and themes.</p><div class="o">→ module outline</div></div></div>
+    <div class="step"><div class="n">4</div><div class="b"><h3>Gather the sources</h3><p>Find open courseware and syllabi from top universities; collect the actual papers and readings.</p><div class="o">→ source pack</div></div></div>
+    <div class="step"><div class="n">5</div><div class="b"><h3>Build the calendar</h3><p>Three lectures a week, twelve in the month — each lecture with its own objective.</p><div class="o">→ 12-lecture calendar</div></div></div>
+    <div class="step"><div class="n">6</div><div class="b"><h3>Model the students</h3><p>Generate synthetic student profiles — background, prior knowledge, goals — for the real room.</p><div class="o">→ learner personas</div></div></div>
+    <div class="step"><div class="n">7</div><div class="b"><h3>Map each session to the learner</h3><p>For all twelve sessions, map the key points from the student’s lens; attach papers, blogs and links per session.</p><div class="o">→ per-session map</div></div></div>
+    <div class="step"><div class="n">8</div><div class="b"><h3>Draft the content</h3><p>Full, verbose lecture drafts, session by session, for all twelve.</p><div class="o">→ draft lectures</div></div></div>
+  </div>
+
+  <div class="phase"><span class="lbl">Ground &amp; produce</span><span class="tag nb">NotebookLM</span><span class="rule"></span></div>
+  <div class="ground">
+    <div class="row">
+      <div class="n">9</div>
+      <div>
+        <h3>Consolidate and ground</h3>
+        <p>Load every source, paper, blog and draft into one notebook. Generate <b>study guides, summaries, quizzes</b> and an <b>audio overview</b> — each citing your own sources. Spot-check a few facts against their citations before you trust them.</p>
+        <div class="o">→ grounded study guides, summaries and quizzes · minimal hallucination</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom"><b>Gemini creates; NotebookLM grounds.</b> Every claim traces back to a source — that is what makes the material safe to hand a student.</div>
+  <div class="resp"><b>Responsible use —</b> upload only sources you are allowed to, verify before you use, disclose AI help, and remember the output goes out under your name.</div>
+  <div class="foot"><span>AI for Educators — Session 2 · Case study</span><span>Grounded material with NotebookLM</span></div>
+</div>
+</body></html>

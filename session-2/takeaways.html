@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<title>Session 2 · Key takeaways</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --maroon:#79211C; --mink:#2A0E0C; --rust:#962901; --gold:#C89B3C; --agri:#1B7A3D;
+  --paper:#FFFFFF; --paper2:#F6F6F4; --line:#D9D2C4; --lines:#E7E1D3;
+  --ink:#1B1B1A; --graph:#333333; --mid:#7A7368;
+  --serif:"EB Garamond",Georgia,serif; --sans:"IBM Plex Sans",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:#ddd;font-family:var(--sans);color:var(--ink);}
+.page{width:210mm;height:297mm;overflow:hidden;margin:8mm auto;background:var(--paper);padding:12mm 13mm;box-shadow:0 4px 24px rgba(0,0,0,.25);}
+.head{border-bottom:2px solid var(--maroon);padding-bottom:4mm;margin-bottom:6mm;display:flex;justify-content:space-between;align-items:flex-end;}
+.head .eb{font-size:9.5pt;letter-spacing:2.6px;text-transform:uppercase;color:var(--maroon);}
+.head h1{font-family:var(--serif);font-weight:600;font-size:28pt;color:var(--mink);line-height:1;margin-top:2mm;}
+.head .r{text-align:right;font-size:9pt;color:var(--mid);line-height:1.55;}
+.head .r .m{color:var(--maroon);}
+
+.flow{background:var(--paper2);border-left:3px solid var(--maroon);padding:3.5mm 4mm;margin-bottom:7mm;}
+.flow .k{font-size:8pt;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:2mm;}
+.flow .chips{display:flex;flex-wrap:wrap;gap:1.6mm;align-items:center;font-size:9.5pt;}
+.flow .c{border:1px solid var(--line);background:var(--paper);padding:1.2mm 2.4mm;color:var(--graph);}
+.flow .c b{color:var(--maroon);}
+.flow .a{color:var(--maroon);font-weight:600;}
+.flow .c.gr{border-color:var(--maroon);background:#FBF1EF;}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:6mm 9mm;margin-bottom:7mm;}
+.tk{display:flex;gap:3mm;}
+.tk .n{font-family:var(--serif);font-size:20pt;color:var(--maroon);font-weight:600;line-height:0.95;min-width:8mm;}
+.tk h3{font-size:12pt;color:var(--mink);margin-bottom:1mm;}
+.tk p{font-size:10pt;line-height:1.45;color:var(--graph);}
+.tk p b{color:var(--maroon);}
+
+.bottom{background:var(--paper2);border-top:3px solid var(--maroon);padding:5mm 6mm;}
+.bottom .big{font-family:var(--serif);font-size:16pt;color:var(--mink);line-height:1.25;}
+.bottom .big b{color:var(--maroon);}
+.bottom .resp{font-size:9pt;color:var(--mid);margin-top:3mm;line-height:1.4;}
+.bottom .resp b{color:var(--maroon);}
+.foot{margin-top:5mm;border-top:1px solid var(--lines);padding-top:3mm;font-size:8pt;color:var(--mid);display:flex;justify-content:space-between;}
+@media print{ html,body{background:#fff;} .page{margin:0;box-shadow:none;} @page{size:A4;margin:0;} }
+</style>
+<style>
+.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#79211C;background:rgba(255,255,255,.94);border:1px solid #E2DBCC;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 8px rgba(42,14,12,.08);}
+.s2back:hover{border-color:#79211C;background:#fff;text-decoration:none;}
+@media print{.s2back{display:none;}}
+</style>
+</head>
+<body>
+<a class="s2back" href="../session-2.html">Back to Session 2</a>
+
+<div class="page">
+  <div class="head">
+    <div>
+      <div class="eb">AI for Educators · Session 2 · Key takeaways</div>
+      <h1>Grounded material with NotebookLM</h1>
+    </div>
+    <div class="r">Gemini Pro <span class="m">+</span> NotebookLM<br>G.B. Pant University of<br>Agriculture &amp; Technology</div>
+  </div>
+
+  <div class="flow">
+    <div class="k">The workflow we ran</div>
+    <div class="chips">
+      <span class="c"><b>Objectives</b></span><span class="a">→</span>
+      <span class="c"><b>Research</b></span><span class="a">→</span>
+      <span class="c"><b>Outline</b></span><span class="a">→</span>
+      <span class="c"><b>Sources</b></span><span class="a">→</span>
+      <span class="c"><b>Calendar</b></span><span class="a">→</span>
+      <span class="c"><b>Students</b></span><span class="a">→</span>
+      <span class="c"><b>Session map</b></span><span class="a">→</span>
+      <span class="c"><b>Draft</b> (one at a time)</span><span class="a">→</span>
+      <span class="c gr"><b>Ground in NotebookLM</b></span>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="tk"><div class="n">1</div><div><h3>Grounding is the idea</h3><p>NotebookLM answers <b>only from the sources you give it</b>, and cites every claim. That is what removes the invented facts and citations Session 1 warned about.</p></div></div>
+    <div class="tk"><div class="n">2</div><div><h3>Two tools, two jobs</h3><p>Gemini Pro creates and gathers — fast, but ungrounded. NotebookLM grounds and produces. <b>Gemini creates; NotebookLM grounds.</b></p></div></div>
+    <div class="tk"><div class="n">3</div><div><h3>The prompt does the work</h3><p>A shallow prompt gives a shallow answer. Build every prompt as <b>Context · Role · Task · Format</b>. The difference is not the model — it is the prompt.</p></div></div>
+    <div class="tk"><div class="n">4</div><div><h3>Decompose to keep quality</h3><p>Draft <b>one 60-minute lecture at a time</b>, not twelve in one shot. One shot spreads the model thin and quality drops. Decomposition is the quality control.</p></div></div>
+    <div class="tk"><div class="n">5</div><div><h3>Always verify a citation</h3><p>Every study guide, quiz and answer cites a source. <b>Spot-check one citation</b> against the source before you trust the output.</p></div></div>
+    <div class="tk"><div class="n">6</div><div><h3>Grounded ≠ finished</h3><p>It only knows the sources you loaded. Mind the source limits, keep the human in the loop, and it still needs your judgement.</p></div></div>
+  </div>
+
+  <div class="bottom">
+    <div class="big">From scattered readings to a <b>cited course</b> — study guides, summaries and quizzes your students can trust, every claim traceable to a source.</div>
+    <div class="resp"><b>Responsible use —</b> upload only sources you are allowed to, disclose AI help, and remember the output goes out under your name.</div>
+  </div>
+
+  <div class="foot"><span>AI for Educators — Session 2 · Key takeaways</span><span>This week: build one grounded notebook for one of your courses</span></div>
+</div>
+</body></html>

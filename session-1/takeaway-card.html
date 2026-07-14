@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<title>AI for Educators — Session 1 · Takeaway Card</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --maroon:#79211C; --mink:#2A0E0C; --rust:#962901; --gold:#C89B3C;
+  --agri:#1B7A3D; --paper:#FFFFFF; --paper2:#F6F6F4;
+  --line:#D9D2C4; --lines:#E7E1D3; --ink:#1B1B1A; --graph:#333333; --mid:#7A7368;
+  --serif:"EB Garamond",Garamond,Georgia,serif; --sans:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{background:#ddd;font-family:var(--sans);color:var(--ink);}
+.page{width:210mm;height:297mm;overflow:hidden;margin:8mm auto;background:var(--paper);
+  padding:11mm 12mm;box-shadow:0 4px 24px rgba(0,0,0,.25);}
+
+.head{border-bottom:2px solid var(--maroon);padding-bottom:3.5mm;margin-bottom:6mm;
+  display:flex;justify-content:space-between;align-items:flex-end;}
+.head .eb{font-size:9pt;letter-spacing:2.5px;text-transform:uppercase;color:var(--maroon);}
+.head h1{font-family:var(--serif);font-weight:600;font-size:27pt;color:var(--mink);line-height:1;margin-top:1.5mm;}
+.head .r{text-align:right;font-size:8.5pt;color:var(--mid);line-height:1.55;}
+.head .r .m{color:var(--maroon);}
+
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10mm;}
+.sec{margin-bottom:6mm;}
+.sec h2{font-family:var(--serif);font-size:15.5pt;color:var(--maroon);margin-bottom:0.5mm;line-height:1.1;}
+.sec .k{font-size:8pt;letter-spacing:1.6px;text-transform:uppercase;color:var(--mid);margin-bottom:2.5mm;}
+.sec p{font-size:10pt;line-height:1.5;color:var(--ink);}
+.sec p .m{color:var(--maroon);font-weight:600;}
+.note{font-size:9pt;color:var(--mid);margin-top:2.5mm;line-height:1.45;}
+
+.crtf{list-style:none;}
+.crtf li{font-size:10pt;line-height:1.4;padding:2mm 0;border-bottom:1px solid var(--lines);}
+.crtf li:last-child{border-bottom:none;}
+.crtf li b{color:var(--maroon);display:inline-block;min-width:21mm;}
+
+.share{width:100%;border-collapse:collapse;font-size:10pt;}
+.share td{padding:2.2mm 0;border-bottom:1px solid var(--lines);vertical-align:middle;}
+.share tr:last-child td{border-bottom:none;}
+.share .v{white-space:nowrap;font-weight:600;text-align:right;}
+.share .go{color:var(--agri);} .share .care{color:#8A6A1B;} .share .stop{color:var(--rust);}
+.share .dot{font-size:7pt;}
+
+.map{display:flex;flex-wrap:wrap;gap:2.2mm;}
+.chip{font-size:10pt;border:1px solid var(--line);background:var(--paper2);padding:1.7mm 3.1mm;color:var(--graph);}
+.chip b{color:var(--maroon);font-weight:600;}
+
+.cap{background:var(--paper2);border-top:3px solid var(--maroon);padding:6mm 6.5mm;margin-top:5.5mm;}
+.cap .eb{font-size:9pt;letter-spacing:2.5px;text-transform:uppercase;color:var(--maroon);margin-bottom:1mm;}
+.cap h2{font-family:var(--serif);font-size:18pt;color:var(--mink);margin-bottom:3mm;}
+.cap .lead{font-size:11pt;line-height:1.55;margin-bottom:3.5mm;}
+.cap .lead b{color:var(--maroon);}
+.cap .it{font-family:var(--serif);font-style:italic;font-size:14pt;color:var(--maroon);margin-bottom:5mm;}
+.pill{display:grid;grid-template-columns:repeat(4,1fr);gap:3.5mm;}
+.pill .p{border:1px solid var(--maroon);background:var(--paper);padding:3.2mm;}
+.pill .p h4{font-size:10.5pt;color:var(--maroon);margin-bottom:1mm;}
+.pill .p span{font-size:8.5pt;color:var(--graph);line-height:1.35;display:block;}
+
+.foot{margin-top:5.5mm;border-top:1px solid var(--lines);padding-top:3mm;
+  font-size:8pt;color:var(--mid);display:flex;justify-content:space-between;}
+
+@media print{
+  html,body{background:#fff;}
+  .page{margin:0;box-shadow:none;}
+  @page{size:A4;margin:0;}
+}
+</style></head>
+<body>
+<div class="page">
+  <div class="head">
+    <div>
+      <div class="eb">AI for Educators · Session 1</div>
+      <h1>The takeaway card</h1>
+    </div>
+    <div class="r">G.B. Pant University of<br>Agriculture &amp; Technology<br><span class="m">Five sessions · basics to practice</span></div>
+  </div>
+
+  <div class="cols">
+    <div>
+      <div class="sec">
+        <h2>The mental model</h2>
+        <div class="k">A Harvard-educated five-year-old</div>
+        <p>Brilliant and well-read, but naive about your world. It <span class="m">cannot guess your context</span> — you have to give it. And it is <span class="m">confidently wrong</span>: it will make the mistake and sound certain doing it. Fluent is not the same as correct.</p>
+      </div>
+      <div class="sec">
+        <h2>Talk to it well — CRTF</h2>
+        <div class="k">Four parts of a good prompt</div>
+        <ul class="crtf">
+          <li><b>Context</b> 60 students, mid-term Monday, Hall B.</li>
+          <li><b>Role</b> Their course instructor.</li>
+          <li><b>Task</b> Write a reminder email.</li>
+          <li><b>Format</b> Short, with a subject line.</li>
+        </ul>
+        <p class="note">A prompt can grow — a saved way of working (a skill) can run to hundreds of lines and carry your whole style.</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="sec">
+        <h2>What can you safely share?</h2>
+        <div class="k">Where does your data go?</div>
+        <table class="share">
+          <tr><td>Course curriculum, formatting</td><td class="v go"><span class="dot">●</span> Go ahead</td></tr>
+          <tr><td>Outside research, public data</td><td class="v go"><span class="dot">●</span> Go ahead</td></tr>
+          <tr><td>Grading, student records</td><td class="v care"><span class="dot">●</span> Anonymise</td></tr>
+          <tr><td>Unpublished research drafting</td><td class="v care"><span class="dot">●</span> Careful</td></tr>
+          <tr><td>IP / confidential data analysis</td><td class="v stop"><span class="dot">●</span> Keep it out</td></tr>
+        </table>
+        <p class="note"><span class="m">The test:</span> is it public, or is it yours to protect?</p>
+      </div>
+      <div class="sec">
+        <h2>The twelve patterns</h2>
+        <div class="k">The map of what these tools do</div>
+        <div class="map">
+          <span class="chip"><b>Chat</b></span><span class="chip"><b>Reasoning</b></span><span class="chip"><b>Grounded RAG</b></span><span class="chip"><b>Search</b></span>
+          <span class="chip"><b>Vision</b></span><span class="chip"><b>Real-time</b></span><span class="chip"><b>Memory</b></span>
+          <span class="chip"><b>Cowork</b></span><span class="chip"><b>Agents</b></span><span class="chip"><b>Tools &amp; MCP</b></span><span class="chip"><b>Code</b></span><span class="chip"><b>Structured output</b></span>
+        </div>
+        <p class="note">Chat is the visible tip. Reasoning, agents, tools and MCP sit below the waterline — that is where most of the new capability lives.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cap">
+    <div class="eb">Responsible use</div>
+    <h2>The principle we leave with</h2>
+    <p class="lead">AI is not banned, and it is not a shortcut around thinking. The tool drafts and speeds the work; <b>the ideas, the verification and the accountability stay with us.</b> In a report or DPR that rides real funding, the risk is not copied text — it is an unverified, AI-generated fact riding a decision.</p>
+    <div class="it">Verification and accountability are the controls — and both are human.</div>
+    <div class="pill">
+      <div class="p"><h4>Disclose</h4><span>Say when AI helped produce the work.</span></div>
+      <div class="p"><h4>Verify</h4><span>Check every fact, figure and citation.</span></div>
+      <div class="p"><h4>Protect data</h4><span>Keep IP and personal data out of public tools.</span></div>
+      <div class="p"><h4>Stay accountable</h4><span>The author owns the output, not the tool.</span></div>
+    </div>
+  </div>
+
+  <div class="foot"><span>AI for Educators — Session 1 · Takeaway card</span><span>G.B. Pant University of Agriculture &amp; Technology</span></div>
+</div>
+</body></html>

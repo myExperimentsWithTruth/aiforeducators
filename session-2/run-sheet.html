@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<title>Session 2 · Class run sheet — grounded course-building</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --maroon:#79211C; --mink:#2A0E0C; --rust:#962901; --gold:#C89B3C; --agri:#1B7A3D;
+  --paper:#FFFFFF; --paper2:#F6F6F4; --line:#D9D2C4; --lines:#E7E1D3;
+  --ink:#1B1B1A; --graph:#333333; --mid:#7A7368;
+  --serif:"EB Garamond",Georgia,serif; --sans:"IBM Plex Sans",Arial,sans-serif; --mono:"IBM Plex Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#e6e6e6;font-family:var(--sans);color:var(--ink);line-height:1.5;}
+.doc{max-width:200mm;margin:8mm auto;background:var(--paper);padding:16mm 16mm 14mm;box-shadow:0 4px 24px rgba(0,0,0,.22);}
+.head{border-bottom:2.5px solid var(--maroon);padding-bottom:5mm;margin-bottom:7mm;}
+.head .eb{font-size:10pt;letter-spacing:2.6px;text-transform:uppercase;color:var(--maroon);}
+.head h1{font-family:var(--serif);font-weight:600;font-size:27pt;color:var(--mink);line-height:1.05;margin:2mm 0 1.5mm;}
+.head .sub{font-size:10.5pt;color:var(--graph);}
+.head .sub b{color:var(--maroon);}
+
+.prep{background:var(--paper2);border-left:3px solid var(--maroon);padding:4mm 5mm;margin-bottom:6mm;}
+.prep h2{font-size:11pt;color:var(--maroon);margin-bottom:2mm;font-family:var(--sans);letter-spacing:0.5px;text-transform:uppercase;}
+.prep ul{list-style:none;font-size:10pt;}
+.prep li{padding:1mm 0 1mm 6mm;position:relative;}
+.prep li::before{content:"☐";position:absolute;left:0;color:var(--maroon);}
+.prep .time{font-size:9.5pt;color:var(--mid);margin-top:2mm;}
+
+.arc{font-size:11pt;line-height:1.6;margin-bottom:5mm;}
+.arc b{color:var(--maroon);} .arc .g{color:var(--agri);font-weight:600;} .arc .n{color:var(--maroon);font-weight:600;}
+
+.crtfnote{border:1px solid var(--gold);background:#FBF6EA;padding:3.5mm 5mm;margin-bottom:8mm;font-size:10pt;line-height:1.55;}
+.crtfnote b{color:var(--maroon);}
+.crtfnote .keys{color:var(--gold);font-weight:600;}
+
+.step{margin-bottom:7mm;padding-bottom:6mm;border-bottom:1px solid var(--lines);page-break-inside:avoid;}
+.step:last-of-type{border-bottom:none;}
+.step .top{display:flex;align-items:baseline;gap:3mm;margin-bottom:2.5mm;}
+.step .num{font-family:var(--serif);font-size:19pt;color:var(--maroon);font-weight:600;line-height:1;}
+.step h3{font-size:13pt;color:var(--mink);flex:1;}
+.tag{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;padding:1mm 2.4mm;border-radius:2px;color:#fff;white-space:nowrap;}
+.tag.gem{background:var(--agri);} .tag.nb{background:var(--maroon);}
+.plabel{font-size:7.5pt;letter-spacing:1.2px;text-transform:uppercase;font-weight:600;margin:2.5mm 0 1mm;}
+.plabel.bad{color:var(--rust);} .plabel.good{color:var(--agri);}
+.badp{font-family:var(--mono);font-size:8.7pt;line-height:1.4;background:#F5EDEC;color:#875C58;border-left:2px solid var(--rust);padding:2.5mm 3.5mm;border-radius:2px;}
+.prompt{font-family:var(--mono);font-size:9pt;line-height:1.55;background:#2A0E0C;color:#EDE4D3;padding:3.5mm 4mm;border-radius:2px;white-space:pre-wrap;}
+.prompt .lbl{color:#E4B85A;font-weight:500;text-transform:uppercase;font-size:7.5pt;letter-spacing:1.2px;}
+.prompt .c{color:#E4B85A;}
+.say{font-size:9.5pt;color:var(--graph);margin:2.5mm 0 0;padding-left:3mm;border-left:2px solid var(--gold);}
+.say b{color:var(--maroon);}
+.out{font-size:9pt;color:var(--agri);font-weight:600;margin-top:2mm;}
+.out.nb{color:var(--maroon);}
+
+.finale{background:var(--paper2);border-top:3px solid var(--maroon);padding:5mm 6mm;margin-top:3mm;page-break-inside:avoid;}
+.finale .top{display:flex;align-items:baseline;gap:3mm;}
+.finale .num{font-family:var(--serif);font-size:22pt;color:var(--maroon);font-weight:600;}
+.finale h3{font-size:13pt;color:var(--mink);flex:1;}
+.finale ol{margin:2mm 0 0 5mm;font-size:10pt;line-height:1.6;}
+.finale ol li{margin-bottom:1.5mm;}
+.finale b{color:var(--maroon);} .finale i{color:var(--graph);}
+
+.foot{margin-top:8mm;border-top:1px solid var(--lines);padding-top:3mm;font-size:8.5pt;color:var(--mid);display:flex;justify-content:space-between;}
+@media print{ body{background:#fff;} .doc{margin:0;box-shadow:none;max-width:none;padding:14mm;} @page{size:A4;margin:0;} }
+</style>
+<style>
+.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#79211C;background:rgba(255,255,255,.94);border:1px solid #E2DBCC;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 8px rgba(42,14,12,.08);}
+.s2back:hover{border-color:#79211C;background:#fff;text-decoration:none;}
+@media print{.s2back{display:none;}}
+</style>
+</head>
+<body>
+<a class="s2back" href="../session-2.html">Back to Session 2</a>
+
+<div class="doc">
+  <div class="head">
+    <div class="eb">AI for Educators · Session 2 · Instructor run sheet · Online</div>
+    <h1>Grounded course-building, live</h1>
+    <div class="sub">Worked example — build <b>“Introduction to Food Safety”</b>, a 1-month / 12-lecture UG elective, live on a shared screen. You demo each step; participants repeat it on their own laptops straight after.</div>
+  </div>
+
+  <div class="prep">
+    <h2>Before you start</h2>
+    <ul>
+      <li>Sign in to <b>Gemini (Pro)</b> and <b>NotebookLM</b> on the machine you will screen-share; zoom the text up so it is legible on a call.</li>
+      <li>Keep one browser tab free for opening source links live.</li>
+      <li>Ask participants to open the same two tools on their own laptops and keep 2–3 of their own course PDFs handy.</li>
+      <li>Share the one-page case study and the assignment sheet in the chat at the start.</li>
+      <li>Ask everyone to type <b>“done”</b> in the chat after each hands-on step so you can pace the group.</li>
+    </ul>
+    <div class="time">Total ~2 hours · Demo each step on your shared screen (3–5 min), then give participants 3–5 min to repeat it — watch the chat for “done” before moving on. Steps 1–8 are Gemini; step 9 is the NotebookLM payoff — protect ~30 min for it.</div>
+  </div>
+
+  <div class="arc">
+    <span class="g">Gemini Pro</span> gathers and drafts fast but ungrounded — it can invent a fact or a citation. <span class="n">NotebookLM</span> then grounds everything in the sources you loaded and cites every claim. <b>Gemini creates; NotebookLM grounds.</b> Nothing is prepared in advance — you find the research and gather the PDFs live, in steps 2 and 4, so the room sees how grounded sourcing is done.
+  </div>
+
+  <div class="crtfnote">
+    <b>Show the difference every time.</b> For each step, first paste the <span style="color:var(--rust);font-weight:600;">shallow prompt</span> most people type and let them see the thin, generic result. Then paste the <span style="color:var(--agri);font-weight:600;">good prompt</span> built as <span class="keys">Context · Role · Task · Format</span> — say the four parts aloud. The gap between the two answers is the lesson; the food-safety content just carries it.
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step"><div class="top"><span class="num">1</span><h3>Write the course objectives</h3><span class="tag gem">Gemini Pro</span></div>
+    <div class="plabel bad">Shallow — what most people type</div>
+    <div class="badp">Write course objectives for a food safety course.</div>
+    <div class="plabel good">Good — Context · Role · Task · Format</div>
+    <div class="prompt"><span class="lbl">Context</span>  New undergraduate elective, "Introduction to Food Safety" (2 credits,
+2nd year), at an Indian agricultural university. Students come from agriculture,
+food technology, dairy and veterinary streams — mixed prior exposure, mixed
+English fluency. Benchmark against how Cornell, UC Davis, Wageningen and Michigan
+State frame an intro food-safety course, and align to the UGC Learning-Outcomes-
+based Curriculum Framework (LOCF): course outcomes with Bloom's-level verbs.
+<span class="lbl">Role</span>  You are an instructional designer who has written LOCF-compliant syllabi.
+<span class="lbl">Task</span>  Write 6–8 course objectives; under each, 1–2 measurable outcomes that are
+assessable in this course. Cover biological / chemical / physical hazards,
+hygiene &amp; HACCP, and the Indian regulatory context. State the prior knowledge
+you are assuming.
+<span class="lbl">Format</span>  Numbered objectives, indented outcomes with the Bloom's level in brackets.
+One page. List the universities and the framework you drew on at the end.
+Do not invent citations — if unsure a source is real, say so.</div>
+    <div class="say"><b>Say:</b> the shallow one gives vague, unusable objectives; the CRTF one gives assessable, level-tagged outcomes. Same model, different prompt.</div>
+    <div class="out">→ objectives &amp; measurable, level-tagged outcomes</div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step"><div class="top"><span class="num">2</span><h3>Find and summarise the leading research</h3><span class="tag gem">Gemini Pro</span></div>
+    <div class="plabel bad">Shallow</div>
+    <div class="badp">Summarise food safety research.</div>
+    <div class="plabel good">Good — CRTF</div>
+    <div class="prompt"><span class="lbl">Context</span>  Same course. Before writing content I need an honest map of the field
+for a mixed 2nd-year Indian audience — and the real sources behind it.
+<span class="lbl">Role</span>  You are a subject-matter reviewer who separates settled consensus from
+contested claims.
+<span class="lbl">Task</span>  Cover (a) the three hazard classes with 2–3 concrete examples each from
+Indian food systems; (b) the control frameworks — GHP, HACCP, Codex, and FSSAI's
+role; (c) 5–6 recent authoritative reviews or reports. For each source note what
+it establishes and where experts disagree.
+<span class="lbl">Format</span>  Three short sections for (a)–(c), then a source table: title, author /
+body, year, one-line finding, working link. Prefer open-access. <span class="c">Mark anything you
+are not confident is real</span> so we verify it in NotebookLM.</div>
+    <div class="say"><b>Show it live:</b> this is the research step, in front of the room. Open two or three results to prove they are real; refine the prompt if the sources are thin.</div>
+    <div class="out">→ field map + candidate sources (verify next)</div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step"><div class="top"><span class="num">3</span><h3>Draft the course outline</h3><span class="tag gem">Gemini Pro</span></div>
+    <div class="plabel bad">Shallow</div>
+    <div class="badp">Give me a course outline for food safety.</div>
+    <div class="plabel good">Good — CRTF</div>
+    <div class="prompt"><span class="lbl">Context</span>  Using the objectives from step 1 for a 4-week / 12-lecture elective.
+<span class="lbl">Role</span>  You are a course designer who sequences for a mixed-ability room.
+<span class="lbl">Task</span>  Design a 4-week module outline with a clear arc — hazards → controls →
+regulation → application. For each week give the theme, 2–3 key concepts, why it
+matters to this audience, the misconception to pre-empt, and how it builds on the
+week before.
+<span class="lbl">Format</span>  One labelled block per week with those five fields. One page. Concrete
+themes, not generic headers.</div>
+    <div class="out">→ 4-week module outline with a build</div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step"><div class="top"><span class="num">4</span><h3>Gather the sources</h3><span class="tag gem">Gemini Pro</span></div>
+    <div class="plabel bad">Shallow</div>
+    <div class="badp">Find some papers on food safety.</div>
+    <div class="plabel good">Good — CRTF</div>
+    <div class="prompt"><span class="lbl">Context</span>  Same course; I need citable, mostly free material mapped to the four
+weekly themes that a mixed Indian 2nd-year audience can actually read.
+<span class="lbl">Role</span>  You are a research librarian who checks that links resolve and sources
+are credible.
+<span class="lbl">Task</span>  For each weekly theme find 2–3 sources: open courseware / syllabi from
+leading universities, FAO / WHO / Codex or FSSAI guidance, and open-access papers.
+Prefer Indian context where it exists, and judge the reading level.
+<span class="lbl">Format</span>  Grouped by week: title, author / body, year, type, reading level
+(easy / medium / hard), working link. <span class="c">Only list sources you are confident exist;
+do not fabricate DOIs or links.</span></div>
+    <div class="say"><b>Do it live:</b> Gemini returns the list; open 2–3 links to prove they are real, then download 3–4 PDFs. These become the NotebookLM sources in step 9 — generated in front of the room, not handed out.</div>
+    <div class="out">→ the source list, gathered live by Gemini</div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step"><div class="top"><span class="num">5</span><h3>Build the 12-lecture calendar</h3><span class="tag gem">Gemini Pro</span></div>
+    <div class="plabel bad">Shallow</div>
+    <div class="badp">Make a lecture schedule for a food safety course.</div>
+    <div class="plabel good">Good — CRTF</div>
+    <div class="prompt"><span class="lbl">Context</span>  Turning the outline into the schedule — 3 lectures a week for 4 weeks,
+60 minutes each, for "Introduction to Food Safety".
+<span class="lbl">Role</span>  You are the course designer.
+<span class="lbl">Task</span>  Produce 12 lectures with continuity. Each lecture: a concrete title, one
+measurable objective (Bloom's verb), the key idea, one in-class activity, and the
+reading it draws on. Each must depend on the one before; mark the two lectures
+that carry assessment.
+<span class="lbl">Format</span>  A table — # | title | objective | key idea | activity | reading.</div>
+    <div class="out">→ 12-lecture calendar, one objective each</div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step"><div class="top"><span class="num">6</span><h3>Model the students</h3><span class="tag gem">Gemini Pro</span></div>
+    <div class="plabel bad">Shallow</div>
+    <div class="badp">Describe the students taking this course.</div>
+    <div class="plabel good">Good — CRTF</div>
+    <div class="prompt"><span class="lbl">Context</span>  This elective runs at an Indian agricultural university. I want to design
+for the real mix without touching any real student data.
+<span class="lbl">Role</span>  You are an education researcher building synthetic personas.
+<span class="lbl">Task</span>  Generate a synthetic profile of 30 students: spread across disciplines and
+year, prior food-safety exposure (none / some / strong), English comfort, why they
+chose the elective, and one likely struggle. Then distil 3 personas that between
+them cover the extremes, each with a teaching implication.
+<span class="lbl">Format</span>  A compact summary of the 30 (distributions), then 3 named personas.
+<span class="c">State clearly this is synthetic data, not real students.</span></div>
+    <div class="say"><b>Say:</b> we invent students so we design for the real room — safe synthetic data, no real records.</div>
+    <div class="out">→ 3 learner personas</div>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="step"><div class="top"><span class="num">7</span><h3>Map each session to the learner</h3><span class="tag gem">Gemini Pro</span></div>
+    <div class="plabel bad">Shallow</div>
+    <div class="badp">Map the sessions to the students.</div>
+    <div class="plabel good">Good — CRTF</div>
+    <div class="prompt"><span class="lbl">Context</span>  The 12-lecture calendar, the 3 personas, and the source list.
+<span class="lbl">Role</span>  You are an instructional designer who thinks from the learner's chair.
+<span class="lbl">Task</span>  For each of the 12 lectures, map: the one question the student walks in
+with, the single idea they must walk out with, one example from Indian daily life,
+the likely misconception, and 1–2 readings from the source list. If a lecture has
+no strong reading yet, say so plainly.
+<span class="lbl">Format</span>  One table — # | arrives asking | must leave knowing | everyday example |
+misconception | readings.</div>
+    <div class="out">→ per-session learner map with readings</div>
+  </div>
+
+  <!-- STEP 8 -->
+  <div class="step"><div class="top"><span class="num">8</span><h3>Draft the content</h3><span class="tag gem">Gemini Pro</span></div>
+    <div class="plabel bad">Shallow — the one-shot trap</div>
+    <div class="badp">Write all twelve lectures for the course now.</div>
+    <div class="plabel good">Good — one 60-minute lecture at a time</div>
+    <div class="prompt"><span class="lbl">Context</span>  Lecture 1 of "Introduction to Food Safety" — a single 60-minute
+session — for the mixed 2nd-year audience, the personas and readings above. We
+draft one lecture at a time, on purpose.
+<span class="lbl">Role</span>  You are the lecturer, writing notes you could teach from tomorrow.
+<span class="lbl">Task</span>  Draft this one 60-minute lecture only: a 2-minute hook on a real Indian
+food-safety incident; the core content in 3 beats tied to the readings, timed to
+fill ~40 minutes; a 10-minute in-class activity; 3 self-check questions with
+answers; 2 misconceptions to correct. Do not draft any other lecture — stop when
+this one is done, and I will ask for the next.
+<span class="lbl">Format</span>  Headed sections with rough timings that sum to 60 minutes. Plain teaching
+English. <span class="c">Mark any fact that needs a source as [source: …]</span> — we verify next.</div>
+    <div class="say"><b>Why one at a time:</b> ask for all twelve in one shot and the model spreads thin — the later lectures go generic and quality quietly drops (the failure pattern from Session 1). One 60-minute lecture per prompt keeps each one sharp, and you review before moving on. Repeat for lecture 2, then 3. <b>Decomposition is the quality control.</b></div>
+    <div class="out">→ one teachable 60-minute lecture · repeat, one at a time, × 12</div>
+  </div>
+
+  <!-- STEP 9 -->
+  <div class="finale">
+    <div class="top"><span class="num">9</span><h3>Consolidate and ground it — the payoff</h3><span class="tag nb">NotebookLM</span></div>
+    <ol>
+      <li>Create a notebook, <b>“Introduction to Food Safety”</b>. Add every source gathered in step 4 <b>plus your draft lecture notes</b> from step 8.</li>
+      <li>Ask a grounded question: <i>“What are the top five foodborne hazards students must understand, with citations?”</i> — click a citation to jump to the exact passage.</li>
+      <li>Run the <b>trap question</b>: ask for something not in the sources (a made-up statistic). Watch it decline instead of inventing — that is grounding.</li>
+      <li>Studio → <b>Reports → Study Guide</b>, then <b>Briefing doc</b>. Every claim is cited.</li>
+      <li>Studio → <b>Quiz</b> and <b>Flashcards</b> — generated only from your sources.</li>
+      <li>Studio → <b>Audio Overview</b> — the "wow": a spoken summary of the course, from your sources.</li>
+      <li><b>Verify live:</b> take one of the [source: …] gaps from step 8, ask it in the notebook, and confirm the answer's citation matches the source. This is the habit to leave the room with.</li>
+    </ol>
+    <div class="out nb" style="margin-top:3mm;">→ cited study guides, summaries, quizzes and audio · minimal hallucination</div>
+  </div>
+
+  <div class="foot"><span>AI for Educators — Session 2 · Instructor run sheet</span><span>Gemini Pro + NotebookLM · G.B. Pant University</span></div>
+</div>
+</body></html>

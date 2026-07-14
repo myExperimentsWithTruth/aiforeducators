@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Educators — Session 1</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   GBPUAT "AI for Educators" — Day 1 deck stylesheet
+   Maroon-and-gold brand. 16:9 slides, proportional (cqw/cqh).
+   Every slide is <section class="frame"><div class="slide ..."> ...
+   Agents compose ONLY with the classes defined here.
+   =========================================================== */
+
+:root {
+  --maroon:#79211C; --maroon-deep:#5A1714; --maroon-ink:#2A0E0C; --rust:#962901;
+  --gold:#C89B3C; --gold-soft:#E8CB86; --warm-cream:#E9DAC7;
+  --agri:#1B7A3D; --teal:#26CCCA; --link:#2C67A0;
+  --paper:#FFFFFF; --paper-2:#F6F6F4; --wash:#ECECEC;
+  --line:#D9D2C4; --line-soft:#E7E1D3;
+  --ink:#1B1B1A; --graphite:#333333; --mid:#7A7368;
+  --serif:"EB Garamond","Adobe Garamond Pro",Garamond,"Sabon",Georgia,serif;
+  --sans:"IBM Plex Sans","Public Sans","Segoe UI",Arial,sans-serif;
+}
+
+* { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body { background:#E9E3D7; font-family:var(--sans); color:var(--ink); padding:26px 0 40px; }
+
+/* Frame: one slide in the flow, centred horizontally */
+.frame { display:flex; justify-content:center; padding:14px 2.5vmin; }
+
+/* Slide: 16:9, width-driven so the deck reads as a continuous document */
+.slide {
+  width:min(1180px, 94vw);
+  aspect-ratio:16 / 9;
+  background:var(--paper);
+  position:relative; overflow:hidden;
+  container-type:size;
+  box-shadow:0 4px 18px rgba(42,14,12,0.13);
+}
+.slide.dark { background:linear-gradient(158deg, var(--maroon-deep), var(--maroon-ink)); color:var(--warm-cream); }
+.slide.hero { background:var(--paper-2); border-top:5px solid var(--maroon); }
+
+/* Padded content frame — identical on every slide */
+.pad { position:absolute; inset:0; padding:8cqh 7.5cqw 7cqh; display:flex; flex-direction:column; }
+
+/* Header block */
+.eyebrow { font-size:1.3cqw; letter-spacing:0.34cqw; text-transform:uppercase; color:var(--maroon); margin-bottom:1.4cqh; }
+.dark .eyebrow { color:var(--warm-cream); }
+h1 { font-family:var(--serif); font-weight:600; font-size:6.6cqw; line-height:1.05; color:var(--maroon-ink); letter-spacing:0.02em; }
+.dark h1 { color:var(--warm-cream); }
+h2 { font-family:var(--serif); font-weight:600; font-size:4cqw; line-height:1.13; color:var(--maroon-ink); }
+.dark h2 { color:var(--warm-cream); }
+h3 { font-family:var(--serif); font-weight:600; font-size:2cqw; line-height:1.16; color:var(--maroon-ink); }
+.rule { width:6cqw; height:max(2px,0.4cqh); background:var(--maroon); border:0; margin:1.8cqh 0 0; }
+.rule.wide { width:100%; }
+.dark .rule { background:var(--warm-cream); }
+
+/* Body zone */
+.body { flex:1; display:flex; flex-direction:column; justify-content:center; padding:2.4cqh 0; }
+.body.top { justify-content:flex-start; padding-top:3cqh; }
+.body.center { align-items:center; text-align:center; }
+
+p { font-size:1.95cqw; line-height:1.5; margin-bottom:1.3cqh; }
+p:last-child { margin-bottom:0; }
+.dark p { color:rgba(233,218,199,0.92); }
+.lead { font-size:2.3cqw; }
+.muted { color:var(--mid); font-size:1.5cqw; }
+.dark .muted { color:rgba(233,218,199,0.65); }
+strong { font-weight:600; color:var(--maroon); }
+.dark strong { color:var(--gold-soft); }
+
+/* Question attribution (Karpathy) */
+.qattr { margin-top:4cqh; text-align:center; }
+.qattr .qn { font-family:var(--serif); font-weight:600; font-size:1.95cqw; color:var(--maroon); }
+.qattr .qr { font-size:1.35cqw; color:var(--mid); margin-top:0.5cqh; letter-spacing:0.02em; }
+.qattr .qh { font-size:1.55cqw; color:var(--ink); margin-top:1cqh; }
+
+/* Big single statement (question slides) */
+.stmt { font-family:var(--serif); font-weight:600; font-size:5cqw; line-height:1.22; color:var(--maroon-ink); }
+.dark .stmt { color:var(--warm-cream); }
+
+/* Cover / title */
+.cover-sub { font-family:var(--serif); font-style:italic; font-size:2.8cqw; color:var(--maroon); margin-top:1.4cqh; }
+.cover-meta { font-size:1.4cqw; color:var(--mid); line-height:1.85; margin-top:3.4cqh; }
+
+/* Verdict / answer list */
+.verdicts { display:flex; gap:2.6cqw; margin-bottom:3cqh; }
+.verdict { font-size:2.1cqw; color:var(--ink); display:flex; align-items:center; gap:0.7cqw; }
+.verdict::before { content:""; width:0.8cqw; height:0.8cqw; border-radius:50%; background:var(--maroon); display:inline-block; }
+.answer-right { font-family:var(--serif); font-weight:600; font-size:5.4cqw; color:var(--maroon); line-height:1; }
+.answer-because { font-size:1.9cqw; color:var(--ink); margin-top:1.4cqh; }
+
+/* Split: They can / They cannot */
+.split { display:grid; grid-template-columns:1fr 1fr; gap:0; flex:1; align-items:stretch; }
+.split .col { padding:3cqh 2.6cqw; display:flex; flex-direction:column; justify-content:center; }
+.split .col.can { background:var(--maroon); color:var(--warm-cream); }
+.split .col.can h3 { color:var(--warm-cream); }
+.split .col.cannot { background:var(--paper); }
+.split .col h3 { margin-bottom:1.4cqh; }
+.split ul { list-style:none; }
+.split li { font-size:1.7cqw; line-height:1.4; padding:0.7cqh 0 0.7cqh 1.4cqw; position:relative; }
+.split li::before { content:""; position:absolute; left:0; top:1.5cqh; width:0.6cqw; height:0.6cqw; border-radius:50%; }
+.split .can li::before { background:var(--warm-cream); }
+.split .cannot li::before { background:var(--maroon); }
+
+/* Cards grid */
+.cards { display:grid; gap:1.6cqw; }
+.cards.c2 { grid-template-columns:repeat(2,1fr); }
+.cards.c3 { grid-template-columns:repeat(3,1fr); }
+.cards.c4 { grid-template-columns:repeat(4,1fr); }
+.cards.c5 { grid-template-columns:repeat(5,1fr); }
+.card { background:var(--paper-2); border:1px solid var(--line); padding:2cqh 1.5cqw; display:flex; flex-direction:column; min-width:0; }
+.cards.c5 { gap:1cqw; }
+.cards.c5 .card { padding:1.5cqh 1.1cqw; }
+.cards.c5 .card h3 { font-size:1.5cqw; }
+.cards.c5 .card .ex { font-size:1.15cqw; }
+.cards.c5 .eth { gap:0.8cqw; font-size:0.95cqw; }
+.cards.c5 .eth span { letter-spacing:0.03cqw; }
+.card .rule { margin:0 0 1cqh; width:3.4cqw; }
+.card h3 { font-size:1.75cqw; margin-bottom:0.7cqh; }
+.card p { font-size:1.35cqw; line-height:1.4; margin-bottom:0.7cqh; }
+.card .ex { font-size:1.3cqw; color:var(--mid); }
+/* ethics strip inside a card */
+.eth { margin-top:auto; padding-top:1cqh; border-top:1px solid var(--line); display:flex; gap:1.4cqw; font-size:1.15cqw; }
+.eth span { display:flex; align-items:center; gap:0.5cqw; letter-spacing:0.06cqw; text-transform:uppercase; color:var(--ink); }
+.eth .works::before { content:""; width:0.6cqw; height:0.6cqw; border-radius:50%; background:var(--agri); display:inline-block; }
+.eth .breaks::before { content:""; width:0.6cqw; height:0.6cqw; border-radius:50%; background:var(--rust); display:inline-block; }
+
+/* Before / After */
+.ba { display:grid; grid-template-columns:1fr 1fr; gap:0; flex:1; }
+.ba .col { padding:2.6cqh 2.4cqw; display:flex; flex-direction:column; justify-content:center; }
+.ba .col.before { background:var(--paper-2); border-right:2px solid var(--gold); }
+.ba .col .tag { font-size:1.2cqw; letter-spacing:0.16cqw; text-transform:uppercase; color:var(--maroon); margin-bottom:1cqh; }
+.ba .col.before .tag { color:var(--mid); }
+.ba .col p { font-size:1.6cqw; line-height:1.45; }
+
+/* Drift / steer exchange */
+.dsteer { display:flex; flex-direction:column; gap:1.4cqh; }
+.dsrow { display:grid; grid-template-columns:7cqw 1fr; gap:0.5cqh 1.4cqw; padding-top:1.4cqh; border-top:1px solid var(--line); align-items:baseline; }
+.dlab { font-size:1.05cqw; letter-spacing:0.1cqw; text-transform:uppercase; font-weight:600; }
+.dlab.drift { color:var(--rust); }
+.dlab.steer { color:var(--maroon); }
+.dtxt { font-size:1.5cqw; line-height:1.4; color:var(--ink); }
+
+/* Cluster eyebrow (for pattern slides) */
+.cluster { font-size:1.35cqw; letter-spacing:0.3cqw; text-transform:uppercase; color:var(--maroon); margin-bottom:1.4cqh; }
+
+/* Chips */
+.chips { display:flex; flex-wrap:wrap; gap:1cqw; margin-top:2.6cqh; }
+.chip { border:1px solid rgba(245,241,232,0.5); color:var(--warm-cream); font-size:1.35cqw; letter-spacing:0.1cqw; text-transform:uppercase; padding:0.9cqh 1.4cqw; }
+.paper .chip, .slide:not(.dark) .chip { border-color:var(--maroon); color:var(--maroon); }
+
+/* Stats / poll */
+.stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1.6cqw; margin-bottom:2.6cqh; }
+.stats.s4 { grid-template-columns:repeat(4,1fr); }
+.stat .v { font-family:var(--serif); font-weight:600; font-size:4.4cqw; color:var(--maroon-ink); line-height:1; }
+.stat .k { font-size:1.25cqw; color:var(--mid); margin-top:1cqh; }
+.placeholder { color:var(--rust); font-style:italic; }
+
+/* Number cards (probabilistic demo) */
+.numcard .rl { font-size:1.1cqw; letter-spacing:0.12cqw; text-transform:uppercase; color:var(--mid); }
+.numcard .big { font-family:var(--serif); font-weight:600; font-size:3.6cqw; color:var(--maroon); line-height:1; margin-top:0.6cqh; }
+
+/* Lead number */
+.lead-num { font-family:var(--serif); font-weight:600; font-size:8cqw; color:var(--maroon); line-height:1; }
+
+/* Clean bullet list */
+ul.clean { list-style:none; }
+ul.clean li { position:relative; padding:0.8cqh 0 0.8cqh 2cqw; font-size:1.85cqw; line-height:1.42; }
+ul.clean li::before { content:""; position:absolute; left:0; top:1.7cqh; width:0.6cqw; height:0.6cqw; background:var(--maroon); border-radius:50%; }
+.dark ul.clean li { color:rgba(233,218,199,0.92); }
+.dark ul.clean li::before { background:var(--warm-cream); }
+
+/* Video slide */
+.videoframe { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:#141414; }
+.videoframe iframe, .videoframe .placeholder-video { width:100%; height:100%; border:0; }
+.videoframe .placeholder-video { display:flex; align-items:center; justify-content:center; flex-direction:column; color:var(--warm-cream); gap:1.4cqh; text-align:center; }
+.videoframe .placeholder-video .vt { font-family:var(--serif); font-size:2.6cqw; }
+.videoframe .placeholder-video .vs { font-size:1.4cqw; color:var(--gold-soft); }
+
+/* Prompt / output demo */
+.pbox { background:var(--paper-2); border-left:3px solid var(--maroon); padding:1.6cqh 1.9cqw; }
+.pbox .pl, .obox .pl { font-size:1.05cqw; letter-spacing:0.14cqw; text-transform:uppercase; margin-bottom:0.7cqh; }
+.pbox .pl { color:var(--maroon); }
+.pbox p { font-size:1.7cqw; line-height:1.4; margin:0; color:var(--ink); }
+.obox { border:1px solid var(--line); padding:1.6cqh 1.9cqw; margin-top:1.6cqh; }
+.obox .pl { color:var(--mid); }
+.obox p { font-size:1.6cqw; line-height:1.4; margin:0; color:var(--mid); }
+.obox.good { border-left:3px solid var(--maroon); }
+.obox.good p { color:var(--ink); }
+ul.crtf { list-style:none; margin:0; }
+ul.crtf li { font-size:1.55cqw; line-height:1.5; padding:0.25cqh 0; color:var(--ink); }
+ul.crtf li b { color:var(--maroon); font-weight:600; display:inline-block; min-width:6cqw; }
+
+/* Dense demo slides (the prompt proof) */
+.dense .pbox { padding:1.3cqh 1.7cqw; }
+.dense .obox { padding:1.3cqh 1.7cqw; margin-top:1.2cqh; }
+.dense .pbox p, .dense .obox p { font-size:1.42cqw; line-height:1.46; }
+.dense ul.crtf li { font-size:1.4cqw; line-height:1.44; padding:0.2cqh 0; }
+.dense ul.crtf li b { min-width:5.4cqw; }
+.dense .obox p + p { margin-top:0.8cqh; }
+
+/* Skills / tools / MCP — made-real example tiles */
+.demos { display:grid; grid-template-columns:repeat(3,1fr); gap:1.8cqw; margin-top:0.6cqh; }
+.demo { display:flex; flex-direction:column; }
+.demo .lbl { font-size:1.15cqw; letter-spacing:0.16cqw; text-transform:uppercase; color:var(--maroon); margin-bottom:0.3cqh; }
+.demo h3 { font-size:1.85cqw; color:var(--maroon-ink); margin-bottom:0.9cqh; }
+.demo .viz { border:1px solid var(--line); background:var(--paper-2); height:20cqh; padding:1.5cqh 1.4cqw; display:flex; flex-direction:column; justify-content:center; gap:1.1cqh; overflow:hidden; }
+.demo .cap { font-size:1.25cqw; color:var(--mid); margin-top:0.9cqh; line-height:1.42; }
+.demo .cap b { color:var(--maroon-ink); font-weight:600; }
+/* skill palette tile */
+.swrow { display:flex; gap:0.6cqw; }
+.sw { width:2.6cqw; height:2.6cqw; border-radius:50%; border:1px solid rgba(0,0,0,0.08); }
+.serifsample { font-family:var(--serif); font-size:2.4cqw; color:var(--maroon-ink); line-height:1; }
+.serifsample span { font-size:1.1cqw; font-family:var(--sans); color:var(--mid); letter-spacing:0.08cqw; text-transform:uppercase; margin-left:0.6cqw; }
+.skilltag { font-family:var(--sans); font-size:1.15cqw; color:var(--maroon); letter-spacing:0.06cqw; }
+/* browser frame tile */
+.bwin { display:flex; flex-direction:column; gap:0; height:100%; }
+.bbar { display:flex; align-items:center; gap:0.5cqw; padding-bottom:1cqh; border-bottom:1px solid var(--line); }
+.bdot { width:0.9cqw; height:0.9cqw; border-radius:50%; }
+.burl { flex:1; margin-left:0.6cqw; background:var(--paper); border:1px solid var(--line); border-radius:10cqw; font-size:1.05cqw; color:var(--mid); padding:0.35cqh 0.9cqw; }
+.bbody { flex:1; display:flex; flex-direction:column; justify-content:center; gap:0.7cqh; padding-top:1.1cqh; }
+.bline { height:1.1cqh; border-radius:2px; }
+/* kite / mcp tile */
+.kwin { display:flex; flex-direction:column; height:100%; }
+.khead { display:flex; align-items:center; justify-content:space-between; padding-bottom:1cqh; border-bottom:1px solid var(--line); }
+.kmark { font-family:var(--sans); font-weight:600; font-size:1.7cqw; color:#387ED1; letter-spacing:0.02cqw; }
+.kconn { font-size:1cqw; color:var(--agri); letter-spacing:0.04cqw; }
+.krow { display:flex; align-items:center; justify-content:space-between; padding-top:1cqh; font-size:1.2cqw; color:var(--graphite); }
+.kbar { height:0.9cqh; background:var(--wash); border-radius:2px; }
+.kchip { font-size:1cqw; letter-spacing:0.06cqw; text-transform:uppercase; color:var(--maroon); border:1px solid var(--maroon); border-radius:2px; padding:0.15cqh 0.6cqw; }
+
+/* proof banner */
+.proofbar { display:inline-flex; align-items:center; gap:0.9cqw; background:var(--maroon); color:#FDF6EC; font-family:var(--sans); font-weight:600; font-size:1.7cqw; letter-spacing:0.01cqw; padding:0.9cqh 1.8cqw; margin-bottom:1.4cqh; }
+.proofbar::before { content:""; width:0.9cqw; height:0.9cqw; border-radius:50%; background:#5FCB7E; box-shadow:0 0 0 0.35cqw rgba(95,203,126,0.3); flex:none; }
+/* long-prompt dump panel */
+.promptdump { position:relative; background:var(--paper-2); border:1px solid var(--line); color:var(--graphite); font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace; font-size:0.92cqw; line-height:1.5; padding:1.4cqh 1.8cqw; height:44cqh; overflow:hidden; white-space:pre-wrap; }
+.promptdump::after { content:""; position:absolute; left:0; right:0; bottom:0; height:14cqh; background:linear-gradient(to bottom, rgba(246,246,244,0), var(--paper-2)); }
+.promptdump .kw { color:var(--maroon); }
+
+/* data-privacy scenario table */
+.privtable { display:grid; grid-template-columns:1.55fr 1.5fr 1.05fr; column-gap:1.8cqw; margin-top:0.4cqh; }
+.privtable .hd { font-size:1.02cqw; letter-spacing:0.12cqw; text-transform:uppercase; color:var(--mid); padding:0.5cqh 0 0.7cqh; border-bottom:1.5px solid var(--line); }
+.privtable .c { padding:0.8cqh 0; border-bottom:1px solid var(--line-soft); font-size:1.32cqw; color:var(--ink); display:flex; align-items:center; line-height:1.3; }
+.privtable .c.sub { color:var(--mid); font-size:1.22cqw; }
+.privtable .v { display:inline-flex; align-items:center; gap:0.6cqw; font-size:1.28cqw; font-weight:600; }
+.privtable .v::before { content:""; width:1cqw; height:1cqw; border-radius:50%; flex:none; }
+.privtable .v.go::before { background:var(--agri); }
+.privtable .v.care::before { background:var(--gold); }
+.privtable .v.stop::before { background:var(--rust); }
+.privtable .v.go { color:var(--agri); }
+.privtable .v.care { color:#8A6A1B; }
+.privtable .v.stop { color:var(--rust); }
+
+/* highlight + leave-with pillars */
+.hl { background:linear-gradient(transparent 52%, rgba(200,155,60,0.38) 52%); padding:0 0.15cqw; }
+.pillars { display:grid; grid-template-columns:repeat(4,1fr); gap:1.3cqw; margin-top:1.8cqh; }
+.pillar { border:1px solid var(--maroon); background:var(--paper-2); padding:1.2cqh 1.1cqw; }
+.pillar h4 { font-family:var(--sans); font-weight:600; font-size:1.5cqw; color:var(--maroon); margin:0 0 0.5cqh; letter-spacing:0.02cqw; }
+.pillar p { font-size:1.12cqw; color:var(--graphite); line-height:1.36; margin:0; }
+
+/* Bio slide */
+.bio.nophoto { display:block; }
+.bio { display:grid; grid-template-columns:28% 1fr; gap:3.4cqw; align-items:center; width:100%; }
+.bio .photo { aspect-ratio:4/5; background:var(--paper-2); border:1px solid var(--line); border-left:3px solid var(--maroon); display:flex; align-items:center; justify-content:center; color:var(--mid); font-size:1.3cqw; letter-spacing:0.14cqw; text-transform:uppercase; overflow:hidden; }
+.bio .photo img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); }
+.bio .cred { font-size:1.5cqw; color:var(--maroon); margin-bottom:0.6cqh; }
+.bio ul.clean li { font-size:1.6cqw; padding-top:0.6cqh; padding-bottom:0.6cqh; }
+
+/* Video slide (framed + caption) */
+.vidwrap { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2cqh; }
+.vidbox { height:56cqh; width:auto; max-width:100%; aspect-ratio:16/9; border:1px solid var(--line); overflow:hidden; background:#141414; }
+.vidbox iframe { width:100%; height:100%; border:0; display:block; }
+.vidcap { display:flex; align-items:center; gap:1cqw; font-size:1.5cqw; color:var(--mid); letter-spacing:0.02em; }
+.vidcap svg { flex:none; }
+
+/* Footer — identical on content slides */
+.foot { position:absolute; left:7.5cqw; right:7.5cqw; bottom:3.4cqh; display:flex; justify-content:space-between; align-items:baseline; font-size:1.15cqw; color:var(--mid); padding-top:1.2cqh; border-top:1px solid var(--line); }
+.dark .foot { color:rgba(233,218,199,0.65); border-top:1px solid rgba(245,241,232,0.4); }
+
+/* Screen counter */
+.counter { position:fixed; right:16px; bottom:14px; z-index:20; font-family:var(--sans); font-size:12px; letter-spacing:1px; color:var(--maroon); background:rgba(255,255,255,0.92); border:1px solid var(--line); padding:5px 10px; border-radius:2px; }
+
+/* Back to the session page */
+.deckback { position:fixed; left:16px; top:14px; z-index:20; font-family:var(--sans); font-size:12px; font-weight:600; color:var(--maroon); background:rgba(255,255,255,0.92); border:1px solid var(--line); border-radius:999px; padding:7px 15px; text-decoration:none; transition:border-color .15s, background .15s; }
+.deckback:hover { border-color:var(--maroon); background:#fff; text-decoration:none; }
+
+@media print {
+  .deckback { display:none; }
+  html,body { background:#fff; }
+  .frame { height:auto; padding:0; display:block; page-break-after:always; }
+  .slide { width:100%; box-shadow:none; }
+  .counter { display:none; }
+  .dark, .split .col.can, .card, .ba .col.before { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
+</style></head><body>
+<!-- 01 Title -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="body top"></div>
+  <div class="eyebrow">Session 1 · Foundations and Landscape</div>
+  <h1>AI for Educators</h1>
+  <div class="cover-sub">From basics to practice</div>
+  <div class="cover-meta">G.B. Pant University of Agriculture &amp; Technology</div>
+</div></div></section>
+
+<!-- 02 Bio -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Your host</div>
+  <h2>Vaibhav Dobriyal</h2>
+  <hr class="rule">
+  <div class="body">
+    <div class="bio nophoto">
+      <div class="bioinfo">
+        <div class="cred">GBPUAT 1998 · Production Engineering &nbsp;·&nbsp; M.Tech, IIT Kanpur</div>
+        <div style="font-family:var(--serif); font-style:italic; font-size:1.75cqw; color:var(--maroon-ink); margin-bottom:1.2cqh;">An AI implementer and early adopter.</div>
+        <ul class="clean">
+          <li>Co-Founder and Chief Product Officer at LUMIQ, an AI and data company.</li>
+          <li>22 years since 2004, now on his second startup — building and implementing products across SEA, India, Europe and MEA.</li>
+          <li>Close to the change management that makes those products actually stick.</li>
+          <li>I use these tools daily. They have saved me hours and failed me.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>02</span></div>
+</div></div></section>
+
+<!-- 03 Video -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Before we start — watch this</div>
+  <div class="vidwrap">
+    <div class="vidbox"><iframe src="https://www.youtube.com/embed/n8lKYnyeT3Y?start=88&rel=0" title="Opening clip" allow="encrypted-media" allowfullscreen></iframe></div>
+    <div class="vidcap">
+      <svg viewBox="0 0 28 20" style="width:2.9cqw;height:auto;"><rect width="28" height="20" rx="5" fill="#FF0000"/><polygon points="11,6 11,14 18,10" fill="#ffffff"/></svg>
+      <span>youtu.be/n8lKYnyeT3Y?t=88</span>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- 06 Mental model -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">The mental model</div>
+  <h2>A Harvard-educated five-year-old</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">An LLM is built to follow instructions, and it has read almost the entire library. Treat it as a brilliant colleague who is also five — encyclopaedic, eager, and naive about your world.</p>
+    <div class="cards c2" style="margin-top:0.6cqh;">
+      <div class="card"><hr class="rule"><h3>It can</h3>
+        <p>Write persuasively, explain hard ideas, draft code, reason through a problem.</p></div>
+      <div class="card"><hr class="rule"><h3>It cannot</h3>
+        <p>Guess your context, know when it is wrong, or think beyond the patterns it was trained on.</p></div>
+    </div>
+    <p style="margin-top:1.6cqh;"><strong>It cannot understand your context because it has to be told it — it cannot guess.</strong> And it is confidently wrong: it will make the mistake and sound certain doing it.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>06</span></div>
+</div></div></section>
+
+<!-- 04 The question -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">A simple question</div>
+  <div class="body center">
+    <p class="stmt" style="font-size:4.6cqw;">I want to wash my car.<br>The car wash is 50 metres away.<br>Should I walk or drive?</p>
+    <div class="qattr">
+      <div class="qn">Andrej Karpathy</div>
+      <div class="qr">Co-founder of OpenAI · Former Director of AI at Tesla</div>
+      <div class="qh">He put this to the best AI systems in the world. He calls the result jagged intelligence.</div>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- 05 The answer -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="body">
+    <div class="verdicts">
+      <span class="verdict">ChatGPT: Walk</span>
+      <span class="verdict">Gemini: Walk</span>
+      <span class="verdict">Claude: Walk</span>
+    </div>
+    <p class="muted">Frontier models tested; nearly all said walk.</p>
+    <div class="answer-right">Drive.</div>
+    <p class="answer-because">The car is the thing that needs washing. A five-year-old sees it; the most powerful systems miss it.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>05</span></div>
+</div></div></section>
+
+<!-- Why it matters despite failing -->
+<section class="frame"><div class="slide hero"><div class="pad">
+  <div class="body center">
+    <div class="eyebrow">So why is it a big deal?</div>
+    <h1 style="font-size:6.2cqw; color:var(--maroon-ink); margin-top:0.4cqh;">Jagged, not stupid.</h1>
+    <p style="font-size:2.5cqw; line-height:1.4; margin-top:2.6cqh; max-width:84%;">Clueless at the car wash. <strong>Superhuman at the work that eats your week</strong> — drafting, summarising, explaining, coding, in seconds.</p>
+    <p style="font-family:var(--serif); font-style:italic; font-size:2.5cqw; margin-top:2.4cqh; color:var(--maroon);">Used where it is strong, it hands you hours back.</p>
+  </div>
+</div></div></section>
+
+<!-- 08 Brainstorm -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">How this workshop was built</div>
+  <h2>I built it by voice, driving here</h2>
+  <hr class="rule">
+  <div class="body top">
+    <div class="proofbar">It works — this very deck is the proof.</div>
+    <p class="lead">The backbone of these five sessions came out of one long conversation with AI on the drive to Pantnagar. It drifted, it argued, it got things wrong — and the plan got sharper every time I pushed on it.</p>
+    <div class="pbox" style="margin-top:1cqh;"><div class="pl">One moment — it argued back, and won</div>
+      <p>Me: let us open with a big live demo. &nbsp; It: hold it back — a demo makes a room fixate on one use case and drift. &nbsp; It was right. I cut the demo.</p></div>
+    <p style="margin-top:1.6cqh;"><strong>Ask it to disagree with you.</strong> A yes-man is useless; a colleague that pushes back — and that you can overrule — is worth having.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>07</span></div>
+</div></div></section>
+
+<!-- 09 Drift and steer -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">How it was built · where it went wrong</div>
+  <h2>It drifts. You steer.</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">The tool I use every day got plenty wrong on that drive. The output was only ever as good as the steering.</p>
+    <div class="dsteer" style="margin-top:0.8cqh;">
+      <div class="dsrow">
+        <div class="dlab drift">Drift</div><div class="dtxt">It rushed to lock the curriculum before I had finished thinking.</div>
+        <div class="dlab steer">Steer</div><div class="dtxt">Slow down — be my thinking partner, not a planner in a hurry.</div>
+      </div>
+      <div class="dsrow">
+        <div class="dlab drift">Drift</div><div class="dtxt">I asked it to study other universities' programs; it gave me surface summaries.</div>
+        <div class="dlab steer">Steer</div><div class="dtxt">That is not research — go read what is actually inside them, then tell me.</div>
+      </div>
+      <div class="dsrow">
+        <div class="dlab drift">Drift</div><div class="dtxt">It drafted a poll asking faculty whether they fear for their jobs.</div>
+        <div class="dlab steer">Steer</div><div class="dtxt">No one answers that honestly. Ask what eats their time instead.</div>
+      </div>
+    </div>
+    <p style="margin-top:1.2cqh;"><strong>Every fix was one move</strong> — give it a role, demand more depth, or overrule it with what you know about your own room.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>09</span></div>
+</div></div></section>
+
+<!-- 10 What made it work -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">How it was built · what made it work</div>
+  <h2>Test it, and make it work in pieces</h2>
+  <hr class="rule">
+  <div class="body top">
+    <div class="cards c2" style="margin-top:0.4cqh;">
+      <div class="card"><hr class="rule"><h3>It admitted a limit</h3>
+        <p>I asked whether a simple instruction could fully replicate a specialised research tool. It did not just say yes. It said it could only approximate it, and explained that the difference was built in, not something a prompt could fix. That honesty is what makes it worth trusting.</p></div>
+      <div class="card"><hr class="rule"><h3>Make it decompose</h3>
+        <p>It wanted to write the whole plan in one shot. I made it work one section at a time. Its own admission: one shot, and the quality quietly drops. That is a failure pattern you can manage.</p></div>
+    </div>
+    <p style="margin-top:1.4cqh;"><strong>The skill is the steering</strong> — give it a role, demand depth, break the work into pieces, and make it be honest.</p>
+    <p style="margin-top:1.2cqh; font-family:var(--serif); font-style:italic; font-size:1.95cqw; color:var(--maroon);">There is a way — and a language — to work with this new kind of AI.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>10</span></div>
+</div></div></section>
+
+<!-- Foundations breaker -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="body center">
+    <div class="eyebrow">Foundations</div>
+    <p class="stmt">So how does it<br>actually work?</p>
+    <p class="muted" style="margin-top:2.2cqh;">Let us demystify the LLM — no jargon, just what is happening under the hood.</p>
+  </div>
+</div></div></section>
+
+<!-- 08 Foundations: next word -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">What is actually happening</div>
+  <h2>An LLM predicts the next word</h2>
+  <hr class="rule">
+  <div class="body top">
+    <div class="pbox"><div class="pl">Try it</div><p>The mitochondria is the &nbsp;<strong style="color:var(--maroon)">powerhouse of the cell.</strong></p></div>
+    <p style="margin-top:1.4cqh;">It finished that line not because it understands a cell, but because those words almost always follow in what it has read. A model completes text one likely word at a time.</p>
+    <p><strong>Fluent is not the same as correct</strong> — and it does not know the difference.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>08</span></div>
+</div></div></section>
+
+<!-- 07 Chat providers -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Prompt engineering</div>
+  <h2>Four parts of a good prompt</h2>
+  <hr class="rule">
+  <div class="body">
+    <p class="lead" style="margin-bottom:1.6cqh;">This language has a name — prompt engineering. Four parts carry most of it.</p>
+    <div class="cards c4">
+      <div class="card"><hr class="rule"><h3>Context</h3><p class="ex">60 students, mid-term Monday, Hall B.</p></div>
+      <div class="card"><hr class="rule"><h3>Role</h3><p class="ex">Their course instructor.</p></div>
+      <div class="card"><hr class="rule"><h3>Task</h3><p class="ex">Write a reminder email.</p></div>
+      <div class="card"><hr class="rule"><h3>Format</h3><p class="ex">Short, with a subject line.</p></div>
+    </div>
+    <p class="muted" style="margin-top:2cqh;">A task every one of us has. Watch what these four parts do to it.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>10</span></div>
+</div></div></section>
+
+<!-- 09 Probabilistic -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">By design, not a bug</div>
+  <h2>Ask it to grade — twice</h2>
+  <hr class="rule">
+  <div class="body top">
+    <div class="pbox"><div class="pl">The prompt — run it twice</div>
+      <p>Q: Define osmosis. &nbsp; A: <em>Water moving across a membrane.</em> &nbsp; Rate this answer 1 to 10, 10 is best.</p></div>
+    <div class="obox"><div class="pl">What comes back</div>
+      <p><strong style="color:var(--maroon)">First run: 6 / 10</strong> &nbsp;·&nbsp; <strong style="color:var(--maroon)">Second run: 8 / 10</strong> &nbsp;— same answer, different verdict.</p></div>
+    <div class="cards c2" style="margin-top:1.2cqh;">
+      <div class="card"><hr class="rule"><h3>By design — creativity</h3>
+        <p>It samples among plausible words. That is exactly what gives you ten fresh ways to open a lecture or twenty new exam questions.</p></div>
+      <div class="card"><hr class="rule"><h3>For a decision — ground it</h3>
+        <p>A grade must be repeatable. Give it a fixed rubric, explicit criteria, and a second check before you let it decide.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>09</span></div>
+</div></div></section>
+
+<!-- 10 CRTF -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Watch the difference</div>
+  <h2>Ask vaguely, get vaguely</h2>
+  <hr class="rule">
+  <div class="body top">
+    <div class="pbox"><div class="pl">Prompt</div><p>Write an email to students about the exam.</p></div>
+    <div class="obox"><div class="pl">What you get</div>
+      <p>A generic email that invents a date and a venue, guesses the tone, and leaves out what students actually need to know. You end up rewriting all of it.</p>
+    </div>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>11</span></div>
+</div></div></section>
+
+<!-- 11 Before -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">The model landscape</div>
+  <h2>Rent it, or run it yourself</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">Every model is one of two kinds — proprietary, which you rent, or open weight, which you can download and run.</p>
+    <div class="cards c2" style="margin-top:0.6cqh;">
+      <div class="card"><hr class="rule"><h3>Proprietary — you rent it</h3>
+        <p class="ex" style="font-size:1.55cqw;">ChatGPT · GPT-5.5 Pro &nbsp; Claude · Opus 4.8 &nbsp; Gemini · 3.1 Pro</p>
+        <p style="margin-top:0.9cqh;">The weights stay with the company. Easiest to start — but your data goes to the vendor.</p></div>
+      <div class="card"><hr class="rule"><h3>Open weight — you run it</h3>
+        <p class="ex" style="font-size:1.55cqw;">DeepSeek &nbsp; Qwen · Alibaba &nbsp; GLM · Zhipu</p>
+        <p style="margin-top:0.9cqh;">The weights are published — run them on your own servers, so data never leaves. Meta's Llama and Mistral too. You need the hardware.</p></div>
+    </div>
+    <p class="muted" style="margin-top:1.4cqh;">You will start with the proprietary chat tools. Open weight is how a department keeps sensitive data in-house. Names and versions change every few months.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>07</span></div>
+</div></div></section>
+
+<!-- 12 After -->
+<section class="frame"><div class="slide dense"><div class="pad">
+  <div class="eyebrow">The same ask, structured</div>
+  <h2>Context · Role · Task · Format</h2>
+  <hr class="rule">
+  <div class="body top">
+    <div class="pbox"><div class="pl">Prompt</div>
+      <ul class="crtf">
+        <li><b>Context</b> 60 second-year students. Mid-term is Monday the 15th, 10 am, Hall B, units 1 to 3, bring a calculator.</li>
+        <li><b>Role</b> Their course instructor — warm but firm.</li>
+        <li><b>Task</b> Write a reminder email.</li>
+        <li><b>Format</b> A clear subject line, then a short note with the essentials as bullets.</li>
+      </ul>
+    </div>
+    <div class="obox good"><div class="pl">What you get — ready to send</div>
+      <p><strong>Subject: Mid-term on Monday, 10 am, Hall B</strong><br>
+      Dear all — a quick reminder. Our mid-term is on Monday the 15th at 10 am in Hall B. It covers units 1 to 3. Please bring a calculator and your ID card. My office hours are open on Friday if anything is unclear.</p>
+    </div>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>12</span></div>
+</div></div></section>
+
+<!-- 13 Your turn -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Your turn — five minutes</div>
+  <h2>Write one prompt for one real task</h2>
+  <hr class="rule">
+  <div class="body">
+    <ul class="clean">
+      <li>Open Gemini. Pick the task that eats the most of your week.</li>
+      <li>Write it with Context, Role, Task, Format — like the slide before.</li>
+      <li>You do not have to run it or share it. Just build one good prompt.</li>
+    </ul>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>13</span></div>
+</div></div></section>
+
+<!-- 19 Long prompt / skill -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Prompts can grow</div>
+  <h2>A prompt can run to 200 lines</h2>
+  <hr class="rule">
+  <div class="body top">
+    <div style="display:grid; grid-template-columns:1.32fr 1fr; gap:2.4cqw; align-items:start; margin-top:0.4cqh;">
+      <div class="promptdump">---
+name: gbpuat-brand
+description: &gt;-
+  Brand system for Govind Ballabh Pant University of Agriculture and Technology
+  (GBPUAT / GBPUA&amp;T), Pantnagar. Load this skill whenever creating, styling, or
+  producing ANY GBPUAT deliverable — Word documents (.docx), PowerPoint decks
+  (.pptx), PDFs, or HTML/CSS slides and pages — so colours, typography, layout,
+  footer and tone stay consistent with the university&#x27;s live visual identity.
+  Trigger whenever the user asks to build, format, brand, or regenerate a GBPUAT
+  document, presentation, slide, or web page; to apply GBPUAT styling; or to make
+  a deliverable look like it belongs to the university. Applies an editorial,
+  paper-based heritage identity: deep maroon and gold with agriculture-green and
+  teal accents, EB Garamond serif headings over IBM Plex Sans body, on a light
+  paper background.
+---
+
+# GBPUAT Brand System
+
+A visual identity for **Govind Ballabh Pant University of Agriculture and
+Technology (GBPUAT / GBPUA&amp;T), Pantnagar** — established 1960, the institution
+widely credited as the harbinger of India&#x27;s Green Revolution.
+
+This system is derived from the university&#x27;s live website design language:
+a **light, editorial, paper-based** identity built on **maroon and gold**, with
+**agriculture-green** and **teal** as accents. It is not a dark, single-colour
+luxury theme — the feel is a well-set heritage journal: white paper, deep maroon
+headings, restrained metallic gold, generous whitespace.
+
+&gt; **Provenance.** Palette and type reconciled against the live GBPUAT site
+&gt; (maroon/gold primary, agri-green + teal accents, EB Garamond + IBM Plex Sans).
+&gt; This supersedes the earlier green/cream/bronze interpretation. See
+&gt; `references/brand-research.md` for the source and confidence notes.
+
+---
+
+## 1. Colour tokens
+
+Maroon leads. Gold is the warm accent. Agri-green and teal are used sparingly for
+identity cues. Everything sits on white or light paper.
+
+| Role | Token | Hex | Use |
+|------|-------|-----|-----|
+| Primary | `--maroon` | `#79211C` | Primary brand maroon. Rules, emphasis, section labels, links-on-light. |
+| Primary deep | `--maroon-deep` | `#5A1714` | Darker maroon for panels, gradients, hovers. |
+| Primary ink | `--maroon-ink` | `#2A0E0C` | Near-black maroon. Headings, footer/panel backgrounds. |
+| Rust | `--rust` | `#962901` | Secondary warm red, used rarely for variation. |
+| Accent gold | `--gold` | `#C89B3C` | Warm metallic accent. Hairlines, key numbers, one emphasis per view. |
+| Gold soft | `--gold-soft` | `#E8CB86` | Lighter gold for thin rules on dark. |
+| Warm cream | `--warm-cream` | `#E9DAC7` | Text and links on maroon/dark backgrounds. |
+| Agri green | `--agri` | `#1B7A3D` | Agriculture identity cue. Small tags, secondary accents. Sparingly. |
+| Teal | `--teal` | `#26CCCA` | Bright accent. Thin top borders / hairlines only. Very sparingly. |
+| Link | `--link` | `#2C67A0` | Inline hyperlinks on light backgrounds. |</div>
+      <div>
+        <p class="lead">Four lines was the start. Save a whole way of working and one prompt can run to hundreds of lines.</p>
+        <p style="margin-top:1.3cqh;">This is the <strong>gbpuat-brand skill</strong> — 238 lines in a single prompt. It carries this university's colours, type and voice.</p>
+        <p style="margin-top:1.3cqh; color:var(--maroon);"><strong>It is what built this deck.</strong></p>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>14</span></div>
+</div></div></section>
+
+<!-- Celebration -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="body center">
+    <div class="eyebrow">You just did it</div>
+    <p class="stmt">You now use AI the way<br>about 90% of the world does.</p>
+    <p class="muted" style="margin-top:2.2cqh;">One good prompt. That alone will save you hours every week.</p>
+  </div>
+</div></div></section>
+
+<!-- 14 Iceberg -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="body">
+    <div style="display:grid; grid-template-columns:1.05fr 1fr; gap:4cqw; align-items:center; width:100%;">
+      <div>
+        <div class="eyebrow">The surprise</div>
+        <h2>And we have not even started</h2>
+        <hr class="rule">
+        <p class="lead">That was the tip. Chat is a sliver of what these tools now do.</p>
+        <p>Almost everything that has changed the field sits below the waterline.</p>
+      </div>
+      <div style="display:flex; align-items:center; justify-content:center;">
+        <svg viewBox="0 0 400 400" style="width:80%; height:auto; max-height:64cqh;" role="img" aria-label="Iceberg with chat as the visible tip">
+          <rect x="0" y="172" width="400" height="228" fill="#79211C" opacity="0.04"/>
+          <polygon points="150,172 272,172 298,252 232,364 116,268" fill="#79211C" opacity="0.13"/>
+          <polygon points="150,172 210,172 232,364 116,268" fill="#79211C" opacity="0.07"/>
+          <line x1="24" y1="172" x2="376" y2="172" stroke="#79211C" stroke-width="2" opacity="0.8"/>
+          <polygon points="205,50 168,172 205,172" fill="#79211C"/>
+          <polygon points="205,50 250,172 205,172" fill="#5A1714"/>
+          <polygon points="205,50 205,172 189,172" fill="#9c3a34" opacity="0.6"/>
+          <line x1="252" y1="94" x2="222" y2="108" stroke="#79211C" stroke-width="1" opacity="0.7"/>
+          <text x="258" y="98" fill="#79211C" font-family="IBM Plex Sans, sans-serif" font-size="15" letter-spacing="2">CHAT</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div></div></section>
+
+<!-- Separator: how far how fast -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="body center">
+    <div class="eyebrow">The surprising part</div>
+    <p class="stmt">How far —<br>and how fast.</p>
+    <p class="muted" style="margin-top:2.2cqh;">In three years, the impossible became ordinary. Here is what that means for you.</p>
+  </div>
+</div></div></section>
+
+<!-- Pace / token economics -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">The pace</div>
+  <h2>Three years. That is all.</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">ChatGPT is barely three years old. In that time, agents have become capable enough to surprise the researchers who built them.</p>
+    <div class="cards c2" style="margin-top:0.6cqh;">
+      <div class="card"><hr class="rule"><h3>Capability</h3>
+        <p>Writing code, planning, multi-step work — tasks thought a decade away arrived in months. It keeps outrunning the experts' own predictions.</p></div>
+      <div class="card"><hr class="rule"><h3>Cost</h3>
+        <p>The same capability costs roughly 70% less every year — close to 95% cheaper over two. What was expensive last year is routine today.</p></div>
+    </div>
+    <p style="margin-top:1.6cqh;"><strong>The ground moves under everyone.</strong> Which is exactly why no one — expert or not — has it fully figured out.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>20</span></div>
+</div></div></section>
+
+<!-- Radiology / augmentation -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">A prediction that failed</div>
+  <h2>The radiologists are still here</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">In 2016, Geoffrey Hinton — a Nobel laureate and one of the founders of modern AI — said we should stop training radiologists; machines would out-read them within five years.</p>
+    <p>It did not happen. Radiologists are in short supply, and AI became a tool they use — reading scans faster, catching more — not a replacement.</p>
+    <p><strong>AI did not replace the experts. The experts who use it are pulling ahead of those who do not.</strong> That is the opportunity in this room.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>21</span></div>
+</div></div></section>
+
+<!-- Why agentic — task vs intent -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Why the whole world is gung-ho</div>
+  <h2>From giving tasks to giving intent</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">For seventy years you told a computer the exact steps. Now you can tell it what you want — the intent — and it works out the steps itself.</p>
+    <div class="cards c3" style="margin-top:0.6cqh;">
+      <div class="card"><hr class="rule"><h3>Traditional computing</h3><p class="ex">You write every instruction. It does exactly that — nothing more, nothing less.</p></div>
+      <div class="card"><hr class="rule"><h3>AI so far</h3><p class="ex">You ask a question or show examples; it answers, predicts, or classifies.</p></div>
+      <div class="card"><hr class="rule"><h3>Agentic AI</h3><p class="ex">You give it a goal; it plans the steps and acts to reach it.</p></div>
+    </div>
+    <p style="margin-top:1.4cqh;"><strong>An agent</strong> is an AI you hand a goal — it breaks the goal into tasks, uses tools, and works through them, with you at the gate.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>18</span></div>
+</div></div></section>
+
+<!-- Old world, new world -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Why this is powerful</div>
+  <h2>Old world, new world</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">This is the real shift — and it is bigger than it first looks.</p>
+    <div class="cards c2" style="margin-top:0.6cqh;">
+      <div class="card"><hr class="rule"><h3>Old world — instruction</h3>
+        <p>You spell out every step. Deterministic: the same input gives the same output, every time. Precise and repeatable — but you do all the thinking.</p></div>
+      <div class="card"><hr class="rule"><h3>New world — intent</h3>
+        <p>You say what you want; it works out the how. Probabilistic: the same input can give a different output. Far more powerful — and it varies, so it needs steering.</p></div>
+    </div>
+    <p style="margin-top:1.4cqh;"><strong>The power is real, and so is the need for judgement.</strong> The rest of today is learning where each one fits.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>21</span></div>
+</div></div></section>
+
+<!-- Live image demo -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Instruction vs intent — the same task</div>
+  <h2>Tell it what to do, or tell it what you want</h2>
+  <hr class="rule">
+  <div class="body top dense">
+    <div class="cards c2" style="margin-top:0.4cqh;">
+      <div>
+        <h3 style="color:var(--maroon-ink); font-size:1.7cqw; margin-bottom:0.8cqh;">You instruct it</h3>
+        <div class="pbox"><div class="pl">Prompt</div><p>Write ten multiple-choice questions on today's topic.</p></div>
+        <div class="obox"><div class="pl">What you get</div><p>Exactly ten questions, all one difficulty. It followed your words — with no idea whether they test what mattered.</p></div>
+      </div>
+      <div>
+        <h3 style="color:var(--maroon-ink); font-size:1.7cqw; margin-bottom:0.8cqh;">You give it the goal</h3>
+        <div class="pbox"><div class="pl">Prompt</div><p>I want to know which students understood today's class. Help me build a way to check.</p></div>
+        <div class="obox good"><div class="pl">What you get</div><p>It asks what you taught, mixes recall with application, adds the common mistakes to catch, and explains why. It worked toward the goal.</p></div>
+      </div>
+    </div>
+    <p style="margin-top:1.4cqh;"><strong>Instruct it and it obeys. Give it a goal and let it reason, and it does more than you asked.</strong></p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>22</span></div>
+</div></div></section>
+
+<!-- 15 Reasoning -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Under the tip · 1 of 3</div>
+  <h2>It can think before it answers</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">Give it a field-trial calculation. Older tools answered instantly, sometimes wrongly.</p>
+    <p>Newer models work it out step by step, on a scratchpad you do not see, before they reply. Fewer careless slips on anything with steps — a statistics problem, a multi-part plan.</p>
+    <p><strong>It reduces careless error. It does not add understanding</strong> — a fluent chain of reasoning can still rest on a wrong premise.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>15</span></div>
+</div></div></section>
+
+<!-- 16 Agents -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Under the tip · 2 of 3</div>
+  <h2>It can act, not just answer</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">Ask it to build a reading list on drip irrigation, group the papers by theme, and lay it out as a table.</p>
+    <p>An agent is given a goal and works through the steps — search, sort, format — instead of answering one question and stopping. Like handing a task to a capable assistant, not asking across a desk.</p>
+    <p><strong>More autonomy means more checking, not less</strong> — never let it send an email, spend money, or submit a form without a human at the gate.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>16</span></div>
+</div></div></section>
+
+<!-- 17 Tools & MCP -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Under the tip · 3 of 3</div>
+  <h2>Skills, tools, and MCP</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">On its own, a model is a closed book. Three things let it reach into your world.</p>
+    <div class="cards c3" style="margin-top:0.6cqh;">
+      <div class="card"><hr class="rule"><h3>Skills</h3><p class="ex">A saved way of working. Teach it once how you build a rubric or a report, and it does it your way every time.</p></div>
+      <div class="card"><hr class="rule"><h3>Tools</h3><p class="ex">Hands. It can search the web, run a calculation, or read your actual files instead of guessing.</p></div>
+      <div class="card"><hr class="rule"><h3>MCP</h3><p class="ex">The universal socket — one standard so any tool plugs into any model. What USB did for devices.</p></div>
+    </div>
+    <p style="margin-top:1.4cqh;">Most new capability is the model plus these — not the model alone.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>17</span></div>
+</div></div></section>
+
+<!-- 29b Skills/Tools/MCP made real -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">The same three, made real</div>
+  <h2>What a skill, a tool and an MCP look like</h2>
+  <hr class="rule">
+  <div class="body top">
+    <div class="demos">
+      <div class="demo">
+        <div class="lbl">Skill</div>
+        <h3>GBPUAT branding</h3>
+        <div class="viz">
+          <div class="swrow">
+            <span class="sw" style="background:#79211C;"></span>
+            <span class="sw" style="background:#C89B3C;"></span>
+            <span class="sw" style="background:#E9DAC7;"></span>
+            <span class="sw" style="background:#2A0E0C;"></span>
+          </div>
+          <div class="serifsample">Aa <span>EB Garamond</span></div>
+          <div class="skilltag">skill · gbpuat-brand</div>
+        </div>
+        <div class="cap">A saved way of working — its colours, type and voice. <b>This deck was built with it.</b></div>
+      </div>
+      <div class="demo">
+        <div class="lbl">Tool</div>
+        <h3>Browser</h3>
+        <div class="viz">
+          <div class="bwin">
+            <div class="bbar">
+              <span class="bdot" style="background:#E86A5E;"></span>
+              <span class="bdot" style="background:#E8C15E;"></span>
+              <span class="bdot" style="background:#7BB47B;"></span>
+              <span class="burl">gbpuat.ac.in</span>
+            </div>
+            <div class="bbody">
+              <div class="bline" style="width:68%; background:var(--maroon);"></div>
+              <div class="bline" style="width:50%; background:var(--line);"></div>
+              <div class="bline" style="width:58%; background:var(--line);"></div>
+            </div>
+          </div>
+        </div>
+        <div class="cap">Hands on the web — it <b>opens a page and reads it</b> instead of guessing.</div>
+      </div>
+      <div class="demo">
+        <div class="lbl">MCP</div>
+        <h3>Kite by Zerodha</h3>
+        <div class="viz">
+          <div class="kwin">
+            <div class="khead"><span class="kmark">Kite</span><span class="kconn">&#9679; connected</span></div>
+            <div class="krow" style="padding-top:1.3cqh;"><span>Holdings</span><span class="kbar" style="width:34%;"></span></div>
+            <div class="krow"><span>Positions</span><span class="kbar" style="width:22%;"></span></div>
+            <div class="krow" style="margin-top:0.3cqh;"><span>Place order</span><span class="kchip">you approve</span></div>
+          </div>
+        </div>
+        <div class="cap">One standard socket — the model reaches a <b>live account</b>, with you at the gate.</div>
+      </div>
+    </div>
+    <p style="margin-top:2.4cqh;"><strong>Skills teach it your way. Tools give it hands. MCP plugs it into your systems.</strong></p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>18</span></div>
+</div></div></section>
+
+<!-- 18 Ecosystems diverge -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Beyond chat</div>
+  <h2>This is where they diverge</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">Chat is common ground. What each house builds around it is where they differ — and where the reasoning, agents and tools you just met actually live.</p>
+    <div class="cards c3" style="margin-top:0.6cqh;">
+      <div class="card"><hr class="rule"><h3>OpenAI</h3><p class="ex">Operator · Codex</p></div>
+      <div class="card"><hr class="rule"><h3>Anthropic</h3><p class="ex">Cowork · Claude Code</p></div>
+      <div class="card"><hr class="rule"><h3>Google</h3><p class="ex">Fragmented — but NotebookLM is its grounded standout</p></div>
+    </div>
+    <p class="muted" style="margin-top:1.4cqh;">This is the map we are about to walk.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>18</span></div>
+</div></div></section>
+
+<!-- 19 Three realities -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Before you rely on it</div>
+  <h2>Cheap to run, easy to misuse</h2>
+  <hr class="rule">
+  <div class="body">
+    <div class="cards c3">
+      <div class="card"><hr class="rule"><h3>Token economics</h3>
+        <p class="ex">Drafting exam questions or summarising a fifty-page report costs a few rupees, as it charges per token of text.</p>
+        <div class="eth"><span class="works">Everyday drafting and summarising</span><span class="breaks">Feeding it whole textbooks</span></div></div>
+      <div class="card"><hr class="rule"><h3>Data sensitivity</h3>
+        <p class="ex">Pasting a student marksheet or unpublished field-trial data can place it on a server outside your control.</p>
+        <div class="eth"><span class="works">A public syllabus</span><span class="breaks">Student records, unpublished data</span></div></div>
+      <div class="card"><hr class="rule"><h3>Hallucinations</h3>
+        <p class="ex">Asking it for references on wheat yield can return a journal paper that does not exist.</p>
+        <div class="eth"><span class="works">A first draft to check</span><span class="breaks">An unchecked citation</span></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>19</span></div>
+</div></div></section>
+
+<!-- 20 Patterns cluster 1 -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="cluster">The map · Talk and think</div>
+  <h2>Four ways in</h2>
+  <hr class="rule">
+  <div class="body">
+    <div class="cards c4">
+      <div class="card"><hr class="rule"><h3>Chat</h3>
+        <p class="ex">Draft and sharpen a lecture outline through quick back-and-forth.</p>
+        <div class="eth"><span class="works">Early ideas</span><span class="breaks">Final grades</span></div></div>
+      <div class="card"><hr class="rule"><h3>Reasoning</h3>
+        <p class="ex">Reconcile two conflicting field-trial results through checkable steps.</p>
+        <div class="eth"><span class="works">Checkable steps</span><span class="breaks">Fluent guesses</span></div></div>
+      <div class="card"><hr class="rule"><h3>Grounded RAG</h3>
+        <p class="ex">Turn four course PDFs into a cited revision guide.</p>
+        <div class="eth"><span class="works">Your own sources</span><span class="breaks">Weak sources</span></div></div>
+      <div class="card"><hr class="rule"><h3>Search &amp; synthesis</h3>
+        <p class="ex">Summarise recent vaccine research into a cited overview.</p>
+        <div class="eth"><span class="works">First overview</span><span class="breaks">Unchecked citations</span></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>20</span></div>
+</div></div></section>
+
+<!-- 21 Patterns cluster 2 -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="cluster">The map · See, hear and remember</div>
+  <h2>Three more senses</h2>
+  <hr class="rule">
+  <div class="body">
+    <div class="cards c3">
+      <div class="card"><hr class="rule"><h3>Vision</h3>
+        <p class="ex">Photograph a wilting crop leaf for a quick first-pass reading.</p>
+        <div class="eth"><span class="works">Quick triage</span><span class="breaks">Diagnosis of record</span></div></div>
+      <div class="card"><hr class="rule"><h3>Real-time</h3>
+        <p class="ex">Transcribe a Hindi field conversation into running English notes.</p>
+        <div class="eth"><span class="works">Working notes</span><span class="breaks">Official records</span></div></div>
+      <div class="card"><hr class="rule"><h3>Memory</h3>
+        <p class="ex">Remember your marking style so feedback comments sound like you.</p>
+        <div class="eth"><span class="works">Matching tone</span><span class="breaks">Student data</span></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>21</span></div>
+</div></div></section>
+
+<!-- 22 Patterns cluster 3 -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="cluster">The map · Act and build</div>
+  <h2>Five that do the work</h2>
+  <hr class="rule">
+  <div class="body">
+    <div class="cards c5">
+      <div class="card"><hr class="rule"><h3>Cowork</h3>
+        <p class="ex">Turn a folder of readings into a course pack.</p>
+        <div class="eth"><span class="works">Reviewed</span><span class="breaks">Unwatched</span></div></div>
+      <div class="card"><hr class="rule"><h3>Agents</h3>
+        <p class="ex">Assemble a literature table from search to formatting.</p>
+        <div class="eth"><span class="works">Reversible</span><span class="breaks">Final</span></div></div>
+      <div class="card"><hr class="rule"><h3>Tools &amp; MCP</h3>
+        <p class="ex">Connect a reference manager to its live library.</p>
+        <div class="eth"><span class="works">Scoped</span><span class="breaks">Broad</span></div></div>
+      <div class="card"><hr class="rule"><h3>Code</h3>
+        <p class="ex">Turn a messy trial dataset into clean charts.</p>
+        <div class="eth"><span class="works">Checkable</span><span class="breaks">Untraced</span></div></div>
+      <div class="card"><hr class="rule"><h3>Structured output</h3>
+        <p class="ex">Turn 200 admission forms into one spreadsheet.</p>
+        <div class="eth"><span class="works">At scale</span><span class="breaks">Silent slip</span></div></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>22</span></div>
+</div></div></section>
+
+<!-- Responsible use · UGC -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">The rules you already work under</div>
+  <h2>What UGC actually says</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">There is no separate UGC rule for AI. The UGC Academic Integrity Regulations, 2018 already reach it — the same rules that govern plagiarism.</p>
+    <div class="cards c2" style="margin-top:0.6cqh;">
+      <div class="card"><hr class="rule"><h3>Copied is caught</h3>
+        <p>AI text that reproduces others' work trips the same similarity thresholds — Level 0 up to 10%, then rising penalties past 40%, 60%, and above.</p></div>
+      <div class="card"><hr class="rule"><h3>Passed off is misconduct</h3>
+        <p>Presenting AI output as your own original work breaks the regulation's core requirement — original contribution and independent analysis.</p></div>
+    </div>
+    <p style="margin-top:1.4cqh;"><strong>The safe practice</strong> — disclose AI use, keep it auxiliary, and verify before you submit.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>29</span></div>
+</div></div></section>
+
+<!-- Responsible use · moral guidelines -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">The moral line</div>
+  <h2>The rules are the floor — judgement is the rest</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">Misuse is the issue, not use. Six habits keep you on the right side of it.</p>
+    <div class="cards c3" style="margin-top:0.6cqh;">
+      <div class="card"><hr class="rule"><h3>Disclose</h3><p class="ex">Say when AI materially shaped the work.</p></div>
+      <div class="card"><hr class="rule"><h3>Keep it auxiliary</h3><p class="ex">The ideas, and the authorship, stay yours.</p></div>
+      <div class="card"><hr class="rule"><h3>Verify</h3><p class="ex">Check anything feeding a grade, a decision, or a report.</p></div>
+      <div class="card"><hr class="rule"><h3>Protect data</h3><p class="ex">No student records or unpublished work in public tools.</p></div>
+      <div class="card"><hr class="rule"><h3>Expect bias</h3><p class="ex">It reflects its training and is confidently wrong.</p></div>
+      <div class="card"><hr class="rule"><h3>Stay accountable</h3><p class="ex">It goes out under your name — you own it.</p></div>
+    </div>
+    <p style="margin-top:1.2cqh;"><strong>The sharp edge:</strong> in a DPR that rides real funding, the risk is an unverified AI fact, not copied text. Verification and accountability are human.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>30</span></div>
+</div></div></section>
+
+<!-- 24 Poll -->
+<!-- Data privacy scenarios -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">The elephant in the room</div>
+  <h2>What can you safely share?</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead" style="margin-bottom:1cqh;">Every AI question comes back to one thing — where does your data go? Public material is fair game. The university's IP and people's personal data are not.</p>
+    <div class="privtable">
+      <div class="hd">Scenario</div><div class="hd">What you would put in</div><div class="hd">Verdict</div>
+      <div class="c">Designing course curriculum</div><div class="c sub">Your own teaching material</div><div class="c"><span class="v go">Go ahead</span></div>
+      <div class="c">Grading student work</div><div class="c sub">Names, marks, student records</div><div class="c"><span class="v care">Anonymise first</span></div>
+      <div class="c">Pulling in outside research</div><div class="c sub">Published papers, public web</div><div class="c"><span class="v go">Go ahead</span></div>
+      <div class="c">Formatting and preparing artifacts</div><div class="c sub">Layout and wording, not the secrets</div><div class="c"><span class="v go">Go ahead</span></div>
+      <div class="c">Drafting your research</div><div class="c sub">Unpublished ideas and findings</div><div class="c"><span class="v care">Careful</span></div>
+      <div class="c">Data analysis on public data</div><div class="c sub">Open, already-published datasets</div><div class="c"><span class="v go">Go ahead</span></div>
+      <div class="c">Data analysis on IP or confidential data</div><div class="c sub">Unpublished trial data, personal data</div><div class="c"><span class="v stop">Keep it out</span></div>
+    </div>
+    <p style="margin-top:1.4cqh;"><strong>The test is simple — is it public, or is it yours to protect?</strong> If it is confidential or personal, keep it out of public tools, or use a private, institutional one.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>26</span></div>
+</div></div></section>
+
+<!-- The principle faculty leave with -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Responsible use</div>
+  <h2>The principle we leave with</h2>
+  <hr class="rule">
+  <div class="body top">
+    <p class="lead">AI is not banned, and it is not a shortcut around thinking. The tool drafts and speeds the work; <strong>the ideas, the verification and the accountability stay with us.</strong></p>
+    <p style="margin-top:1.1cqh;">For reports and DPRs that inform real funding decisions, the risk is not copied text — it is <span class="hl">an unverified, AI-generated fact riding a decision.</span></p>
+    <p style="margin-top:1.1cqh; font-family:var(--serif); font-style:italic; font-size:2cqw; color:var(--maroon);">Verification and accountability are the controls — and both are human.</p>
+    <div class="pillars">
+      <div class="pillar"><h4>Disclose</h4><p>Say when AI helped produce the work.</p></div>
+      <div class="pillar"><h4>Verify</h4><p>Check every fact, figure and citation yourself.</p></div>
+      <div class="pillar"><h4>Protect data</h4><p>Keep IP and personal data out of public tools.</p></div>
+      <div class="pillar"><h4>Stay accountable</h4><p>The author owns the output, not the tool.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>27</span></div>
+</div></div></section>
+
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Your answers</div>
+  <h2>What this room said</h2>
+  <hr class="rule">
+  <div class="body">
+    <div class="stats">
+      <div class="stat"><div class="v placeholder">__%</div><div class="k">have used an AI tool</div></div>
+      <div class="stat"><div class="v placeholder">__</div><div class="k">already pay for one</div></div>
+      <div class="stat"><div class="v placeholder">__</div><div class="k">top time-sink</div></div>
+    </div>
+    <p class="muted">You are looking at yourselves, not a national average. Where the hours are is where we start.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>24</span></div>
+</div></div></section>
+
+<!-- 25 Roadmap -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="eyebrow">Where this goes next</div>
+  <h2>Four more sessions, online</h2>
+  <hr class="rule">
+  <div class="body">
+    <ul class="clean">
+      <li>Grounded material with NotebookLM.</li>
+      <li>Communication and reports, climbing to the DPR.</li>
+      <li>Course materials and assessment.</li>
+      <li>Responsible use and action planning.</li>
+    </ul>
+    <p class="muted" style="margin-top:1.4cqh;">Order follows the poll. Every session: a real workflow, and where it breaks.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>25</span></div>
+</div></div></section>
+
+<!-- 26 Close -->
+<section class="frame"><div class="slide"><div class="pad">
+  <div class="body">
+    <h2>Back where we started</h2>
+    <hr class="rule">
+    <ul class="clean">
+      <li>The tools are useful. They will save you real time.</li>
+      <li>They are also wrong sometimes, and sure of themselves when they are.</li>
+      <li>Your judgement is the part that does not get automated.</li>
+    </ul>
+    <p style="margin-top:1.6cqh;">Nothing here was for sale. See you in Session 2.</p>
+  </div>
+  <div class="foot"><span>AI for Educators — Session 1</span><span>26</span></div>
+</div></div></section>
+<a class="deckback" href="../session-1.html">Back to Session 1</a>
+<div class="counter" id="counter">01</div>
+<script>
+  const slides=document.querySelectorAll('.frame');
+  const counter=document.getElementById('counter');
+  const total=String(slides.length).padStart(2,'0');
+  slides.forEach((f,i)=>{const n=f.querySelector('.foot span:last-child'); if(n) n.textContent=String(i+1).padStart(2,'0');});
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=[...slides].indexOf(e.target)+1;counter.textContent=String(i).padStart(2,'0')+' / '+total;}}),{threshold:0.6});
+  slides.forEach(s=>io.observe(s));
+  document.addEventListener('keydown',ev=>{const at=[...slides].findIndex(s=>{const r=s.getBoundingClientRect();return r.top>=-2&&r.top<window.innerHeight*0.5;});if(ev.key==='ArrowDown'||ev.key==='PageDown'||ev.key===' '){ev.preventDefault();slides[Math.min(at+1,slides.length-1)]?.scrollIntoView();}if(ev.key==='ArrowUp'||ev.key==='PageUp'){ev.preventDefault();slides[Math.max(at-1,0)]?.scrollIntoView();}});
+</script></body></html>
