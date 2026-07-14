@@ -3,13 +3,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Session 2 · Class run sheet — grounded course-building</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --maroon:#FF5A36; --mink:#F4F4F8; --rust:#FF7A56; --gold:#FFC857; --agri:#3DDC84;
   --paper:#0E0E16; --paper2:#14141D; --line:#2B2B37; --lines:#24242F;
   --ink:#F4F4F8; --graph:#A2A2B0; --mid:#8A8A99;
-  --serif:"EB Garamond",Georgia,serif; --sans:"IBM Plex Sans",Arial,sans-serif; --mono:"IBM Plex Mono",Consolas,monospace;
+  --serif:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif; --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif; --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{background:#24242F;font-family:var(--sans);color:var(--ink);line-height:1.5;}
@@ -64,7 +63,7 @@ body{background:#24242F;font-family:var(--sans);color:var(--ink);line-height:1.5
 @media print{ body{background:#0E0E16;} .doc{margin:0;box-shadow:none;max-width:none;padding:14mm;} @page{size:A4;margin:0;} }
 </style>
 <style>
-.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#FF5A36;background:rgba(14,14,22,.92);border:1px solid #2B2B37;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.5);}
+.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;font-size:12px;font-weight:600;color:#FF5A36;background:rgba(14,14,22,.92);border:1px solid #2B2B37;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.5);}
 .s2back:hover{border-color:#FF5A36;background:#1B1113;text-decoration:none;}
 @media print{.s2back{display:none;}}
 </style>
@@ -84,6 +83,23 @@ body{background:#24242F;font-family:var(--sans);color:var(--ink);line-height:1.5
     box-shadow:0 10px 44px rgba(0,0,0,.5) !important;
   }
   html,body{background:#0E0E16 !important;}
+}
+
+/* ---- Screen: authored as an A4 sheet; on a display, use the room. ---- */
+@media screen{
+  .page,.doc{
+    width:min(1180px,94vw) !important;
+    max-width:none !important;
+    height:auto !important;
+    min-height:0 !important;
+    overflow:visible !important;
+    margin:30px auto 60px !important;
+    padding:34px 40px 38px !important;
+    border:1px solid #2B2B37;
+    border-radius:16px;
+    box-shadow:0 10px 44px rgba(0,0,0,.5) !important;
+  }
+  html,body{background:#05050A !important;}
 }
 </style>
 </head>
@@ -137,7 +153,7 @@ you are assuming.
 One page. List the universities and the framework you drew on at the end.
 Do not invent citations — if unsure a source is real, say so.</div>
     <div class="say"><b>Say:</b> the shallow one gives vague, unusable objectives; the CRTF one gives assessable, level-tagged outcomes. Same model, different prompt.</div>
-    <div class="out">→ objectives &amp; measurable, level-tagged outcomes</div>
+    <div class="out">Produces: objectives &amp; measurable, level-tagged outcomes</div>
   </div>
 
   <!-- STEP 2 -->
@@ -157,7 +173,7 @@ it establishes and where experts disagree.
 body, year, one-line finding, working link. Prefer open-access. <span class="c">Mark anything you
 are not confident is real</span> so we verify it in NotebookLM.</div>
     <div class="say"><b>Show it live:</b> this is the research step, in front of the room. Open two or three results to prove they are real; refine the prompt if the sources are thin.</div>
-    <div class="out">→ field map + candidate sources (verify next)</div>
+    <div class="out">Produces: field map + candidate sources (verify next)</div>
   </div>
 
   <!-- STEP 3 -->
@@ -167,13 +183,12 @@ are not confident is real</span> so we verify it in NotebookLM.</div>
     <div class="plabel good">Good — CRTF</div>
     <div class="prompt"><span class="lbl">Context</span>  Using the objectives from step 1 for a 4-week / 12-lecture elective.
 <span class="lbl">Role</span>  You are a course designer who sequences for a mixed-ability room.
-<span class="lbl">Task</span>  Design a 4-week module outline with a clear arc — hazards → controls →
-regulation → application. For each week give the theme, 2–3 key concepts, why it
+<span class="lbl">Task</span>  Design a 4-week module outline with a clear arc — hazards, then controls, then regulation, then application. For each week give the theme, 2–3 key concepts, why it
 matters to this audience, the misconception to pre-empt, and how it builds on the
 week before.
 <span class="lbl">Format</span>  One labelled block per week with those five fields. One page. Concrete
 themes, not generic headers.</div>
-    <div class="out">→ 4-week module outline with a build</div>
+    <div class="out">Produces: 4-week module outline with a build</div>
   </div>
 
   <!-- STEP 4 -->
@@ -192,7 +207,7 @@ Prefer Indian context where it exists, and judge the reading level.
 (easy / medium / hard), working link. <span class="c">Only list sources you are confident exist;
 do not fabricate DOIs or links.</span></div>
     <div class="say"><b>Do it live:</b> Gemini returns the list; open 2–3 links to prove they are real, then download 3–4 PDFs. These become the NotebookLM sources in step 9 — generated in front of the room, not handed out.</div>
-    <div class="out">→ the source list, gathered live by Gemini</div>
+    <div class="out">Produces: the source list, gathered live by Gemini</div>
   </div>
 
   <!-- STEP 5 -->
@@ -208,7 +223,7 @@ measurable objective (Bloom's verb), the key idea, one in-class activity, and th
 reading it draws on. Each must depend on the one before; mark the two lectures
 that carry assessment.
 <span class="lbl">Format</span>  A table — # | title | objective | key idea | activity | reading.</div>
-    <div class="out">→ 12-lecture calendar, one objective each</div>
+    <div class="out">Produces: 12-lecture calendar, one objective each</div>
   </div>
 
   <!-- STEP 6 -->
@@ -226,7 +241,7 @@ them cover the extremes, each with a teaching implication.
 <span class="lbl">Format</span>  A compact summary of the 30 (distributions), then 3 named personas.
 <span class="c">State clearly this is synthetic data, not real students.</span></div>
     <div class="say"><b>Say:</b> we invent students so we design for the real room — safe synthetic data, no real records.</div>
-    <div class="out">→ 3 learner personas</div>
+    <div class="out">Produces: 3 learner personas</div>
   </div>
 
   <!-- STEP 7 -->
@@ -242,7 +257,7 @@ the likely misconception, and 1–2 readings from the source list. If a lecture 
 no strong reading yet, say so plainly.
 <span class="lbl">Format</span>  One table — # | arrives asking | must leave knowing | everyday example |
 misconception | readings.</div>
-    <div class="out">→ per-session learner map with readings</div>
+    <div class="out">Produces: per-session learner map with readings</div>
   </div>
 
   <!-- STEP 8 -->
@@ -262,7 +277,7 @@ this one is done, and I will ask for the next.
 <span class="lbl">Format</span>  Headed sections with rough timings that sum to 60 minutes. Plain teaching
 English. <span class="c">Mark any fact that needs a source as [source: …]</span> — we verify next.</div>
     <div class="say"><b>Why one at a time:</b> ask for all twelve in one shot and the model spreads thin — the later lectures go generic and quality quietly drops (the failure pattern from Session 1). One 60-minute lecture per prompt keeps each one sharp, and you review before moving on. Repeat for lecture 2, then 3. <b>Decomposition is the quality control.</b></div>
-    <div class="out">→ one teachable 60-minute lecture · repeat, one at a time, × 12</div>
+    <div class="out">Produces: one teachable 60-minute lecture · repeat, one at a time, × 12</div>
   </div>
 
   <!-- STEP 9 -->
@@ -272,12 +287,12 @@ English. <span class="c">Mark any fact that needs a source as [source: …]</spa
       <li>Create a notebook, <b>“Introduction to Food Safety”</b>. Add every source gathered in step 4 <b>plus your draft lecture notes</b> from step 8.</li>
       <li>Ask a grounded question: <i>“What are the top five foodborne hazards students must understand, with citations?”</i> — click a citation to jump to the exact passage.</li>
       <li>Run the <b>trap question</b>: ask for something not in the sources (a made-up statistic). Watch it decline instead of inventing — that is grounding.</li>
-      <li>Studio → <b>Reports → Study Guide</b>, then <b>Briefing doc</b>. Every claim is cited.</li>
-      <li>Studio → <b>Quiz</b> and <b>Flashcards</b> — generated only from your sources.</li>
-      <li>Studio → <b>Audio Overview</b> — the "wow": a spoken summary of the course, from your sources.</li>
+      <li>open <b>Studio</b>, then <b>Reports</b>, then <b>Study Guide</b>, then <b>Briefing doc</b>. Every claim is cited.</li>
+      <li>open <b>Studio</b>, then <b>Quiz</b> and <b>Flashcards</b> — generated only from your sources.</li>
+      <li>open <b>Studio</b>, then <b>Audio Overview</b> — the "wow": a spoken summary of the course, from your sources.</li>
       <li><b>Verify live:</b> take one of the [source: …] gaps from step 8, ask it in the notebook, and confirm the answer's citation matches the source. This is the habit to leave the room with.</li>
     </ol>
-    <div class="out nb" style="margin-top:3mm;">→ cited study guides, summaries, quizzes and audio · minimal hallucination</div>
+    <div class="out nb" style="margin-top:3mm;">Produces: cited study guides, summaries, quizzes and audio · minimal hallucination</div>
   </div>
 
   <div class="foot"><span>AI for Educators — Session 2 · Instructor run sheet</span><span>Gemini Pro + NotebookLM · G.B. Pant University</span></div>

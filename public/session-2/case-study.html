@@ -3,13 +3,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Session 2 · Case study — Inventing a course with AI</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --maroon:#FF5A36; --mink:#F4F4F8; --rust:#FF7A56; --gold:#FFC857;
   --agri:#3DDC84; --paper:#0E0E16; --paper2:#14141D;
   --line:#2B2B37; --lines:#24242F; --ink:#F4F4F8; --graph:#A2A2B0; --mid:#8A8A99;
-  --serif:"EB Garamond",Garamond,Georgia,serif; --sans:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+  --serif:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif; --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{background:#2B2B37;font-family:var(--sans);color:var(--ink);}
@@ -62,7 +61,7 @@ html,body{background:#2B2B37;font-family:var(--sans);color:var(--ink);}
 @media print{ html,body{background:#0E0E16;} .page{margin:0;box-shadow:none;} @page{size:A4;margin:0;} }
 </style>
 <style>
-.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:"IBM Plex Sans","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#FF5A36;background:rgba(14,14,22,.92);border:1px solid #2B2B37;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.5);}
+.s2back{position:fixed;left:16px;top:14px;z-index:999;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;font-size:12px;font-weight:600;color:#FF5A36;background:rgba(14,14,22,.92);border:1px solid #2B2B37;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.5);}
 .s2back:hover{border-color:#FF5A36;background:#1B1113;text-decoration:none;}
 @media print{.s2back{display:none;}}
 </style>
@@ -82,6 +81,23 @@ html,body{background:#2B2B37;font-family:var(--sans);color:var(--ink);}
     box-shadow:0 10px 44px rgba(0,0,0,.5) !important;
   }
   html,body{background:#0E0E16 !important;}
+}
+
+/* ---- Screen: authored as an A4 sheet; on a display, use the room. ---- */
+@media screen{
+  .page,.doc{
+    width:min(1180px,94vw) !important;
+    max-width:none !important;
+    height:auto !important;
+    min-height:0 !important;
+    overflow:visible !important;
+    margin:30px auto 60px !important;
+    padding:34px 40px 38px !important;
+    border:1px solid #2B2B37;
+    border-radius:16px;
+    box-shadow:0 10px 44px rgba(0,0,0,.5) !important;
+  }
+  html,body{background:#05050A !important;}
 }
 </style>
 </head>
@@ -108,14 +124,14 @@ html,body{background:#2B2B37;font-family:var(--sans);color:var(--ink);}
 
   <div class="phase"><span class="lbl">Create &amp; gather</span><span class="tag gem">Gemini Pro</span><span class="rule"></span></div>
   <div class="steps">
-    <div class="step"><div class="n">1</div><div class="b"><h3>Write the course objectives</h3><p>Frame learning outcomes against UGC norms and how leading universities teach the topic.</p><div class="o">→ objectives &amp; outcomes</div></div></div>
-    <div class="step"><div class="n">2</div><div class="b"><h3>Summarise the research</h3><p>Pull key reviews and papers; capture the current state of the field in brief.</p><div class="o">→ research brief</div></div></div>
-    <div class="step"><div class="n">3</div><div class="b"><h3>Draft the course outline</h3><p>Shape the one-month course into coherent modules and themes.</p><div class="o">→ module outline</div></div></div>
-    <div class="step"><div class="n">4</div><div class="b"><h3>Gather the sources</h3><p>Find open courseware and syllabi from top universities; collect the actual papers and readings.</p><div class="o">→ source pack</div></div></div>
-    <div class="step"><div class="n">5</div><div class="b"><h3>Build the calendar</h3><p>Three lectures a week, twelve in the month — each lecture with its own objective.</p><div class="o">→ 12-lecture calendar</div></div></div>
-    <div class="step"><div class="n">6</div><div class="b"><h3>Model the students</h3><p>Generate synthetic student profiles — background, prior knowledge, goals — for the real room.</p><div class="o">→ learner personas</div></div></div>
-    <div class="step"><div class="n">7</div><div class="b"><h3>Map each session to the learner</h3><p>For all twelve sessions, map the key points from the student’s lens; attach papers, blogs and links per session.</p><div class="o">→ per-session map</div></div></div>
-    <div class="step"><div class="n">8</div><div class="b"><h3>Draft the content</h3><p>Full, verbose lecture drafts, session by session, for all twelve.</p><div class="o">→ draft lectures</div></div></div>
+    <div class="step"><div class="n">1</div><div class="b"><h3>Write the course objectives</h3><p>Frame learning outcomes against UGC norms and how leading universities teach the topic.</p><div class="o">Produces: objectives &amp; outcomes</div></div></div>
+    <div class="step"><div class="n">2</div><div class="b"><h3>Summarise the research</h3><p>Pull key reviews and papers; capture the current state of the field in brief.</p><div class="o">Produces: research brief</div></div></div>
+    <div class="step"><div class="n">3</div><div class="b"><h3>Draft the course outline</h3><p>Shape the one-month course into coherent modules and themes.</p><div class="o">Produces: module outline</div></div></div>
+    <div class="step"><div class="n">4</div><div class="b"><h3>Gather the sources</h3><p>Find open courseware and syllabi from top universities; collect the actual papers and readings.</p><div class="o">Produces: source pack</div></div></div>
+    <div class="step"><div class="n">5</div><div class="b"><h3>Build the calendar</h3><p>Three lectures a week, twelve in the month — each lecture with its own objective.</p><div class="o">Produces: 12-lecture calendar</div></div></div>
+    <div class="step"><div class="n">6</div><div class="b"><h3>Model the students</h3><p>Generate synthetic student profiles — background, prior knowledge, goals — for the real room.</p><div class="o">Produces: learner personas</div></div></div>
+    <div class="step"><div class="n">7</div><div class="b"><h3>Map each session to the learner</h3><p>For all twelve sessions, map the key points from the student’s lens; attach papers, blogs and links per session.</p><div class="o">Produces: per-session map</div></div></div>
+    <div class="step"><div class="n">8</div><div class="b"><h3>Draft the content</h3><p>Full, verbose lecture drafts, session by session, for all twelve.</p><div class="o">Produces: draft lectures</div></div></div>
   </div>
 
   <div class="phase"><span class="lbl">Ground &amp; produce</span><span class="tag nb">NotebookLM</span><span class="rule"></span></div>
@@ -125,7 +141,7 @@ html,body{background:#2B2B37;font-family:var(--sans);color:var(--ink);}
       <div>
         <h3>Consolidate and ground</h3>
         <p>Load every source, paper, blog and draft into one notebook. Generate <b>study guides, summaries, quizzes</b> and an <b>audio overview</b> — each citing your own sources. Spot-check a few facts against their citations before you trust them.</p>
-        <div class="o">→ grounded study guides, summaries and quizzes · minimal hallucination</div>
+        <div class="o">Produces: grounded study guides, summaries and quizzes · minimal hallucination</div>
       </div>
     </div>
   </div>

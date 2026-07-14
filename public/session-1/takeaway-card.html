@@ -3,13 +3,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI for Educators — Session 1 · Takeaway Card</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --maroon:#FF5A36; --mink:#F4F4F8; --rust:#FF7A56; --gold:#FFC857;
   --agri:#3DDC84; --paper:#0E0E16; --paper2:#14141D;
   --line:#2B2B37; --lines:#24242F; --ink:#F4F4F8; --graph:#A2A2B0; --mid:#8A8A99;
-  --serif:"EB Garamond",Garamond,Georgia,serif; --sans:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+  --serif:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif; --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{background:#2B2B37;font-family:var(--sans);color:var(--ink);}
@@ -66,7 +65,24 @@ html,body{background:#2B2B37;font-family:var(--sans);color:var(--ink);}
   .page{margin:0;box-shadow:none;}
   @page{size:A4;margin:0;}
 }
-</style><style>:root{color-scheme:dark;}html,body{background:#0E0E16;}</style>
+</style><style>:root{color-scheme:dark;}html,body{background:#0E0E16;}
+/* ---- Screen: authored as an A4 sheet; on a display, use the room. ---- */
+@media screen{
+  .page,.doc{
+    width:min(1180px,94vw) !important;
+    max-width:none !important;
+    height:auto !important;
+    min-height:0 !important;
+    overflow:visible !important;
+    margin:30px auto 60px !important;
+    padding:34px 40px 38px !important;
+    border:1px solid #2B2B37;
+    border-radius:16px;
+    box-shadow:0 10px 44px rgba(0,0,0,.5) !important;
+  }
+  html,body{background:#05050A !important;}
+}
+</style>
 </head>
 <body>
 <div class="page">
