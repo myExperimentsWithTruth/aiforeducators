@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How the course was built — prompt by prompt</title>
+<style>
+:root{
+  --maroon:#FF5A36; --mink:#F4F4F8; --rust:#FF7A56; --gold:#FFC857; --agri:#3DDC84;
+  --paper:#0E0E16; --paper2:#14141D; --line:#2B2B37; --lines:#24242F;
+  --ink:#F4F4F8; --graph:#A2A2B0; --mid:#8A8A99;
+  --serif:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif; --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif; --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#24242F;font-family:var(--sans);color:var(--ink);line-height:1.6;}
+.doc{max-width:210mm;margin:8mm auto;background:#0E0E16;padding:15mm 16mm;box-shadow:0 4px 24px rgba(0,0,0,.2);}
+.head{border-bottom:2.5px solid var(--maroon);padding-bottom:5mm;margin-bottom:6mm;}
+.head .eb{font-size:10pt;letter-spacing:2.6px;text-transform:uppercase;color:var(--maroon);}
+.head h1{font-family:var(--serif);font-weight:600;font-size:28pt;color:var(--mink);line-height:1.05;margin:2mm 0 1.5mm;}
+.head .sub{font-size:10.5pt;color:var(--graph);}
+.head .sub b{color:var(--maroon);}
+
+.legend{display:flex;gap:5mm;margin-bottom:8mm;font-size:9pt;color:var(--mid);}
+.legend span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle;}
+.legend .pl::before{background:#08080E;} .legend .ol::before{background:var(--agri);}
+
+.stepblk{margin-bottom:9mm;padding-bottom:7mm;border-bottom:1px solid var(--line);}
+.stepblk:last-child{border-bottom:none;}
+.steptop{display:flex;align-items:baseline;gap:3mm;margin-bottom:3mm;}
+.steptop .num{font-family:var(--serif);font-size:22pt;color:var(--maroon);font-weight:600;line-height:.9;}
+.steptop h2{font-family:var(--serif);font-size:18pt;color:var(--mink);flex:1;}
+.steptop .tag{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;padding:1mm 2.4mm;border-radius:2px;color:#0E0E16;background:var(--agri);white-space:nowrap;}
+
+.lbl{font-size:8pt;letter-spacing:1.6px;text-transform:uppercase;font-weight:600;margin-bottom:1.5mm;display:flex;align-items:center;gap:2mm;}
+.lbl.p{color:var(--gold);} .lbl.o{color:var(--agri);}
+.pcard{font-family:var(--mono);font-size:9pt;line-height:1.55;background:#08080E;color:#EDE4D3;padding:4mm 4.5mm;border-radius:3px;white-space:pre-wrap;margin-bottom:5mm;}
+.pcard .k{color:#FFC857;font-weight:500;text-transform:uppercase;font-size:7.5pt;letter-spacing:1.2px;}
+.pcard .hi{color:#FFC857;}
+
+.ocard{border:1px solid var(--line);border-left:3px solid var(--agri);background:var(--paper2);padding:5mm 5.5mm;border-radius:3px;}
+.ocard .meta{font-size:9pt;color:var(--mid);font-style:italic;margin-bottom:3mm;padding-bottom:2.5mm;border-bottom:1px solid var(--lines);}
+.ocard h3{font-family:var(--serif);font-size:14pt;color:var(--maroon);margin:0 0 2mm;}
+.ocard h4{font-size:10.5pt;color:var(--mink);margin:3mm 0 1mm;}
+.ocard p{font-size:10pt;margin-bottom:2mm;color:var(--ink);}
+.ocard ol{margin:1mm 0 3mm 5mm;}
+.ocard .obj{list-style:none;margin:2mm 0 0;}
+.ocard .obj>li{margin-bottom:2.5mm;font-size:10.3pt;color:var(--mink);font-weight:600;}
+.ocard .obj .oc{display:block;font-weight:400;color:var(--graph);font-size:9.7pt;margin:1mm 0 0 5mm;padding-left:4mm;border-left:2px solid var(--lines);}
+.ocard .bl{font-family:var(--sans);font-size:8pt;color:var(--agri);font-weight:600;text-transform:uppercase;letter-spacing:.5px;}
+.ocard .note{font-size:9pt;color:var(--mid);margin-top:3mm;padding-top:2.5mm;border-top:1px solid var(--lines);}
+.ocard .note b{color:var(--maroon);}
+
+.foot{margin-top:8mm;border-top:1px solid var(--lines);padding-top:3mm;font-size:8.5pt;color:var(--mid);display:flex;justify-content:space-between;}
+@media print{ body{background:#0E0E16;} .doc{margin:0;box-shadow:none;max-width:none;padding:14mm;} @page{size:A4;margin:0;} }
+
+/* ---- Screen: authored as an A4 sheet; on a display, use the room. ---- */
+@media screen{
+  .page,.doc{
+    width:min(1180px,94vw) !important; max-width:none !important;
+    height:auto !important; min-height:0 !important; overflow:visible !important;
+    margin:30px auto 60px !important; padding:34px 40px 38px !important;
+    border:1px solid #2B2B37; border-radius:16px;
+    box-shadow:0 10px 44px rgba(0,0,0,.5) !important;
+  }
+  html,body{background:#05050A !important;}
+}
+</style>
+<style>
+.s3back{position:fixed;left:16px;top:14px;z-index:999;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#FF5A36;background:rgba(14,14,22,.92);border:1px solid #2B2B37;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.5);}
+.s3back:hover{border-color:#FF5A36;background:#1B1113;text-decoration:none;}
+@media print{.s3back{display:none;}}
+</style>
+</head>
+<body>
+<a class="s3back" href="../#/session-3">Back to Session 3</a>
+<div class="doc">
+  <div class="head">
+    <div class="eb">AI for Educators · Session 3 · Build log</div>
+    <h1>How the course was built — prompt by prompt</h1>
+    <div class="sub">The exact prompt at each step, and what it produced. This is the full process of building the <b>Introduction to Food Safety</b> course with <b>Gemini Pro</b> — before it is grounded in NotebookLM. Read it top to bottom to see a course take shape.</div>
+  </div>
+
+  <div class="legend"><span class="pl">Prompt — the input (built as Context · Role · Task · Format)</span><span class="ol">Output — what the model returned</span></div>
+
+  <!-- STEP 1 -->
+  <div class="stepblk">
+    <div class="steptop"><span class="num">1</span><h2>Write the course objectives</h2><span class="tag">Gemini Pro</span></div>
+
+    <div class="lbl p">▸ Prompt</div>
+    <div class="pcard"><span class="k">Context</span>  We are building an undergraduate elective, "Introduction to Food
+Safety", for second-year students at an Indian agricultural university — mixed
+backgrounds (agriculture, food technology, dairy, veterinary). Use how Cornell,
+UC Davis, Wageningen and Michigan State frame an intro food-safety course, and
+the UGC Learning-Outcomes-based Curriculum Framework (LOCF): course outcomes with
+Bloom's-level verbs.
+<span class="k">Role</span>  You are an instructional designer.
+<span class="k">Task</span>  Write 6–8 course objectives; under each, 1–2 measurable outcomes that are
+assessable in this course. Cover biological / chemical / physical hazards,
+hygiene &amp; HACCP, and the Indian regulatory context. State the prior knowledge
+you are assuming.
+<span class="k">Format</span>  Numbered objectives, indented outcomes with the Bloom's level in brackets.
+One page. List the universities and the framework you drew on at the end.
+<span class="hi">Do not invent citations — if unsure a source is real, say so.</span></div>
+
+    <div class="lbl o">▸ Output</div>
+    <div class="ocard">
+      <div class="meta">Gemini Pro · Introduction to Food Safety (2 credits, 2nd year). Prior knowledge assumed: first-year biology and chemistry; no prior food science required.</div>
+      <h3>Course objectives &amp; learning outcomes</h3>
+      <ul class="obj">
+        <li>1. Appreciate the scale and significance of food safety.
+          <span class="oc">Describe the global and Indian burden of foodborne illness and identify who is most at risk. <span class="bl">[Understand]</span></span></li>
+        <li>2. Distinguish the types of food hazard.
+          <span class="oc">Classify a given food risk as biological, chemical or physical, with an example. <span class="bl">[Analyse]</span></span>
+          <span class="oc">Explain the difference between a hazard and a risk. <span class="bl">[Understand]</span></span></li>
+        <li>3. Trace where contamination enters the food chain.
+          <span class="oc">Map the farm-to-fork chain for a chosen food and locate the main hazard points. <span class="bl">[Apply]</span></span></li>
+        <li>4. Apply hygiene and HACCP principles to a simple process.
+          <span class="oc">State the seven HACCP principles and identify a critical control point in a simple process. <span class="bl">[Apply]</span></span></li>
+        <li>5. Describe the regulatory framework for food safety.
+          <span class="oc">Explain the roles of Codex, FAO/WHO and FSSAI, and the basic obligations of a food business in India. <span class="bl">[Understand]</span></span></li>
+        <li>6. Evaluate a real food operation.
+          <span class="oc">Assess a real food operation and propose realistic, low-cost control measures. <span class="bl">[Evaluate]</span></span>
+          <span class="oc">Judge food-safety evidence critically, distinguishing a supported claim from an unsupported one. <span class="bl">[Evaluate]</span></span></li>
+      </ul>
+      <h4>Benchmarks drawn on</h4>
+      <p>Introductory food-safety and food-science courses at Cornell, UC Davis, Wageningen University &amp; Research, and Michigan State; the UGC Learning-Outcomes-based Curriculum Framework (LOCF) for outcome structure and Bloom's verbs.</p>
+      <div class="note"><b>Model's own caveat:</b> the university course framings above are named from general knowledge — confirm the specific syllabi before citing them. This is exactly the kind of claim we will verify in NotebookLM.</div>
+    </div>
+  </div>
+
+  <div class="foot"><span>AI for Educators — Session 3 · Build log · Step 1 of 8</span><span>Introduction to Food Safety · Gemini Pro, then NotebookLM</span></div>
+</div>
+</body></html>

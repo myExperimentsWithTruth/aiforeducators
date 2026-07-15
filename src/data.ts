@@ -4,6 +4,8 @@ export type Artefact = {
   blurb: string
   href: string
   cta: string
+  /** Set for links that leave the site, so they open in a new tab. */
+  external?: boolean
 }
 
 export type Session = {
@@ -60,9 +62,8 @@ export const SESSIONS: Session[] = [
     title: 'Grounded material with NotebookLM',
     tag: 'Your own readings in, cited and verifiable material out.',
     blurb:
-      'Turn your own readings and course PDFs into grounded, low-hallucination material.',
-    outcome:
-      'Study guides, summaries and quizzes from your own sources, cited and verifiable.',
+      'Turn your own readings and course PDFs into grounded, low-hallucination material: the prompting foundations and the course-building workflow.',
+    outcome: 'Prompts that build real teaching content from your sources.',
     covered: [
       'What grounding is, and why a prompt cannot replicate it.',
       'Two tools, two jobs: where a chat assistant ends and NotebookLM begins.',
@@ -98,6 +99,65 @@ export const SESSIONS: Session[] = [
   },
   {
     n: 3,
+    slug: 'session-3',
+    title: 'Grounded course-building with NotebookLM',
+    tag: 'From the prompts to a full course, grounded and cited.',
+    blurb:
+      'Run the prompts to build a full course from your sources, then ground and explore it in NotebookLM: study guides, quizzes, flashcards and audio, all cited.',
+    outcome: 'A complete course, grounded and verifiable.',
+    covered: [
+      'Running the eight prompts, and reading what each one gives back.',
+      'Loading the result into NotebookLM: Sources, Chat and Studio.',
+      'Generating study guides, quizzes, flashcards and audio from your own sources.',
+      'Checking a citation against its source before you trust the output.',
+    ],
+    artefacts: [
+      {
+        kind: 'Build log',
+        title: 'How the course was built',
+        blurb:
+          'All eight prompts, each shown with the output it produced. The whole course, prompt by prompt, with the working left in.',
+        href: `${BASE}session-3/build-log.html`,
+        cta: 'View the build log',
+      },
+      {
+        kind: 'Walkthrough',
+        title: 'The NotebookLM ecosystem',
+        blurb:
+          'What Sources, Chat and Studio each do, then the nine-step live scenario as it ran: from loading the pack to the audio overview.',
+        href: `${BASE}session-3/notebooklm-ecosystem.html`,
+        cta: 'View the walkthrough',
+      },
+      {
+        kind: 'Course pack',
+        title: 'Introduction to Food Safety',
+        blurb:
+          'The finished article: the complete course pack the prompts produced, and the material loaded into NotebookLM.',
+        href: `${BASE}session-3/course-pack.html`,
+        cta: 'View the course pack',
+      },
+      {
+        kind: 'Gemini chat',
+        title: 'The chat, in full',
+        blurb:
+          'The shared Gemini conversation behind the build: every prompt and every response, exactly as it happened.',
+        href: 'https://share.gemini.google/wZUBqJrERVIM',
+        cta: 'Open the Gemini chat',
+        external: true,
+      },
+      {
+        kind: 'Canvas',
+        title: 'The Gemini canvas',
+        blurb:
+          'The canvas the course was drafted on, shared as it stands. The working surface behind the finished pack.',
+        href: 'https://gemini.google.com/share/3e67edcce3f0?skid=908fb7d7-a590-4721-82bb-f220b979718f',
+        cta: 'Open the canvas',
+        external: true,
+      },
+    ],
+  },
+  {
+    n: 4,
     slug: null,
     title: 'Communication and reports',
     tag: 'Sharper writing and reporting, built to carry weight.',
@@ -106,7 +166,7 @@ export const SESSIONS: Session[] = [
     outcome: 'A top-notch reporting workflow you can reuse.',
   },
   {
-    n: 4,
+    n: 5,
     slug: null,
     title: 'Course materials and assessment',
     tag: 'Outlines, materials and assessment, grounded in your sources.',
@@ -115,7 +175,7 @@ export const SESSIONS: Session[] = [
     outcome: 'A course toolkit you can apply to your own paper.',
   },
   {
-    n: 5,
+    n: 6,
     slug: null,
     title: 'Responsible use and action planning',
     tag: 'Privacy, disclosure and accountability, turned into a plan.',

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 3 · The NotebookLM ecosystem — a live scenario</title>
+<style>
+:root{
+  --maroon:#FF5A36; --mink:#F4F4F8; --rust:#FF7A56; --gold:#FFC857; --agri:#3DDC84; --teal:#34E5FF;
+  --paper:#0E0E16; --paper2:#14141D; --line:#2B2B37; --lines:#24242F;
+  --ink:#F4F4F8; --graph:#A2A2B0; --mid:#8A8A99;
+  --serif:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif; --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif; --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#24242F;font-family:var(--sans);color:var(--ink);line-height:1.55;}
+.doc{max-width:205mm;margin:8mm auto;background:var(--paper);padding:15mm 16mm;box-shadow:0 4px 24px rgba(0,0,0,.22);}
+.head{border-bottom:2.5px solid var(--maroon);padding-bottom:5mm;margin-bottom:7mm;}
+.head .eb{font-size:10pt;letter-spacing:2.6px;text-transform:uppercase;color:var(--maroon);}
+.head h1{font-family:var(--serif);font-weight:600;font-size:28pt;color:var(--mink);line-height:1.04;margin:2mm 0 1.5mm;}
+.head .sub{font-size:10.5pt;color:var(--graph);}
+.head .sub b{color:var(--maroon);}
+
+.part{font-family:var(--serif);font-size:19pt;color:var(--maroon);margin:9mm 0 3mm;padding-bottom:1.5mm;border-bottom:1px solid var(--line);}
+.part .p{font-size:9pt;font-family:var(--sans);letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);display:block;margin-bottom:0.5mm;}
+p{font-size:10.5pt;color:var(--graph);margin-bottom:3mm;}
+p b{color:var(--maroon);}
+.big{background:var(--paper2);border-left:3px solid var(--maroon);padding:4mm 5mm;margin:3mm 0 5mm;font-size:11pt;color:var(--ink);}
+.big b{color:var(--maroon);}
+
+.panels{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5mm;margin:3mm 0 4mm;}
+.panel{border:1px solid var(--line);border-top:3px solid var(--maroon);background:var(--paper);padding:4mm;}
+.panel h3{font-family:var(--serif);font-size:14pt;color:var(--maroon);margin-bottom:1mm;}
+.panel .r{font-size:8pt;letter-spacing:1px;text-transform:uppercase;color:var(--mid);margin-bottom:2.5mm;}
+.panel p{font-size:9.3pt;margin-bottom:2mm;}
+.panel ul{list-style:none;font-size:9pt;}
+.panel li{padding:1mm 0 1mm 5mm;position:relative;color:var(--ink);}
+.panel li::before{content:"›";position:absolute;left:0;color:var(--maroon);font-weight:600;}
+@media(max-width:800px){.panels{grid-template-columns:1fr;}}
+
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:2mm 6mm;margin:3mm 0 4mm;}
+.tool{display:flex;gap:2.5mm;padding:1.6mm 0;border-bottom:1px solid var(--lines);}
+.tool .nm{font-weight:600;font-size:9.7pt;color:var(--mink);min-width:36mm;}
+.tool .ds{font-size:9.2pt;color:var(--graph);}
+.tool .pro{font-size:7pt;color:var(--rust);border:1px solid var(--rust);border-radius:2px;padding:0 1.4mm;margin-left:2mm;vertical-align:middle;}
+
+.step{margin-bottom:5mm;padding-bottom:4mm;border-bottom:1px solid var(--lines);page-break-inside:avoid;}
+.step .top{display:flex;align-items:baseline;gap:3mm;margin-bottom:1.5mm;}
+.step .num{font-family:var(--serif);font-size:17pt;color:var(--maroon);font-weight:600;line-height:1;}
+.step h4{font-size:12pt;color:var(--mink);flex:1;}
+.step .where{font-size:8pt;letter-spacing:1px;text-transform:uppercase;color:#0E0E16;background:var(--teal);border-radius:2px;padding:1mm 2.4mm;white-space:nowrap;}
+.ask{font-family:var(--mono);font-size:9pt;line-height:1.5;background:#08080E;color:#EDE4D3;padding:3mm 3.5mm;border-radius:2px;margin:1.5mm 0;}
+.ask .lb{color:#FFC857;font-size:7.5pt;letter-spacing:1.2px;text-transform:uppercase;display:block;margin-bottom:1mm;}
+.watch{font-size:9.5pt;color:var(--graph);padding-left:3mm;border-left:2px solid var(--gold);}
+.watch b{color:var(--maroon);}
+
+.foot{margin-top:8mm;border-top:1px solid var(--lines);padding-top:3mm;font-size:8.5pt;color:var(--mid);display:flex;justify-content:space-between;}
+@media print{ body{background:#0E0E16;} .doc{margin:0;box-shadow:none;max-width:none;padding:14mm;} @page{size:A4;margin:0;} }
+
+/* ---- Screen: authored as an A4 sheet; on a display, use the room. ---- */
+@media screen{
+  .page,.doc{
+    width:min(1180px,94vw) !important; max-width:none !important;
+    height:auto !important; min-height:0 !important; overflow:visible !important;
+    margin:30px auto 60px !important; padding:34px 40px 38px !important;
+    border:1px solid #2B2B37; border-radius:16px;
+    box-shadow:0 10px 44px rgba(0,0,0,.5) !important;
+  }
+  html,body{background:#05050A !important;}
+}
+</style>
+<style>
+.s3back{position:fixed;left:16px;top:14px;z-index:999;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:600;color:#FF5A36;background:rgba(14,14,22,.92);border:1px solid #2B2B37;border-radius:999px;padding:7px 15px;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.5);}
+.s3back:hover{border-color:#FF5A36;background:#1B1113;text-decoration:none;}
+@media print{.s3back{display:none;}}
+</style>
+</head>
+<body>
+<a class="s3back" href="../#/session-3">Back to Session 3</a>
+<div class="doc">
+  <div class="head">
+    <div class="eb">AI for Educators · Session 3 · The NotebookLM ecosystem</div>
+    <h1>Explore the course you just built — grounded, and cited</h1>
+    <div class="sub">Yesterday's run-sheet prompts produced the <b>Introduction to Food Safety course pack</b>. Today we load it into NotebookLM and explore it — and every answer, quiz and summary points back to a source. This is the scenario to run live on the shared screen.</div>
+  </div>
+
+  <div class="big"><b>The one idea.</b> A plain chatbot answers from everything it ever read and can invent a fact or a citation. <b>NotebookLM answers only from the sources you give it, and cites every sentence.</b> Same question, but now the answer is anchored to your material — that is grounding, and it is why hallucination drops to near zero.</div>
+
+  <div class="part"><span class="p">Part A</span>The ecosystem — three panels</div>
+  <p>NotebookLM is one screen with three parts. Everything flows left to right: your <b>sources</b> feed the <b>chat</b> and the <b>studio</b>, and nothing is generated that is not drawn from those sources.</p>
+  <div class="panels">
+    <div class="panel"><h3>Sources</h3><div class="r">Left — what it knows</div>
+      <p>The material you upload. The model is walled inside this set — it will not reach outside it.</p>
+      <ul><li>PDFs, Google Docs &amp; Slides</li><li>Copied text / Markdown</li><li>Web pages &amp; YouTube links</li><li>Audio files</li><li>Free tier: up to ~50 sources per notebook</li></ul>
+    </div>
+    <div class="panel"><h3>Chat</h3><div class="r">Centre — ask &amp; verify</div>
+      <p>Ask questions in plain language. Answers come back with <b>numbered citations</b> you click to jump to the exact passage in a source.</p>
+      <ul><li>Grounded Q&amp;A</li><li>Inline, clickable citations</li><li>Says so when the answer is not in the sources</li><li>Save any answer as a note</li></ul>
+    </div>
+    <div class="panel"><h3>Studio</h3><div class="r">Right — generate artifacts</div>
+      <p>One click turns the sources into teaching material — all cited. This is where study guides, quizzes and audio come from.</p>
+      <ul><li>Reports, Quiz, Flashcards</li><li>Mind Map</li><li>Audio &amp; Video Overview</li><li>Data Table (Pro)</li></ul>
+    </div>
+  </div>
+
+  <div class="part"><span class="p">Part B</span>What the Studio can make</div>
+  <div class="tools">
+    <div class="tool"><span class="nm">Reports</span><span class="ds">Study guides, briefing docs, FAQs, timelines — or a custom format you describe.</span></div>
+    <div class="tool"><span class="nm">Quiz</span><span class="ds">Multiple-choice and short-answer questions with cited answers; you can ask for a difficulty level.</span></div>
+    <div class="tool"><span class="nm">Flashcards</span><span class="ds">Question-and-answer cards on the key terms, each tracing to a passage.</span></div>
+    <div class="tool"><span class="nm">Mind Map</span><span class="ds">A visual tree of how the ideas connect — good for showing course structure.</span></div>
+    <div class="tool"><span class="nm">Audio Overview</span><span class="ds">A spoken, podcast-style summary of the sources — the crowd-pleaser.</span></div>
+    <div class="tool"><span class="nm">Video Overview</span><span class="ds">A narrated visual walkthrough of the material.</span></div>
+    <div class="tool"><span class="nm">Data Table <span class="pro">Pro</span></span><span class="ds">Extracts structured data into a table you can export to Sheets.</span></div>
+    <div class="tool"><span class="nm">Notes</span><span class="ds">Save answers and outputs; pin them as new sources to build on.</span></div>
+  </div>
+
+  <div class="part"><span class="p">Part C</span>The live scenario — explore the Food Safety pack</div>
+  <p>Run these steps on the shared screen; participants repeat each on their own notebook. The whole point: watch the answers stay inside the sources, and watch the <b>[source: …]</b> gaps in the draft get filled with real, cited facts.</p>
+
+  <div class="step"><div class="top"><span class="num">1</span><h4>Create the notebook and add the sources</h4><span class="where">Sources</span></div>
+    <p>New notebook, then name it <b>Introduction to Food Safety</b>. Upload the <b>course pack</b> (the 12-lecture document) and the <b>readings</b> from the pack — WHO, Codex, the MDPI reviews, the FSSAI manuals. Point out the source count on the left: this, and only this, is what it now knows.</p>
+  </div>
+
+  <div class="step"><div class="top"><span class="num">2</span><h4>Ask a grounded question — and click the citation</h4><span class="where">Chat</span></div>
+    <div class="ask"><span class="lb">Type into chat</span>What are the three families of food hazards, and give one example of each from the course?</div>
+    <div class="watch"><b>Show:</b> the answer comes back with little numbered citations. Click one — it jumps to the exact line in Lecture 3 or 6. That link is the difference between trust and guesswork.</div>
+  </div>
+
+  <div class="step"><div class="top"><span class="num">3</span><h4>Fill a [source: …] gap with a real, cited fact</h4><span class="where">Chat</span></div>
+    <p>The draft Lecture 1 says "hundreds of millions fall ill each year <b>[source: WHO fact sheet]</b>" — a placeholder we would not teach unverified. Now close it:</p>
+    <div class="ask"><span class="lb">Type into chat</span>According to the WHO fact sheet, roughly how many people fall ill from unsafe food each year, and how many die? Quote the figure and cite it.</div>
+    <div class="watch"><b>Do:</b> read back the cited number, click through to the WHO source to confirm, and replace the <b>[source: …]</b> marker in the lecture with the verified figure. This is the habit — the gap becomes a grounded fact.</div>
+  </div>
+
+  <div class="step"><div class="top"><span class="num">4</span><h4>Run the trap question</h4><span class="where">Chat</span></div>
+    <div class="ask"><span class="lb">Type into chat</span>What percentage of foodborne deaths in India are caused specifically by street food?</div>
+    <div class="watch"><b>Watch:</b> that figure is not in the sources, so it declines or says it cannot find it — instead of inventing a number. <b>That refusal is the whole value of grounding.</b> Contrast it with what a plain chatbot would confidently make up.</div>
+  </div>
+
+  <div class="step"><div class="top"><span class="num">5</span><h4>Generate a Study Guide and a Briefing doc</h4><span class="where">Studio, then Reports</span></div>
+    <p>Studio, then Reports, then <b>Study Guide</b> for the whole pack — it returns key terms, review questions and short answers, each cited. Then generate a <b>Briefing doc</b> you could hand a co-teacher. Point out: every claim carries a citation, so a student can always check it.</p>
+  </div>
+
+  <div class="step"><div class="top"><span class="num">6</span><h4>Generate a Quiz and Flashcards</h4><span class="where">Studio, then Quiz / Flashcards</span></div>
+    <p>Studio, then <b>Quiz</b> — ask for ten questions at an introductory level; every answer traces to a source passage. Then <b>Flashcards</b> on the key terms (hazard, risk, cross-contamination, adulterant, CCP, HACCP). Open one quiz answer's citation to prove it is grounded, not guessed.</p>
+  </div>
+
+  <div class="step"><div class="top"><span class="num">7</span><h4>Draw the Mind Map</h4><span class="where">Studio, then Mind Map</span></div>
+    <p>Studio, then <b>Mind Map</b> — it lays out the course as a tree: the scale of the problem, the three hazard types, hygiene and HACCP, and Indian regulation. A one-glance picture of how the twelve lectures hang together, built from your own pack.</p>
+  </div>
+
+  <div class="step"><div class="top"><span class="num">8</span><h4>Play the Audio Overview — the wow</h4><span class="where">Studio, then Audio Overview</span></div>
+    <p>Studio, then <b>Audio Overview</b> — generate a short spoken summary of the course and play thirty seconds live. Make the point: this is your material, spoken back, grounded — a revision aid a student can listen to on the bus.</p>
+  </div>
+
+  <div class="step" style="border-bottom:none;"><div class="top"><span class="num">9</span><h4>Close the loop</h4><span class="where">Habit</span></div>
+    <div class="watch"><b>Leave the room with this:</b> Gemini created the draft fast, but with [source: …] gaps; NotebookLM grounded it and gave you cited study guides, quizzes and audio you can hand a student. <b>Verify one citation before you trust any output</b> — and only ever load sources you are allowed to use.</div>
+  </div>
+
+  <div class="foot"><span>AI for Educators — Session 3 · The NotebookLM ecosystem</span><span>Explore the Introduction to Food Safety course pack</span></div>
+</div>
+</body></html>

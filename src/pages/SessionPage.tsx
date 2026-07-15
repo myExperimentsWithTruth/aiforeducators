@@ -82,6 +82,10 @@ export function SessionPage({ s }: { s: Session }) {
                   <Reveal key={a.href} delay={i * 0.09}>
                     <motion.a
                       href={a.href}
+                      /* External links leave the site, so they open in a new tab
+                         and get rel=noopener. Internal ones stay in place. */
+                      target={a.external ? '_blank' : undefined}
+                      rel={a.external ? 'noopener noreferrer' : undefined}
                       whileHover={{ y: -6 }}
                       transition={{ type: 'spring', stiffness: 300, damping: 22 }}
                       className="halo relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/4 p-7 backdrop-blur-xl transition hover:bg-white/8"
