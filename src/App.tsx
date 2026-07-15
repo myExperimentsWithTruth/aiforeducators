@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { Aurora, ScrollProgress } from './components/Primitives'
-import { LeftRail, Footer } from './components/Chrome'
+import { LeftRail, TopNav, Footer } from './components/Chrome'
 import { Home } from './pages/Home'
 import { SessionPage } from './pages/SessionPage'
 import { SESSIONS } from './data'
@@ -53,6 +53,7 @@ export default function App() {
 
       <Aurora />
       <ScrollProgress />
+      <TopNav current={session?.n} onNavigate={go} />
       <LeftRail current={session?.n} onNavigate={go} />
 
       <AnimatePresence mode="wait">

@@ -1,6 +1,76 @@
 import { motion } from 'motion/react'
 import { SESSIONS } from '../data'
 
+const HOME_SECTIONS = [
+  ['Overview', '#overview'],
+  ['Programme', '#programme'],
+  ['How it runs', '#approach'],
+  ['Who runs it', '#who'],
+] as const
+
+/**
+ * The top bar. Carries identity and the section anchors on the home page,
+ * and a way back plus the session name on a session page. The left rail
+ * handles session-to-session movement; this handles orientation.
+ */
+export function TopNav({ current, onNavigate }: RailProps) {
+  const session = SESSIONS.find((s) => s.n === current)
+
+  const go = (path: string) => (e: React.MouseEvent) => {
+    e.preventDefault()
+    onNavigate(path)
+  }
+
+  return (
+    <header className="sticky top-0 z-30 border-b border-white/8 bg-void/65 backdrop-blur-2xl backdrop-saturate-150">
+      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-5">
+        <div className="flex min-w-0 items-center gap-3">
+          <a
+            href="#/"
+            onClick={go('/')}
+            className="shrink-0 text-[15px] font-semibold tracking-tight text-mist transition hover:text-ember"
+          >
+            AI for Educators
+          </a>
+          {session && (
+            <>
+              <span aria-hidden className="text-muted/40">
+                /
+              </span>
+              <span className="truncate text-[14px] text-muted">
+                Session {session.n}
+                <span className="hidden sm:inline">: {session.title}</span>
+              </span>
+            </>
+          )}
+        </div>
+
+        <nav aria-label="Sections" className="flex items-center gap-1">
+          {session ? (
+            <a
+              href="#/"
+              onClick={go('/')}
+              className="rounded-full border border-white/12 bg-white/4 px-4 py-1.5 text-[13px] font-medium text-mist/80 transition hover:border-ember/60 hover:bg-ember/10 hover:text-mist"
+            >
+              Back<span className="hidden sm:inline">&nbsp;to the workshop</span>
+            </a>
+          ) : (
+            HOME_SECTIONS.map(([label, hash]) => (
+              <a
+                key={hash}
+                href={hash}
+                className="hidden rounded-full px-3 py-1.5 text-[13px] text-muted transition hover:bg-white/6 hover:text-mist md:block"
+              >
+                {label}
+              </a>
+            ))
+          )}
+        </nav>
+      </div>
+    </header>
+  )
+}
+
 type RailProps = {
   /** Session number currently being viewed; undefined on the home page. */
   current?: number

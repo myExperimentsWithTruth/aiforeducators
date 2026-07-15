@@ -86,6 +86,9 @@ body {
   inset: -1px;
   border-radius: inherit;
   padding: 1px;
+  /* Decorative only. Without this it covers the card and swallows every
+     click meant for the buttons inside it. */
+  pointer-events: none;
   background: conic-gradient(
     from var(--a, 0deg),
     transparent 0deg,

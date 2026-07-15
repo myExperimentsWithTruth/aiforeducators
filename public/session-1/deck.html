@@ -2,7 +2,6 @@
 <html lang="en"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI for Educators — Session 1</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ===========================================================
    GBPUAT "AI for Educators" — Day 1 deck stylesheet
@@ -12,19 +11,19 @@
    =========================================================== */
 
 :root {
-  --maroon:#79211C; --maroon-deep:#5A1714; --maroon-ink:#2A0E0C; --rust:#962901;
-  --gold:#C89B3C; --gold-soft:#E8CB86; --warm-cream:#E9DAC7;
-  --agri:#1B7A3D; --teal:#26CCCA; --link:#2C67A0;
-  --paper:#FFFFFF; --paper-2:#F6F6F4; --wash:#ECECEC;
-  --line:#D9D2C4; --line-soft:#E7E1D3;
-  --ink:#1B1B1A; --graphite:#333333; --mid:#7A7368;
-  --serif:"EB Garamond","Adobe Garamond Pro",Garamond,"Sabon",Georgia,serif;
-  --sans:"IBM Plex Sans","Public Sans","Segoe UI",Arial,sans-serif;
+  --maroon:#FF5A36; --maroon-deep:#5A1714; --maroon-ink:#F4F4F8; --rust:#FF7A56;
+  --gold:#FFC857; --gold-soft:#E8CB86; --warm-cream:#E9DAC7;
+  --agri:#3DDC84; --teal:#26CCCA; --link:#6BA8E8;
+  --paper:#0E0E16; --paper-2:#14141D; --wash:#1A1A24;
+  --line:#2B2B37; --line-soft:#24242F;
+  --ink:#F4F4F8; --graphite:#A2A2B0; --mid:#8A8A99;
+  --serif:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
 }
 
 * { box-sizing:border-box; margin:0; padding:0; }
 html { scroll-behavior:smooth; }
-body { background:#E9E3D7; font-family:var(--sans); color:var(--ink); padding:26px 0 40px; }
+body { background:#05050A; font-family:var(--sans); color:var(--ink); padding:26px 0 40px; }
 
 /* Frame: one slide in the flow, centred horizontally */
 .frame { display:flex; justify-content:center; padding:14px 2.5vmin; }
@@ -38,7 +37,7 @@ body { background:#E9E3D7; font-family:var(--sans); color:var(--ink); padding:26
   container-type:size;
   box-shadow:0 4px 18px rgba(42,14,12,0.13);
 }
-.slide.dark { background:linear-gradient(158deg, var(--maroon-deep), var(--maroon-ink)); color:var(--warm-cream); }
+.slide.dark { background:linear-gradient(158deg, #6E2116, #1C0806); color:var(--warm-cream); }
 .slide.hero { background:var(--paper-2); border-top:5px solid var(--maroon); }
 
 /* Padded content frame — identical on every slide */
@@ -212,7 +211,7 @@ ul.crtf li b { color:var(--maroon); font-weight:600; display:inline-block; min-w
 /* skill palette tile */
 .swrow { display:flex; gap:0.6cqw; }
 .sw { width:2.6cqw; height:2.6cqw; border-radius:50%; border:1px solid rgba(0,0,0,0.08); }
-.serifsample { font-family:var(--serif); font-size:2.4cqw; color:var(--maroon-ink); line-height:1; }
+.serifsample { font-family:"EB Garamond",Garamond,Georgia,serif; font-size:2.4cqw; color:var(--maroon-ink); line-height:1; }
 .serifsample span { font-size:1.1cqw; font-family:var(--sans); color:var(--mid); letter-spacing:0.08cqw; text-transform:uppercase; margin-left:0.6cqw; }
 .skilltag { font-family:var(--sans); font-size:1.15cqw; color:var(--maroon); letter-spacing:0.06cqw; }
 /* browser frame tile */
@@ -232,7 +231,7 @@ ul.crtf li b { color:var(--maroon); font-weight:600; display:inline-block; min-w
 .kchip { font-size:1cqw; letter-spacing:0.06cqw; text-transform:uppercase; color:var(--maroon); border:1px solid var(--maroon); border-radius:2px; padding:0.15cqh 0.6cqw; }
 
 /* proof banner */
-.proofbar { display:inline-flex; align-items:center; gap:0.9cqw; background:var(--maroon); color:#FDF6EC; font-family:var(--sans); font-weight:600; font-size:1.7cqw; letter-spacing:0.01cqw; padding:0.9cqh 1.8cqw; margin-bottom:1.4cqh; }
+.proofbar { display:inline-flex; align-items:center; gap:0.9cqw; background:var(--maroon); color:#1B1710; font-family:var(--sans); font-weight:600; font-size:1.7cqw; letter-spacing:0.01cqw; padding:0.9cqh 1.8cqw; margin-bottom:1.4cqh; }
 .proofbar::before { content:""; width:0.9cqw; height:0.9cqw; border-radius:50%; background:#5FCB7E; box-shadow:0 0 0 0.35cqw rgba(95,203,126,0.3); flex:none; }
 /* long-prompt dump panel */
 .promptdump { position:relative; background:var(--paper-2); border:1px solid var(--line); color:var(--graphite); font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace; font-size:0.92cqw; line-height:1.5; padding:1.4cqh 1.8cqw; height:44cqh; overflow:hidden; white-space:pre-wrap; }
@@ -284,11 +283,11 @@ ul.crtf li b { color:var(--maroon); font-weight:600; display:inline-block; min-w
 
 /* Back to the session page */
 .deckback { position:fixed; left:16px; top:14px; z-index:20; font-family:var(--sans); font-size:12px; font-weight:600; color:var(--maroon); background:rgba(255,255,255,0.92); border:1px solid var(--line); border-radius:999px; padding:7px 15px; text-decoration:none; transition:border-color .15s, background .15s; }
-.deckback:hover { border-color:var(--maroon); background:#fff; text-decoration:none; }
+.deckback:hover { border-color:var(--maroon); background:#0E0E16; text-decoration:none; }
 
 @media print {
   .deckback { display:none; }
-  html,body { background:#fff; }
+  html,body { background:#0E0E16; }
   .frame { height:auto; padding:0; display:block; page-break-after:always; }
   .slide { width:100%; box-shadow:none; }
   .counter { display:none; }
@@ -843,8 +842,8 @@ identity cues. Everything sits on white or light paper.
         <h3>GBPUAT branding</h3>
         <div class="viz">
           <div class="swrow">
-            <span class="sw" style="background:#79211C;"></span>
-            <span class="sw" style="background:#C89B3C;"></span>
+            <span class="sw" style="background:#FF5A36;"></span>
+            <span class="sw" style="background:#FFC857;"></span>
             <span class="sw" style="background:#E9DAC7;"></span>
             <span class="sw" style="background:#2A0E0C;"></span>
           </div>
