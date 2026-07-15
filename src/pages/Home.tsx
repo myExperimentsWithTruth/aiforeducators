@@ -2,6 +2,12 @@ import { motion, useReducedMotion } from 'motion/react'
 import { Reveal, ScrollFade, Magnetic } from '../components/Primitives'
 import { SESSIONS, PILLARS } from '../data'
 
+/** Spelled-out count, so the copy never contradicts the session list again. */
+const NUM = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+const count = SESSIONS.length
+const word = NUM[count] ?? String(count)
+const Word = word[0].toUpperCase() + word.slice(1)
+
 export function Home({ onNavigate }: { onNavigate: (p: string) => void }) {
   const still = useReducedMotion()
   return (
@@ -33,7 +39,7 @@ export function Home({ onNavigate }: { onNavigate: (p: string) => void }) {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="mt-6 max-w-[34ch] text-[clamp(1.1rem,2.2vw,1.6rem)] leading-snug tracking-tight text-muted"
           >
-            From basics to practice. Five hands-on sessions.
+            From basics to practice. {Word} hands-on sessions.
           </motion.p>
 
           <motion.div
@@ -42,7 +48,7 @@ export function Home({ onNavigate }: { onNavigate: (p: string) => void }) {
             transition={{ duration: 0.8, delay: 0.45 }}
             className="mt-9 flex flex-wrap justify-center gap-2.5"
           >
-            {['5 sessions', 'Every discipline', 'Fully hands-on', 'Tool-neutral'].map((c) => (
+            {[`${count} sessions`, 'Every discipline', 'Fully hands-on', 'Tool-neutral'].map((c) => (
               <span
                 key={c}
                 className="rounded-full border border-white/10 bg-white/4 px-4 py-2 text-[13px] text-mist/70 backdrop-blur-xl"
@@ -127,7 +133,7 @@ export function Home({ onNavigate }: { onNavigate: (p: string) => void }) {
           <Reveal>
             <p className="mb-3 text-[15px] font-semibold text-ember">The programme</p>
             <h2 className="max-w-[18ch] text-[clamp(1.9rem,4.2vw,3.2rem)] leading-[1.08] font-bold tracking-[-0.03em]">
-              Five sessions, five outcomes
+              {Word} sessions, {word} outcomes
             </h2>
           </Reveal>
 

@@ -1,6 +1,21 @@
 import { motion } from 'motion/react'
 import { Reveal, ScrollFade } from '../components/Primitives'
-import type { Session } from '../data'
+import type { Artefact, ArtefactGroup, Session } from '../data'
+
+/** Headings per shelf. Sessions without groups fall back to 'material'. */
+const GROUPS: Record<ArtefactGroup, { eyebrow: string; heading: string; lead: string }> = {
+  material: {
+    eyebrow: 'Session content',
+    heading: 'The material',
+    lead: 'Everything from the session, open in your browser. Each is a self-contained page, so you can save it and keep it.',
+  },
+  output: {
+    eyebrow: 'What the session produced',
+    heading: 'The outputs',
+    lead: 'The course itself, and the working behind it. These are the things the session made, rather than the material it was taught from.',
+  },
+}
+const ORDER: ArtefactGroup[] = ['material', 'output']
 
 export function SessionPage({ s }: { s: Session }) {
   return (
@@ -62,54 +77,63 @@ export function SessionPage({ s }: { s: Session }) {
           </section>
         )}
 
-        {/* ---------------- Artefacts ---------------- */}
-        {s.artefacts && (
-          <section className="scroll-mt-20 border-y border-white/8 bg-white/2 py-24">
-            <div className="mx-auto max-w-6xl px-5">
-              <Reveal>
-                <p className="mb-3 text-[15px] font-semibold text-ember">Session content</p>
-                <h2 className="max-w-[16ch] text-[clamp(1.8rem,3.8vw,2.9rem)] leading-[1.1] font-bold tracking-[-0.03em]">
-                  The material
-                </h2>
-                <p className="mt-4 max-w-[60ch] text-lg leading-relaxed text-muted">
-                  Everything from the session, open in your browser. Each is a self-contained page,
-                  so you can save it and keep it.
-                </p>
-              </Reveal>
+        {/* ---------------- Artefacts, one section per shelf ---------------- */}
+        {ORDER.map((g, gi) => {
+          const items = (s.artefacts ?? []).filter((a) => (a.group ?? 'material') === g)
+          if (!items.length) return null
+          const copy = GROUPS[g]
+          return (
+            <section
+              key={g}
+              className={`scroll-mt-20 py-24 ${
+                gi % 2 === 0 ? 'border-y border-white/8 bg-white/2' : 'border-b border-white/8'
+              }`}
+            >
+              <div className="mx-auto max-w-6xl px-5">
+                <Reveal>
+                  <p className="mb-3 text-[15px] font-semibold text-ember">{copy.eyebrow}</p>
+                  <h2 className="max-w-[16ch] text-[clamp(1.8rem,3.8vw,2.9rem)] leading-[1.1] font-bold tracking-[-0.03em]">
+                    {copy.heading}
+                  </h2>
+                  <p className="mt-4 max-w-[60ch] text-lg leading-relaxed text-muted">{copy.lead}</p>
+                </Reveal>
 
-              <div className="mt-11 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {s.artefacts.map((a, i) => (
-                  <Reveal key={a.href} delay={i * 0.09}>
-                    <motion.a
-                      href={a.href}
-                      /* External links leave the site, so they open in a new tab
-                         and get rel=noopener. Internal ones stay in place. */
-                      target={a.external ? '_blank' : undefined}
-                      rel={a.external ? 'noopener noreferrer' : undefined}
-                      whileHover={{ y: -6 }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 22 }}
-                      className="halo relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/4 p-7 backdrop-blur-xl transition hover:bg-white/8"
-                    >
-                      <span className="self-start rounded-full border border-ember/35 bg-ember/10 px-3 py-1 text-[11px] font-semibold tracking-wider text-ember uppercase">
-                        {a.kind}
-                      </span>
-                      <h3 className="mt-5 text-xl font-semibold tracking-tight">{a.title}</h3>
-                      <p className="mt-2.5 flex-1 text-[15px] leading-relaxed text-muted">
-                        {a.blurb}
-                      </p>
-                      <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ember">
-                        {a.cta}
-                        <span aria-hidden className="transition-transform group-hover:translate-x-1">
-                          &#8250;
+                <div className="mt-11 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {items.map((a: Artefact, i: number) => (
+                    <Reveal key={a.href} delay={i * 0.09}>
+                      <motion.a
+                        href={a.href}
+                        /* External links leave the site, so they open in a new tab
+                           and get rel=noopener. Internal ones stay in place. */
+                        target={a.external ? '_blank' : undefined}
+                        rel={a.external ? 'noopener noreferrer' : undefined}
+                        whileHover={{ y: -6 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+                        className="halo relative flex h-full flex-col rounded-2xl border border-white/10 bg-white/4 p-7 backdrop-blur-xl transition hover:bg-white/8"
+                      >
+                        <span className="flex items-center gap-2 self-start rounded-full border border-ember/35 bg-ember/10 px-3 py-1 text-[11px] font-semibold tracking-wider text-ember uppercase">
+                          {a.kind}
+                          {a.external && (
+                            <svg viewBox="0 0 12 12" aria-hidden className="h-2.5 w-2.5 fill-none stroke-current stroke-[1.6]">
+                              <path d="M4.5 1.5h6v6M10.5 1.5L5 7M8 9.5v1h-6.5V4h1" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          )}
                         </span>
-                      </span>
-                    </motion.a>
-                  </Reveal>
-                ))}
+                        <h3 className="mt-5 text-xl font-semibold tracking-tight">{a.title}</h3>
+                        <p className="mt-2.5 flex-1 text-[15px] leading-relaxed text-muted">
+                          {a.blurb}
+                        </p>
+                        <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-ember">
+                          {a.cta}
+                        </span>
+                      </motion.a>
+                    </Reveal>
+                  ))}
+                </div>
               </div>
-            </div>
-          </section>
-        )}
+            </section>
+          )
+        })}
 
         {/* ---------------- Note ---------------- */}
         <section className="mx-auto max-w-6xl px-5 py-24">

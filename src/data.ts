@@ -1,9 +1,17 @@
+/**
+ * Which shelf an artefact belongs on. 'material' is how the session ran and
+ * how the thing was made; 'output' is what came out of it. Sessions that set
+ * no group render as a single list, unchanged.
+ */
+export type ArtefactGroup = 'material' | 'output'
+
 export type Artefact = {
   kind: string
   title: string
   blurb: string
   href: string
   cta: string
+  group?: ArtefactGroup
   /** Set for links that leave the site, so they open in a new tab. */
   external?: boolean
 }
@@ -119,6 +127,7 @@ export const SESSIONS: Session[] = [
           'All eight prompts, each shown with the output it produced. The whole course, prompt by prompt, with the working left in.',
         href: `${BASE}session-3/build-log.html`,
         cta: 'View the build log',
+        group: 'material',
       },
       {
         kind: 'Walkthrough',
@@ -127,6 +136,7 @@ export const SESSIONS: Session[] = [
           'What Sources, Chat and Studio each do, then the nine-step live scenario as it ran: from loading the pack to the audio overview.',
         href: `${BASE}session-3/notebooklm-ecosystem.html`,
         cta: 'View the walkthrough',
+        group: 'material',
       },
       {
         kind: 'Course pack',
@@ -135,6 +145,7 @@ export const SESSIONS: Session[] = [
           'The finished article: the complete course pack the prompts produced, and the material loaded into NotebookLM.',
         href: `${BASE}session-3/course-pack.html`,
         cta: 'View the course pack',
+        group: 'output',
       },
       {
         kind: 'Gemini chat',
@@ -143,6 +154,7 @@ export const SESSIONS: Session[] = [
           'The shared Gemini conversation behind the build: every prompt and every response, exactly as it happened.',
         href: 'https://share.gemini.google/wZUBqJrERVIM',
         cta: 'Open the Gemini chat',
+        group: 'output',
         external: true,
       },
       {
@@ -152,6 +164,7 @@ export const SESSIONS: Session[] = [
           'The canvas the course was drafted on, shared as it stands. The working surface behind the finished pack.',
         href: 'https://gemini.google.com/share/3e67edcce3f0?skid=908fb7d7-a590-4721-82bb-f220b979718f',
         cta: 'Open the canvas',
+        group: 'output',
         external: true,
       },
     ],

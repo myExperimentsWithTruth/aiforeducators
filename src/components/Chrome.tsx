@@ -1,12 +1,110 @@
-import { motion } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react'
+import { useState, useRef, useEffect } from 'react'
 import { SESSIONS } from '../data'
 
-const HOME_SECTIONS = [
-  ['Overview', '#overview'],
-  ['Programme', '#programme'],
-  ['How it runs', '#approach'],
-  ['Who runs it', '#who'],
-] as const
+/**
+ * The Programme menu. Lists every session so you can jump straight to one from
+ * the top of any page, not only from the rail. Opens on hover and on keyboard
+ * focus; on touch, where there is no hover, tapping the trigger opens it.
+ */
+function ProgrammeMenu({
+  current,
+  onNavigate,
+}: {
+  current?: number
+  onNavigate: (path: string) => void
+}) {
+  const [open, setOpen] = useState(false)
+  const box = useRef<HTMLDivElement>(null)
+
+  // Click anywhere else closes it. Without this a tap-opened menu on touch
+  // has no way to dismiss.
+  useEffect(() => {
+    if (!open) return
+    const away = (e: MouseEvent) => {
+      if (box.current && !box.current.contains(e.target as Node)) setOpen(false)
+    }
+    const esc = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    document.addEventListener('mousedown', away)
+    document.addEventListener('keydown', esc)
+    return () => {
+      document.removeEventListener('mousedown', away)
+      document.removeEventListener('keydown', esc)
+    }
+  }, [open])
+
+  return (
+    <div
+      ref={box}
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-haspopup="true"
+        className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[13px] text-muted transition hover:bg-white/6 hover:text-mist"
+      >
+        Programme
+        <svg
+          viewBox="0 0 12 12"
+          aria-hidden
+          className={`h-2.5 w-2.5 fill-none stroke-current stroke-[1.8] transition-transform ${open ? 'rotate-180' : ''}`}
+        >
+          <path d="M2.5 4.5L6 8l3.5-3.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -8, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.97 }}
+            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute right-0 z-50 mt-2 w-80 rounded-2xl border border-white/10 bg-void-2/95 p-2 shadow-2xl backdrop-blur-2xl"
+          >
+            {SESSIONS.map((s) => {
+              const live = Boolean(s.slug)
+              const here = current === s.n
+              if (!live)
+                return (
+                  <span
+                    key={s.n}
+                    aria-disabled="true"
+                    className="flex cursor-default items-baseline gap-3 rounded-xl px-3 py-2.5 text-[13px] text-muted/50"
+                  >
+                    <span className="w-4 shrink-0 font-semibold tabular-nums">{s.n}</span>
+                    <span className="flex-1">{s.title}</span>
+                    <span className="shrink-0 text-[10px] tracking-wider uppercase">Not yet run</span>
+                  </span>
+                )
+              return (
+                <a
+                  key={s.n}
+                  href={`#/${s.slug}`}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setOpen(false)
+                    onNavigate(`/${s.slug}`)
+                  }}
+                  aria-current={here ? 'page' : undefined}
+                  className={`flex items-baseline gap-3 rounded-xl px-3 py-2.5 text-[13px] transition ${
+                    here ? 'bg-ember/15 text-ember' : 'text-mist hover:bg-white/6 hover:text-ember'
+                  }`}
+                >
+                  <span className="w-4 shrink-0 font-semibold tabular-nums text-ember">{s.n}</span>
+                  <span className="flex-1">{s.title}</span>
+                </a>
+              )
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
 
 /**
  * The top bar. Carries identity and the section anchors on the home page,
@@ -47,23 +145,40 @@ export function TopNav({ current, onNavigate }: RailProps) {
 
         <nav aria-label="Sections" className="flex items-center gap-1">
           {session ? (
-            <a
-              href="#/"
-              onClick={go('/')}
-              className="rounded-full border border-white/12 bg-white/4 px-4 py-1.5 text-[13px] font-medium text-mist/80 transition hover:border-ember/60 hover:bg-ember/10 hover:text-mist"
-            >
-              Back<span className="hidden sm:inline">&nbsp;to the workshop</span>
-            </a>
-          ) : (
-            HOME_SECTIONS.map(([label, hash]) => (
+            <>
+              {/* The Programme menu rides along on session pages too, so you can
+                  hop straight to another session without going home first. */}
+              <ProgrammeMenu current={current} onNavigate={onNavigate} />
               <a
-                key={hash}
-                href={hash}
+                href="#/"
+                onClick={go('/')}
+                className="ml-1 rounded-full border border-white/12 bg-white/4 px-4 py-1.5 text-[13px] font-medium text-mist/80 transition hover:border-ember/60 hover:bg-ember/10 hover:text-mist"
+              >
+                Back<span className="hidden sm:inline">&nbsp;to the workshop</span>
+              </a>
+            </>
+          ) : (
+            <>
+              <a
+                href="#overview"
                 className="hidden rounded-full px-3 py-1.5 text-[13px] text-muted transition hover:bg-white/6 hover:text-mist md:block"
               >
-                {label}
+                Overview
               </a>
-            ))
+              <ProgrammeMenu current={current} onNavigate={onNavigate} />
+              {[
+                ['How it runs', '#approach'],
+                ['Who runs it', '#who'],
+              ].map(([label, hash]) => (
+                <a
+                  key={hash}
+                  href={hash}
+                  className="hidden rounded-full px-3 py-1.5 text-[13px] text-muted transition hover:bg-white/6 hover:text-mist md:block"
+                >
+                  {label}
+                </a>
+              ))}
+            </>
           )}
         </nav>
       </div>
