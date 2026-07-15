@@ -1,8 +1,9 @@
-import { motion } from 'motion/react'
+import { motion, useReducedMotion } from 'motion/react'
 import { Reveal, ScrollFade, Magnetic } from '../components/Primitives'
 import { SESSIONS, PILLARS } from '../data'
 
 export function Home({ onNavigate }: { onNavigate: (p: string) => void }) {
+  const still = useReducedMotion()
   return (
     <>
       {/* ---------------- Hero ---------------- */}
@@ -51,19 +52,32 @@ export function Home({ onNavigate }: { onNavigate: (p: string) => void }) {
             ))}
           </motion.div>
 
+          {/* Scroll cue. It has to read as an invitation, so: a label people
+              can actually see, a real target, and a drawn chevron rather than
+              a text glyph. */}
           <motion.a
-            href="#programme"
+            href="#overview"
+            aria-label="Scroll to the overview"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
-            className="absolute bottom-8 text-xs tracking-widest text-muted/60 uppercase"
+            className="group absolute bottom-9 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5"
           >
-            <motion.span
-              animate={{ y: [0, 7, 0] }}
-              transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-              className="block"
-            >
+            <span className="text-[11px] font-medium tracking-[0.22em] text-mist/75 uppercase transition group-hover:text-ember">
               Scroll
+            </span>
+            <motion.span
+              animate={still ? undefined : { y: [0, 6, 0] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/6 backdrop-blur-xl transition group-hover:border-ember group-hover:bg-ember/15"
+            >
+              <svg
+                viewBox="0 0 16 16"
+                aria-hidden
+                className="h-4 w-4 fill-none stroke-mist stroke-[1.8] transition group-hover:stroke-ember"
+              >
+                <path d="M3.5 6.5L8 11l4.5-4.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </motion.span>
           </motion.a>
         </section>
