@@ -1,6 +1,13 @@
-import { motion, useReducedMotion, useScroll, useTransform, useSpring } from 'motion/react'
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionValue,
+} from 'motion/react'
 import type { ReactNode } from 'react'
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 
 /* ------------------------------------------------------------------
    Reveal — fades and lifts a block into view as it enters the
@@ -60,12 +67,49 @@ export function ScrollFade({ children }: { children: ReactNode }) {
    Aurora — the drifting colour field behind the whole page.
    Pure CSS animation; no per-frame JS.
    ------------------------------------------------------------------ */
-export function Aurora() {
+export function Aurora({ rich = false }: { rich?: boolean }) {
+  const still = useReducedMotion()
+
+  // A glow that follows the cursor. Springs smooth the raw pointer so it
+  // trails rather than snaps. Pointer events only; there is no hover on
+  // touch, and no per-frame work when the mouse is still.
+  const px = useMotionValue(0.5)
+  const py = useMotionValue(0.35)
+  const sx = useSpring(px, { stiffness: 50, damping: 20, mass: 0.6 })
+  const sy = useSpring(py, { stiffness: 50, damping: 20, mass: 0.6 })
+
+  useEffect(() => {
+    if (still || !rich) return
+    const move = (e: PointerEvent) => {
+      px.set(e.clientX / window.innerWidth)
+      py.set(e.clientY / window.innerHeight)
+    }
+    window.addEventListener('pointermove', move, { passive: true })
+    return () => window.removeEventListener('pointermove', move)
+  }, [still, rich, px, py])
+
+  const gx = useTransform(sx, (v) => `${v * 100}vw`)
+  const gy = useTransform(sy, (v) => `${v * 100}vh`)
+
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+
+      {/* Colour field */}
       <div className="aurora absolute -top-1/3 -left-1/4 h-[85vh] w-[85vw] rounded-full bg-ember/18 blur-[130px]" />
       <div className="aurora-slow absolute top-1/4 -right-1/4 h-[70vh] w-[70vw] rounded-full bg-violet/16 blur-[140px]" />
       <div className="aurora absolute -bottom-1/4 left-1/5 h-[60vh] w-[60vw] rounded-full bg-gold/10 blur-[150px]" />
+      {rich && (
+        <div className="aurora-b absolute top-[10%] left-[36%] h-[52vh] w-[44vw] rounded-full bg-cyan/10 blur-[110px]" />
+      )}
+
+      {/* Cursor glow. Translated, never repainted. */}
+      {rich && !still && (
+        <motion.div
+          style={{ left: gx, top: gy, x: '-50%', y: '-50%' }}
+          className="absolute h-[44vw] w-[44vw] rounded-full bg-ember/12 blur-[100px]"
+        />
+      )}
+
       {/* Faint grid, for the machined feel */}
       <div
         className="absolute inset-0 opacity-[0.05]"

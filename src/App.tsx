@@ -51,7 +51,7 @@ export default function App() {
         Skip to content
       </a>
 
-      <Aurora />
+      <Aurora rich={!session} />
       <ScrollProgress />
       <TopNav current={session?.n} onNavigate={go} />
       <LeftRail current={session?.n} onNavigate={go} />

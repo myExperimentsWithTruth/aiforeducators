@@ -40,7 +40,9 @@ body {
   border-radius: 6px;
 }
 
-/* ---- Aurora field: slow-drifting colour behind everything ---- */
+/* ---- Aurora field: slow-drifting colour behind everything ----
+   Each layer gets its own path and duration. Shared keyframes would
+   march in lockstep and read as one moving object rather than weather. */
 @keyframes drift {
   0%,
   100% {
@@ -53,12 +55,73 @@ body {
     transform: translate3d(-7%, 5%, 0) scale(0.95);
   }
 }
+@keyframes drift-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  25% {
+    transform: translate3d(-9%, 6%, 0) scale(0.9);
+  }
+  50% {
+    transform: translate3d(5%, 10%, 0) scale(1.2);
+  }
+  75% {
+    transform: translate3d(8%, -4%, 0) scale(1);
+  }
+}
+@keyframes drift-c {
+  0%,
+  100% {
+    transform: translate3d(-4%, 3%, 0) scale(0.95);
+  }
+  40% {
+    transform: translate3d(10%, 7%, 0) scale(1.25);
+  }
+  70% {
+    transform: translate3d(-6%, -9%, 0) scale(1.05);
+  }
+}
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .aurora {
   animation: drift 24s ease-in-out infinite;
   will-change: transform;
 }
 .aurora-slow {
   animation: drift 34s ease-in-out infinite reverse;
+  will-change: transform;
+}
+.aurora-b {
+  animation:
+    drift-b 29s ease-in-out infinite,
+    breathe 13s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+.aurora-c {
+  animation:
+    drift-c 41s ease-in-out infinite,
+    breathe 17s ease-in-out infinite reverse;
+  will-change: transform, opacity;
+}
+
+/* Slow conic sweep. Sits under the blobs and gives the field a direction,
+   so it reads as light moving rather than colour sitting still. */
+.sweep {
+  animation: turn 60s linear infinite;
   will-change: transform;
 }
 
@@ -142,6 +205,9 @@ body {
   }
   .aurora,
   .aurora-slow,
+  .aurora-b,
+  .aurora-c,
+  .sweep,
   .kinetic {
     animation: none !important;
   }
