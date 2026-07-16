@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking the agency’s language · Session 4 · AI for Educators</title>
+
+<style>
+:root{color-scheme:dark;
+  --void:#05050A; --panel:#0E0E16; --panel2:#14141D; --code:#08080E;
+  --ember:#FF5A36; --ember2:#FF7A56; --gold:#FFC857; --cyan:#34E5FF;
+  --mist:#F4F4F8; --muted:#A2A2B0; --line:#2B2B37; --line2:#24242F;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--void);color:var(--mist);font-family:var(--font);
+  font-size:16px;line-height:1.72;letter-spacing:-.006em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:0 0 80px;}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:5px;}
+.s4back{position:fixed;left:16px;top:14px;z-index:50;font-size:12px;font-weight:600;
+  color:var(--ember);background:rgba(14,14,22,.92);border:1px solid var(--line);
+  border-radius:999px;padding:7px 15px;text-decoration:none;backdrop-filter:blur(10px);
+  box-shadow:0 2px 12px rgba(0,0,0,.5);transition:border-color .2s,background .2s;}
+.s4back:hover{border-color:var(--ember);background:#1B1113;}
+.s4doc{max-width:min(900px,92vw);margin:64px auto 0;padding:44px clamp(20px,5vw,52px) 52px;
+  background:var(--panel);border:1px solid var(--line2);border-radius:20px;
+  box-shadow:0 16px 60px rgba(0,0,0,.5);}
+.s4doc>h1:first-child{margin-top:0;}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);font-weight:700;letter-spacing:-.03em;
+  line-height:1.08;margin:0 0 .5em;color:var(--mist);}
+h2{font-size:clamp(1.35rem,2.8vw,1.85rem);font-weight:700;letter-spacing:-.02em;
+  color:var(--ember);margin:2.4em 0 .6em;padding-top:1.2em;border-top:1px solid var(--line2);}
+h3{font-size:1.18rem;font-weight:600;letter-spacing:-.01em;color:var(--gold);margin:1.8em 0 .5em;}
+h4{font-size:1rem;font-weight:600;color:var(--mist);margin:1.4em 0 .4em;}
+p{margin:0 0 1.05em;}
+a{color:var(--ember);text-decoration:none;border-bottom:1px solid rgba(255,90,54,.35);}
+a:hover{border-bottom-color:var(--ember);}
+strong{color:var(--mist);font-weight:650;}
+em{color:var(--muted);}
+ul,ol{margin:0 0 1.1em;padding-left:1.4em;}
+li{margin:.3em 0;}
+li::marker{color:var(--ember);}
+hr{border:none;border-top:1px solid var(--line2);margin:2.4em 0;}
+/* Inline code */
+code{font-family:var(--mono);font-size:.86em;color:var(--gold);
+  background:rgba(255,200,87,.08);border:1px solid var(--line2);border-radius:5px;padding:.08em .4em;}
+/* Prompt blocks: the stars of this page */
+pre{position:relative;background:var(--code);border:1px solid var(--line);
+  border-left:3px solid var(--ember);border-radius:12px;
+  padding:20px 22px;margin:1.4em 0;overflow-x:auto;
+  font-family:var(--mono);font-size:13.5px;line-height:1.65;}
+pre code{background:none;border:none;color:#E8E8F0;padding:0;font-size:inherit;}
+pre::before{content:"PROMPT";position:absolute;top:10px;right:14px;
+  font-family:var(--font);font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  color:var(--ember);opacity:.75;}
+/* Blockquotes: what Gemini returns */
+blockquote{margin:1.4em 0;padding:4px 22px;background:rgba(255,255,255,.025);
+  border-left:3px solid var(--gold);border-radius:0 12px 12px 0;color:var(--mist);}
+blockquote p{margin:.7em 0;}
+blockquote h3,blockquote h4{color:var(--gold);}
+/* Tables: budgets and outcome indicators */
+.tablewrap{overflow-x:auto;margin:1.4em 0;border:1px solid var(--line2);border-radius:12px;}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px;}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line2);}
+th{background:rgba(255,90,54,.1);color:var(--ember);font-weight:600;
+  letter-spacing:.01em;border-bottom:1px solid var(--line);}
+td[align=right],th[align=right]{text-align:right;font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+@media print{
+  body{background:#fff;color:#111;padding:0;}
+  .s4back{display:none;}
+  .s4doc{max-width:none;margin:0;border:none;box-shadow:none;background:#fff;}
+  pre,blockquote,.tablewrap{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<a class="s4back" href="../#/session-4">Back to Session 4</a>
+<article class="s4doc">
+<h1 id="building-a-reusable-alignment-skill-nicra-as-the-worked-case">Building a Reusable Alignment Skill: NICRA as the Worked Case</h1>
+<p><em>Session 4 worked example. Tool demonstrated: Google Gemini (Gemini Pro). Running case: an Associate Professor, Department of Genetics and Plant Breeding, College of Agriculture, GBPUAT, developing climate-resilient, terminal-heat-tolerant wheat for the Tarai region of Uttarakhand, applying to ICAR through its NICRA initiative.</em></p>
+<hr />
+<h2 id="1-the-scenario">1. The scenario</h2>
+<p>The science is already settled. The faculty member is breeding wheat that holds its yield when the Tarai turns hot early and grain filling runs into terminal heat stress. What she wants is not a one-off rewrite of a single proposal. She wants a small, reusable instrument she can build once and apply to every proposal she writes for this agency thereafter. This example shows how to use Gemini to study one specific ICAR initiative in depth, distil it into a compact alignment skill, and then apply that skill to any research narrative in minutes. The discipline from Sessions 2 and 3 runs throughout: Gemini structures and rephrases, the faculty member supplies the substance and verifies every claim and every quoted phrase.</p>
+<hr />
+<h2 id="2-move-one-identify-the-objective">2. Move one: identify the objective</h2>
+<p>Stated plainly, in the faculty member's own words, before any agency framing:</p>
+<blockquote>
+<p>I want to breed wheat varieties for the Tarai region of Uttarakhand that keep their yield when temperatures rise sharply during the grain-filling stage. I will screen existing germplasm and new crosses for terminal heat tolerance, understand the traits behind it, and test the best lines in farmers' fields.</p>
+</blockquote>
+<p>That is the honest core. Everything that follows aligns this core to the agency without changing what the science actually does.</p>
+<hr />
+<h2 id="3-move-two-nicra-discovered-in-detail">3. Move two: NICRA discovered in detail</h2>
+<p>The agency is ICAR. The specific initiative chosen is NICRA, the National Innovations in Climate Resilient Agriculture. Studying one named initiative closely, rather than the agency in general, is what makes the alignment sharp. The following is drawn from NICRA's own public descriptions.</p>
+<p><strong>Origin and purpose.</strong> NICRA is a network project of ICAR, launched in February 2011 with funding from the Ministry of Agriculture. Its purpose is to enhance the resilience of Indian agriculture to climate change and climate variability through strategic research and technology demonstration.</p>
+<p><strong>Stated objectives (NICRA's own phrasing).</strong> NICRA sets out three objectives:</p>
+<ul>
+<li>To enhance the resilience of Indian agriculture covering crops, livestock and fisheries to climatic variability and climate change through development and application of improved production and risk management technologies.</li>
+<li>To demonstrate site-specific technology packages on farmers' fields for adapting to current climate risks.</li>
+<li>To enhance the capacity of scientists and other stakeholders in climate-resilient agricultural research and its application.</li>
+</ul>
+<p><strong>The four components.</strong> NICRA is organised into four components:</p>
+<ol type="1">
+<li><strong>Strategic Research</strong>, on adaptation and mitigation. Its thrust areas include identifying the most vulnerable districts and regions, evolving crop varieties and management practices for adaptation and mitigation, and assessing climate change impacts across crops, livestock, fisheries and poultry.</li>
+<li><strong>Technology Demonstration</strong>, on farmers' fields, to cope with current climate variability. This component is implemented in climatically vulnerable districts (reported in the range of roughly 100 to 150 districts, a figure that has grown over the programme's life and should be verified against the current source) through Krishi Vigyan Kendras (KVKs) in a participatory mode. Its stated aim is enhancing the adaptive capacity of farmers in these districts and ensuring security of livelihood in times of climatic aberrations.</li>
+<li><strong>Sponsored and Competitive Grants</strong>, to fill critical research gaps.</li>
+<li><strong>Capacity Building</strong>, of scientists and other stakeholders.</li>
+</ol>
+<p><strong>The vulnerable-district and on-farm angle.</strong> Technology demonstration is deliberately placed in the districts most exposed to climate risk, and delivered through KVKs in participatory mode with farmers. District Agricultural Contingency Plans have been prepared to recommend location-specific crops, varieties and management practices, linked to weather-based agro-advisories. The programme also works through Climate Resilient Villages as demonstration units.</p>
+<p><strong>The four field modules.</strong> On the ground, NICRA organises interventions into four modules: natural resource management, improving soil health, crop production, and livestock, all aimed at making farmers self-reliant. The natural resource management module, for instance, covers in-situ moisture conservation, mulching and raised-bed planting to reduce evapo-transpiration loss and improve soil health, alongside institutional interventions such as seed banks, fodder banks, custom hiring centres, collective marketing, weather-index-based insurance, and climate literacy through village-level weather stations.</p>
+<p><strong>The vocabulary that recurs.</strong> Across all of this, a consistent register appears: resilience, climate-resilient, climatic variability and climate change, adaptation and mitigation, vulnerable districts, adaptive capacity, site-specific technology packages, participatory mode, risk management, climatic aberrations, security of livelihood, and self-reliant. This vocabulary is the raw material for the alignment skill.</p>
+<hr />
+<h2 id="4-move-three-build-the-reusable-alignment-skill">4. Move three: build the reusable alignment skill</h2>
+<p>This is the centrepiece. The faculty member distils NICRA into a compact, reusable rubric using two Gemini passes: a first pass that extracts, and a second that tightens the extract into a clean instrument she keeps and reuses.</p>
+<h3 id="step-one-the-extraction-prompt-crtf">Step one: the extraction prompt (CRTF)</h3>
+<pre><code>CONTEXT:
+Below is the publicly stated description of ICAR&#39;s NICRA initiative
+(National Innovations in Climate Resilient Agriculture): its objectives,
+its four components, its vulnerable-district and on-farm demonstration
+model, its four field modules, and its recurring vocabulary.
+
+[paste the NICRA detail from Move two here, in full]
+
+ROLE:
+Act as a research grant analyst who studies funding initiatives and
+extracts what they reward.
+
+TASK:
+Read the NICRA description and extract a structured profile of what
+NICRA is looking for. Organise it under these headings: (a) priority
+themes, (b) preferred vocabulary and phrasing, (c) what NICRA rewards
+in a proposal, (d) what it treats as irrelevant or is indifferent to,
+(e) common ways proposals overstate fit, so I can avoid them. Use only
+what the pasted source supports. Do not invent priorities.
+
+FORMAT:
+Five labelled sections matching (a) to (e). Bullet points. British
+spellings. Plain prose, no promotional language.</code></pre>
+<h3 id="step-two-the-refining-prompt-crtf">Step two: the refining prompt (CRTF)</h3>
+<p>The first pass returns a useful but loose profile. The second pass compresses it into a paste-ready skill with transformation rules and an accountability device.</p>
+<pre><code>CONTEXT:
+Here is the NICRA profile you extracted in the previous step:
+
+[paste Gemini&#39;s first-pass output here]
+
+ROLE:
+Act as a prompt designer who writes compact, reusable rubrics.
+
+TASK:
+Tighten this profile into a single self-contained &quot;alignment skill&quot; that
+I can paste, unchanged, at the top of any future proposal-writing task
+for NICRA. It must be short enough to reuse easily. Add a set of
+transformation rules for converting a plain research narrative into
+NICRA-aligned language without inflating the science, and add a rule
+that every aligned claim must name the specific NICRA priority it
+connects to, so hollow buzzword-matching is visible. Keep only what the
+profile supports.
+
+FORMAT:
+A titled skill with these labelled sections: Priority themes; Preferred
+vocabulary; What NICRA rewards; What NICRA ignores or penalises;
+Transformation rules; Accountability check. British spellings. Plain
+prose.</code></pre>
+<h3 id="the-resulting-artefact-the-nicra-alignment-skill">The resulting artefact: the NICRA Alignment Skill</h3>
+<p>The faculty member saves the output below as a standalone note. It is the reusable instrument. Everything downstream simply feeds it back to Gemini.</p>
+<hr />
+<blockquote>
+<h3 id="nicra-alignment-skill-v1">NICRA Alignment Skill (v1)</h3>
+<p><em>A reusable rubric for aligning any research narrative to ICAR's NICRA initiative. Paste at the top of any NICRA proposal-writing task. Confirm quoted NICRA phrasing against the current source before each use.</em></p>
+<p><strong>Priority themes</strong></p>
+<ol type="1">
+<li>Resilience of agriculture to climate variability and climate change.</li>
+<li>Adaptation and mitigation, evolving crop varieties and management practices that cope with climate risk.</li>
+<li>Vulnerability targeting, work anchored to the districts and regions most exposed to climate stress.</li>
+<li>On-farm demonstration in participatory mode, technology proven on farmers' fields, often through KVKs.</li>
+<li>Security of livelihood and farmer self-reliance in the face of climatic aberrations.</li>
+<li>Capacity building of scientists, students and stakeholders in climate-resilient agriculture.</li>
+</ol>
+<p><strong>Preferred vocabulary</strong> Use, where the science genuinely supports it: climate-resilient; resilience; climatic variability and climate change; abiotic stress; adaptation and mitigation; vulnerable district or region; adaptive capacity; site-specific technology package; participatory, on-farm; risk management; climatic aberration; security of livelihood; self-reliant. Avoid generic praise words that carry no NICRA meaning.</p>
+<p><strong>What NICRA rewards</strong> A clear climate stressor named precisely. A location tied to vulnerability. A path from research output to a technology farmers can adopt. Participatory validation on real fields. A contribution to adaptation that others can build on, including capacity built in people.</p>
+<p><strong>What NICRA ignores or penalises</strong> Yield improvement stated with no link to a climate stressor reads as ordinary breeding, not NICRA. Laboratory results with no on-farm or adoption pathway sit outside NICRA's demonstration intent. Borrowed climate vocabulary with no matching method is treated as inflation and damages credibility. NICRA is indifferent to novelty for its own sake; it rewards resilience delivered.</p>
+<p><strong>Transformation rules</strong></p>
+<ol type="1">
+<li>Name the climate stressor explicitly. Convert "high temperature during grain filling" into "terminal heat stress under a warming climate".</li>
+<li>Anchor the location to vulnerability. Convert "the Tarai" into "the heat-vulnerable Tarai agro-climatic zone".</li>
+<li>Reframe the output as adaptation. Convert "better varieties" into "climate-resilient genotypes that strengthen the adaptive capacity of the wheat system".</li>
+<li>Add the adoption pathway. Convert "test in farmers' fields" into "participatory, on-farm demonstration of site-specific technology in vulnerable Tarai locations".</li>
+<li>Connect to livelihood. Convert "help farmers" into "secure the livelihood of wheat growers exposed to climatic aberrations".</li>
+<li>Never add a claim the method does not support. If a rule cannot be applied honestly, leave the plain wording in place.</li>
+</ol>
+<p><strong>Accountability check</strong> Against every aligned objective and outcome, add one line, "Aligns with: [named NICRA priority]". If no genuine priority can be named, the phrase is cosmetic and must be removed.</p>
+</blockquote>
+<hr />
+<h2 id="5-move-four-apply-the-skill-to-a-synthetic-story">5. Move four: apply the skill to a synthetic story</h2>
+<p>The instrument is now built. To show it working, take a fresh, deliberately unframed narrative and let the skill transform it.</p>
+<h3 id="the-synthetic-story-plain-no-agency-framing">The synthetic story (plain, no agency framing)</h3>
+<blockquote>
+<p>Wheat is the main winter crop for farmers across the Tarai belt of Uttarakhand. In recent years, many growers have noticed that the cool part of the season is getting shorter. When February and March turn warm too quickly, the crop does not get enough time to fill its grain, and yields drop. Farmers who sow late are hit hardest, because their crop meets the heat at exactly the wrong stage.</p>
+<p>Our department has been collecting wheat lines that seem to cope better with this early heat. Some come from our own older crosses, and some from material we have gathered over the years. We plan to screen these lines carefully, measure how they behave when the temperature climbs during grain filling, and work out which traits let the better ones hold their yield. Once we know which lines perform, we want to grow them out on a few farmers' fields in the district to see how they do in real conditions.</p>
+<p>If this works, farmers in the region would have wheat that is less likely to fail in a warm year, and we would understand more about what makes wheat tolerant to heat at that stage. We could then share seed of the best lines and keep improving them.</p>
+</blockquote>
+<h3 id="the-application-prompt-crtf">The application prompt (CRTF)</h3>
+<pre><code>CONTEXT:
+Below is my NICRA Alignment Skill, followed by a plain research story
+with no agency framing.
+
+[paste the NICRA Alignment Skill from Move three]
+
+[paste the synthetic story above]
+
+ROLE:
+Act as an experienced agricultural grant writer applying the skill.
+
+TASK:
+Rewrite the story so it aligns with NICRA&#39;s objectives and vocabulary,
+following the skill&#39;s transformation rules exactly. Keep every claim
+faithful to the story; add nothing the story does not support. Apply the
+skill&#39;s accountability check to each aligned objective and outcome.
+
+FORMAT:
+A short aligned narrative, then an &quot;Objectives&quot; list and an &quot;Expected
+outcomes&quot; list, each numbered, with an &quot;Aligns with:&quot; line under each
+item. British spellings. Plain professional prose.</code></pre>
+<h3 id="the-aligned-version-gemini-output-applying-the-skill">The aligned version (Gemini output, applying the skill)</h3>
+<blockquote>
+<p>Wheat is the principal rabi crop of the Tarai agro-climatic zone of Uttarakhand, a belt increasingly exposed to climatic variability. A shortening of the cool season, with February and March warming rapidly, subjects the crop to terminal heat stress during grain filling and depresses yield, with late-sown crops among the most vulnerable. This project addresses that climate risk directly, through the genetic improvement of the regional wheat system for resilience.</p>
+<p><strong>Objectives</strong></p>
+<ol type="1">
+<li>To identify and characterise sources of terminal heat tolerance in indigenous and locally adapted wheat germplasm, and to elucidate the traits underlying resilience to heat stress during grain filling. <em>Aligns with: strategic research on evolving crop varieties for adaptation.</em></li>
+<li>To develop climate-resilient wheat genotypes that maintain stable yield under terminal heat stress, strengthening the adaptive capacity of the wheat production system in the heat-vulnerable Tarai zone. <em>Aligns with: resilience of agriculture to climate change; vulnerability targeting.</em></li>
+<li>To validate superior genotypes through participatory, on-farm demonstration in vulnerable Tarai locations, and to build climate-resilience capacity among participating growers. <em>Aligns with: on-farm technology demonstration in participatory mode; capacity building.</em></li>
+</ol>
+<p><strong>Expected outcomes</strong></p>
+<ol type="1">
+<li>Characterised sources and traits of terminal heat tolerance, adding to the public knowledge base for climate-resilient wheat breeding. <em>Aligns with: adaptation research others can build on.</em></li>
+<li>Two to three (illustrative) climate-resilient wheat genotypes with stable grain yield under terminal heat stress, suited to the Tarai. <em>Aligns with: evolving crop varieties for adaptation and mitigation.</em></li>
+<li>Farmer-validated seed of superior genotypes, demonstrated on fields in vulnerable Tarai locations, contributing to the security of livelihood of wheat growers facing climatic aberrations. <em>Aligns with: security of livelihood; participatory on-farm demonstration.</em></li>
+</ol>
+</blockquote>
+<p>Read the plain story and the aligned version together. The facts are identical. The skill has named the stressor, anchored the vulnerability, reframed the output as adaptation, and surfaced the on-farm pathway that NICRA rewards. It added nothing the story did not already contain.</p>
+<hr />
+<h2 id="6-demo-talking-points">6. Demo talking points</h2>
+<ul>
+<li>Show the two Gemini passes in Move three side by side. The first extracts, the second compresses. Make the point that the faculty member is not writing a proposal here; she is manufacturing a tool. That shift, from writing prose to building an instrument, is the mental move worth teaching.</li>
+<li>Hold up the alignment skill as a self-contained artefact. It fits on one screen, it names what the agency rewards and what it ignores, and it carries its own honesty rule. This is what a reusable prompt-skill looks like.</li>
+<li>Read the synthetic story aloud, then the aligned version, and ask the room to spot anything in the aligned text that is not already in the plain story. There is nothing. Alignment revealed the fit; it did not invent it.</li>
+<li>Point to the "Aligns with" line under each objective. This is the accountability rail carried inside the skill. Any phrase that cannot name a real NICRA priority is cosmetic and gets struck on the spot.</li>
+<li>The one moment that lands the idea: the skill was built once, and Move four applied it in a single prompt. Say it plainly. Build the alignment skill for an agency once, and every future proposal for that agency aligns in minutes rather than hours. When she turns to DST-SERB, DBT or NABARD under RKVY next year, she repeats Moves two and three once for that agency and keeps the skill for good.</li>
+</ul>
+<hr />
+<h2 id="7-the-verification-note">7. The verification note</h2>
+<p>The skill accelerates alignment; it does not excuse the science from delivering. Every genuine gain here depends on three checks the faculty member must perform herself, because Gemini cannot.</p>
+<p>First, alignment must be genuine. The skill deliberately separates NICRA's rewarded themes from what it ignores, and it flags borrowed climate vocabulary with no matching method as inflation. If an aligned objective claims to strengthen adaptive capacity or secure livelihoods, the work plan must contain the on-farm, participatory activity that earns the claim. Where it does not, the phrase comes out. The "Aligns with" line exists precisely so that hollow matching cannot hide.</p>
+<p>Second, the reframed language must be honoured by results. Reviewers on ICAR and NICRA panels read these proposals for a living and recognise agency words resting on unchanged science. Terminal heat tolerance stated as an objective must be backed by the screening, the trait characterisation and the field validation that produce it. Echoing NICRA's language without matching substance is the fastest way to lose credibility, and it is a risk the reviewer, not the applicant, gets to judge.</p>
+<p>Third, every quoted NICRA phrase must be confirmed against the current source before use. NICRA is a live programme. Its component names, its module structure, and above all its figures, the count of vulnerable districts, contingency plans and Climate Resilient Villages, have changed over the programme's life and are marked here as reported and illustrative. Any specific number or named component that enters a real proposal must be checked against ICAR's current NICRA documentation on the day of writing. Gemini structures and rephrases; the faculty member owns the facts, and re-verifies the skill itself whenever the initiative it was built from is updated.</p>
+<p><em>Sources for NICRA detail: <a href="https://icarzcu3.gov.in/projects/nicra.html" target="_blank" rel="noopener noreferrer">National Innovation on Climate Resilient Agriculture, ICAR</a>; <a href="https://en.wikipedia.org/wiki/National_Initiative_on_Climate_Resilient_Agriculture" target="_blank" rel="noopener noreferrer">NICRA, Wikipedia</a>; <a href="https://atari-hyderabad.icar.gov.in/atarihyderabad/nicra?lang=en" target="_blank" rel="noopener noreferrer">NICRA, ATARI Hyderabad, ICAR</a>; <a href="https://icar.org.in/en/vision-documents" target="_blank" rel="noopener noreferrer">ICAR Vision Documents</a>. Confirm all NICRA phrasing and figures against the current ICAR source before the session, as the programme is periodically updated.</em></p>
+
+</article>
+</body></html>

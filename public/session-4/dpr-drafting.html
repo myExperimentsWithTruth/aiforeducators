@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drafting the DPR · Session 4 · AI for Educators</title>
+
+<style>
+:root{color-scheme:dark;
+  --void:#05050A; --panel:#0E0E16; --panel2:#14141D; --code:#08080E;
+  --ember:#FF5A36; --ember2:#FF7A56; --gold:#FFC857; --cyan:#34E5FF;
+  --mist:#F4F4F8; --muted:#A2A2B0; --line:#2B2B37; --line2:#24242F;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--void);color:var(--mist);font-family:var(--font);
+  font-size:16px;line-height:1.72;letter-spacing:-.006em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:0 0 80px;}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:5px;}
+.s4back{position:fixed;left:16px;top:14px;z-index:50;font-size:12px;font-weight:600;
+  color:var(--ember);background:rgba(14,14,22,.92);border:1px solid var(--line);
+  border-radius:999px;padding:7px 15px;text-decoration:none;backdrop-filter:blur(10px);
+  box-shadow:0 2px 12px rgba(0,0,0,.5);transition:border-color .2s,background .2s;}
+.s4back:hover{border-color:var(--ember);background:#1B1113;}
+.s4doc{max-width:min(900px,92vw);margin:64px auto 0;padding:44px clamp(20px,5vw,52px) 52px;
+  background:var(--panel);border:1px solid var(--line2);border-radius:20px;
+  box-shadow:0 16px 60px rgba(0,0,0,.5);}
+.s4doc>h1:first-child{margin-top:0;}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);font-weight:700;letter-spacing:-.03em;
+  line-height:1.08;margin:0 0 .5em;color:var(--mist);}
+h2{font-size:clamp(1.35rem,2.8vw,1.85rem);font-weight:700;letter-spacing:-.02em;
+  color:var(--ember);margin:2.4em 0 .6em;padding-top:1.2em;border-top:1px solid var(--line2);}
+h3{font-size:1.18rem;font-weight:600;letter-spacing:-.01em;color:var(--gold);margin:1.8em 0 .5em;}
+h4{font-size:1rem;font-weight:600;color:var(--mist);margin:1.4em 0 .4em;}
+p{margin:0 0 1.05em;}
+a{color:var(--ember);text-decoration:none;border-bottom:1px solid rgba(255,90,54,.35);}
+a:hover{border-bottom-color:var(--ember);}
+strong{color:var(--mist);font-weight:650;}
+em{color:var(--muted);}
+ul,ol{margin:0 0 1.1em;padding-left:1.4em;}
+li{margin:.3em 0;}
+li::marker{color:var(--ember);}
+hr{border:none;border-top:1px solid var(--line2);margin:2.4em 0;}
+/* Inline code */
+code{font-family:var(--mono);font-size:.86em;color:var(--gold);
+  background:rgba(255,200,87,.08);border:1px solid var(--line2);border-radius:5px;padding:.08em .4em;}
+/* Prompt blocks: the stars of this page */
+pre{position:relative;background:var(--code);border:1px solid var(--line);
+  border-left:3px solid var(--ember);border-radius:12px;
+  padding:20px 22px;margin:1.4em 0;overflow-x:auto;
+  font-family:var(--mono);font-size:13.5px;line-height:1.65;}
+pre code{background:none;border:none;color:#E8E8F0;padding:0;font-size:inherit;}
+pre::before{content:"PROMPT";position:absolute;top:10px;right:14px;
+  font-family:var(--font);font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  color:var(--ember);opacity:.75;}
+/* Blockquotes: what Gemini returns */
+blockquote{margin:1.4em 0;padding:4px 22px;background:rgba(255,255,255,.025);
+  border-left:3px solid var(--gold);border-radius:0 12px 12px 0;color:var(--mist);}
+blockquote p{margin:.7em 0;}
+blockquote h3,blockquote h4{color:var(--gold);}
+/* Tables: budgets and outcome indicators */
+.tablewrap{overflow-x:auto;margin:1.4em 0;border:1px solid var(--line2);border-radius:12px;}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px;}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line2);}
+th{background:rgba(255,90,54,.1);color:var(--ember);font-weight:600;
+  letter-spacing:.01em;border-bottom:1px solid var(--line);}
+td[align=right],th[align=right]{text-align:right;font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+@media print{
+  body{background:#fff;color:#111;padding:0;}
+  .s4back{display:none;}
+  .s4doc{max-width:none;margin:0;border:none;box-shadow:none;background:#fff;}
+  pre,blockquote,.tablewrap{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<a class="s4back" href="../#/session-4">Back to Session 4</a>
+<article class="s4doc">
+<h1 id="session-4-worked-example-building-a-detailed-project-report-with-gemini-pro">Session 4, Worked Example: Building a Detailed Project Report with Gemini Pro</h1>
+<p><strong>Running case.</strong> An Associate Professor in the Department of Genetics and Plant Breeding, College of Agriculture, GBPUAT, is preparing a Detailed Project Report (DPR) for an ICAR extramural research call on climate-resilient, terminal-heat-tolerant wheat for the Tarai region of Uttarakhand. The same workflow adapts, with minor changes to the proforma, to a DST-SERB core research grant, a DBT proposal, or a NABARD or RKVY project.</p>
+<p><em>All names, figures, sample sizes, budget amounts and timelines below are illustrative and fictitious. They exist to show the shape of a finished DPR, not to prescribe real numbers. Every figure carries the professor's own judgement in the real submission.</em></p>
+<hr />
+<h2 id="1-the-scenario">1. The scenario</h2>
+<p>The professor has three weeks to the ICAR submission deadline and a scattered pile of raw material: field notebook jottings from two late-sown wheat seasons, a folder of downloaded papers, and a two-page concept note that a reviewer returned last year as promising but unstructured. The science is clear in the professor's head; what is missing is a well-organised DPR that moves cleanly from objectives to methodology to budget to outcomes, in the sequence and register a review committee expects. The task for the session is to use Gemini Pro to turn the mess into a fundable draft, section by section, with the professor supplying and checking every substantive fact.</p>
+<hr />
+<h2 id="2-the-raw-notes">2. The raw notes</h2>
+<p>These are the actual notes, reproduced as they were scribbled. They are deliberately scrappy, because that is where everyone genuinely starts.</p>
+<pre><code>- heat is the real problem now. late sown wheat in tarai getting hammered in March,
+  temps 34-36 during grain fill, shrivelled grain, low TGW
+- rice-wheat rotation = late sowing baked in, cant fix rotation so fix the wheat
+- assemble germplasm: our UP lines (2338, 2382, 2526, 2903?), DBW187, HD2967,
+  CIMMYT heat lines, some NBPGR accessions, few landraces from hills?
+- PBW343 as susceptible check. tolerant check?? maybe WH1105 / Raj3765 / DBW252
+- SCREEN: two sowing dates - normal (early nov) vs late (late dec/jan) to force
+  terminal heat. compare
+- traits: canopy temp (need the IR thermometer), SPAD chlorophyll, NDVI greenseeker,
+  membrane stability (electrolyte leakage), stay green, days to heading/anthesis/maturity,
+  grain fill duration, TGW, grains per spike, yield
+- indices - HSI (fischer maurer), STI, GMP. pick donors
+- crosses: donors x our adapted high yield lines. line x tester? partial diallel?
+  advance pedigree under late sown selection. how far can we get in 3 yrs - F4/F5 maybe
+- molecular - markers for heat tol, SSR/SNP, known QTL 2B 3B 7B stay green grain fill.
+  MAS for a subset if budget allows
+- TRIALS: pantnagar borlaug centre main + 2 more tarai sites. kashipur? haldi KVK?
+  alpha lattice, 3 reps, 2 dates
+- analysis: anova, GxE ammi + gge biplot, heritability, gen advance, correlation/path
+- need 2 fellows (JRF), IR thermometer, SPAD meter, greenseeker, seed counter,
+  maybe deep freezer, molecular consumables $$$
+- 3 yr project. rabi 26-27, 27-28, 28-29
+- outcome: tolerant donor lines + pre-breeding material with yield advantage under heat,
+  validated markers, nominate to AICRP eventually
+- reviewer last time: &quot;objectives not measurable, methodology thin, budget not justified&quot;
+- ICAR ceiling this call ~ 50 lakh?? check</code></pre>
+<hr />
+<h2 id="3-the-build-section-by-section">3. The build, section by section</h2>
+<p>The four core sections are built in sequence because each one feeds the next: objectives set the scope, methodology delivers the objectives, the budget costs the methodology, and outcomes state what the whole produces. Gemini is given the raw notes and, at each step, the sections already drafted, so the DPR stays internally consistent.</p>
+<h3 id="31-objectives">3.1 Objectives</h3>
+<p><strong>Gemini prompt</strong></p>
+<pre><code>CONTEXT: I am an Associate Professor of Genetics and Plant Breeding at GBPUAT,
+Pantnagar, preparing an ICAR extramural research DPR. My research develops
+terminal-heat-tolerant wheat for the late-sown Tarai region, where the rice-wheat
+rotation forces late planting and grain filling meets 34 to 36 degrees Celsius in
+March. My raw working notes are pasted below.
+
+ROLE: Act as an experienced ICAR project reviewer and wheat breeder who knows what
+a funding committee expects from a well-framed objectives section.
+
+TASK: From my notes, draft 3 to 4 project objectives. Each must be specific and
+measurable, must name the trait or output and a rough target and timeframe, and must
+be answerable by the methodology. Avoid vague verbs such as &quot;study&quot; or &quot;understand&quot;.
+The reviewer last time said my objectives were not measurable, so fix that.
+
+FORMAT: A numbered list of objectives. One or two sentences each. Formal Indian
+academic English, British spellings, no dashes as connectors.
+
+NOTES:
+[paste the raw notes]</code></pre>
+<p><strong>Drafted output</strong></p>
+<p><strong>Objectives</strong></p>
+<ol type="1">
+<li>To assemble and characterise a panel of approximately 200 wheat genotypes, comprising released Tarai varieties, CIMMYT heat-tolerant lines, NBPGR accessions and local landraces, for terminal heat tolerance under timely-sown and late-sown conditions at Pantnagar, and to identify eight to twelve superior donor lines using physiological and yield-based tolerance indices within the first twelve months.</li>
+<li>To generate heat-tolerant segregating populations by hybridising the identified donors with adapted, high-yielding Tarai varieties, and to advance these populations to the F4 or F5 generation under deliberate late-sown terminal heat stress selection over the project period.</li>
+<li>To identify and validate molecular markers associated with terminal heat tolerance, drawn from candidate genomic regions on chromosomes 2B, 3B and 7B, for subsequent use in marker-assisted selection.</li>
+<li>To evaluate the resulting advanced lines in multi-location Tarai trials and to identify five to eight climate-resilient, terminal-heat-tolerant pre-breeding lines demonstrating a measurable grain-yield advantage of eight to twelve per cent over the susceptible check under late-sown conditions (all targets illustrative).</li>
+</ol>
+<p><em>What the prompt fixed: the reviewer's complaint. Every objective now carries a number, a target and a horizon, and each one is delivered by a specific part of the methodology that follows.</em></p>
+<h3 id="32-methodology">3.2 Methodology</h3>
+<p><strong>Gemini prompt</strong></p>
+<pre><code>CONTEXT: Same DPR as before. The objectives are now drafted and pasted below, along
+with my raw methodology notes. This section must convince a plant-breeding review
+committee that the design is sound and will deliver the four objectives.
+
+ROLE: Act as a senior wheat breeder and biometrician writing the technical programme
+of an ICAR DPR.
+
+TASK: Draft a detailed methodology that a plant breeder would recognise as rigorous.
+Organise it under clear sub-headings: germplasm assembly, screening and stress
+imposition, phenotyping traits and tolerance indices, the crossing and selection
+programme, the molecular work, trial design and locations, and data analysis. Name
+the actual traits, indices, designs and analyses from my notes and add the standard
+ones I have missed. Keep it to the science; do not invent budget or results. Where a
+specific number is genuinely my call to make, mark it clearly for me to confirm.
+
+FORMAT: Prose under sub-headings, several paragraphs. Formal Indian academic English,
+British spellings, no arrow glyphs, no dashes as connectors.
+
+OBJECTIVES:
+[paste the drafted objectives]
+
+NOTES:
+[paste the raw notes]</code></pre>
+<p><strong>Drafted output</strong></p>
+<p><strong>Methodology</strong></p>
+<p><strong>Germplasm assembly.</strong> A working panel of approximately 200 bread wheat (<em>Triticum aestivum</em> L.) genotypes will be assembled to capture the widest available variation for terminal heat tolerance adapted to the Tarai. The panel will include released varieties of the region such as UP2338, UP2382, UP2526 and UP2903, along with DBW187 and HD2967; heat-tolerant introductions from the CIMMYT programme; selected accessions from the ICAR-National Bureau of Plant Genetic Resources; and a small set of hill and Tarai landraces to sample locally adapted variation. PBW343 will serve as the heat-susceptible check and a recognised tolerant genotype, such as WH1105 or Raj3765, as the tolerant check (checks to be finalised by the investigator against current AICRP recommendations). All entries will be purified and multiplied for one season before evaluation.</p>
+<p><strong>Screening and stress imposition.</strong> Terminal heat stress will be imposed through date-of-sowing manipulation, the standard and agronomically realistic approach for the Tarai, where rice and sugarcane harvest already pushes wheat to late planting. Each genotype will be grown under two environments in the same season: a timely-sown control planted in the first fortnight of November, and a late-sown treatment planted in the last week of December to the first week of January, so that anthesis and grain filling coincide with the rising March temperatures that routinely cross 34 degrees Celsius at Pantnagar. In the first year the full panel will be evaluated in an augmented design, with repeated checks across blocks to adjust for field variation across the large entry number. Promising entries carried forward will subsequently be tested in replicated designs described below.</p>
+<p><strong>Phenotyping traits and tolerance indices.</strong> Observations will span phenology, physiology and yield. Phenological traits will include days to heading, days to anthesis, days to physiological maturity and grain-filling duration. Physiological traits, recorded at anthesis and during grain filling, will include canopy temperature depression measured with a hand-held infrared thermometer, leaf chlorophyll content by SPAD meter, the normalised difference vegetation index by a hand-held GreenSeeker, cell membrane thermostability by the electrolyte leakage method, chlorophyll fluorescence as the Fv/Fm ratio, and a visual stay-green score during senescence. Yield and its components will cover grains per spike, thousand-grain weight, biomass, harvest index and grain yield per plot. Terminal heat tolerance will be quantified for each genotype using the heat susceptibility index of Fischer and Maurer, the stress tolerance index, geometric mean productivity and a yield stability index, computed from paired timely-sown and late-sown performance. Genotypes combining low heat susceptibility with high productivity under stress will be selected as donors.</p>
+<p><strong>Crossing and selection programme.</strong> Eight to twelve donor lines identified from screening will be crossed with three to four adapted, high-yielding Tarai varieties in a line-by-tester mating design, giving a manageable set of thirty to forty crosses (exact number subject to donor confirmation). The F1 generation will be raised and true hybridity confirmed. From the F2 generation onward, populations will be advanced by pedigree selection conducted entirely under the late-sown terminal-heat environment, so that selection pressure matches the target stress. Selection will prioritise canopy temperature depression, extended grain-filling duration, retained thousand-grain weight and grain yield under stress. Given a three-year horizon, populations are expected to reach the F4 or F5 generation, yielding heat-tolerant segregants and pre-breeding lines for subsequent station and coordinated testing.</p>
+<p><strong>Molecular work.</strong> Genomic DNA will be extracted from the panel by the CTAB method. The panel will be genotyped with SSR and SNP or KASP markers linked to reported terminal-heat-tolerance and stay-green regions on chromosomes 2B, 3B and 7B. Marker-trait associations will be examined against the phenotypic and index data to identify and validate markers robust in Tarai germplasm. Validated markers will support foreground marker-assisted selection in a subset of the crossing programme, subject to budget.</p>
+<p><strong>Trial design and locations.</strong> Advanced and fixed lines will be evaluated in multi-location trials across the Tarai to test adaptation and stability. The principal site will be the Norman E. Borlaug Crop Research Centre at Pantnagar, supported by two further Tarai locations, illustratively Kashipur in Udham Singh Nagar and a Krishi Vigyan Kendra site such as Haldi (sites to be confirmed with collaborators). Trials will follow an alpha-lattice design with three replications at each location, again grown under both timely-sown and late-sown dates, across the rabi seasons of 2026-27, 2027-28 and 2028-29.</p>
+<p><strong>Data analysis.</strong> Augmented-design data will be analysed by the appropriate adjusted analysis of variance, and replicated trials by lattice analysis. Genotype-by-environment interaction and stability will be assessed by the AMMI model and the GGE biplot across locations, sowing dates and seasons. Genetic parameters, namely heritability and expected genetic advance, together with correlation and path-coefficient analysis among traits, will guide selection. Analyses will use R with standard plant-breeding packages, supported by PBTools or an equivalent.</p>
+<p><em>What the prompt did: it took eight scrappy lines and produced a technical programme with named traits, a real mating design, a stress-imposition logic and a stated analysis path, while flagging the handful of choices, checks, sites and cross numbers, that remain the investigator's to fix.</em></p>
+<h3 id="33-budget">3.3 Budget</h3>
+<p><strong>Gemini prompt</strong></p>
+<pre><code>CONTEXT: Same DPR. The methodology is drafted and pasted below. I now need a costed
+budget for a three-year ICAR project that matches this methodology.
+
+ROLE: Act as a research administrator experienced with ICAR extramural project
+budgets.
+
+TASK: Build a year-wise budget table for three years using the standard Indian
+agricultural research budget heads: manpower (two research fellows, JRF upgrading to
+SRF), consumables, equipment (non-recurring), field and trial costs, travel,
+contingency, and institutional overheads. Cost only what the methodology needs: two
+sowing dates, multi-location trials, physiological instruments and molecular work.
+Show each year and a grand total. Apply institutional overheads on the standard base,
+excluding equipment and travel. Insert realistic illustrative figures in rupees and
+label every figure illustrative; do not leave any cell blank.
+
+FORMAT: A Markdown table with heads as rows and Year 1, Year 2, Year 3 and Total as
+columns, followed by a two-line justification per head. Indian formatting of amounts.
+
+METHODOLOGY:
+[paste the drafted methodology]</code></pre>
+<p><strong>Drafted output</strong></p>
+<p><strong>Budget (all figures illustrative, in Indian rupees)</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Budget head</th>
+<th style="text-align: right;">Year 1</th>
+<th style="text-align: right;">Year 2</th>
+<th style="text-align: right;">Year 3</th>
+<th style="text-align: right;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manpower (2 fellows; JRF in Years 1 to 2, SRF in Year 3)</td>
+<td style="text-align: right;">7,44,000</td>
+<td style="text-align: right;">7,44,000</td>
+<td style="text-align: right;">8,40,000</td>
+<td style="text-align: right;">22,68,000</td>
+</tr>
+<tr>
+<td>Consumables (seed, fertiliser, chemicals, molecular kits, primers)</td>
+<td style="text-align: right;">3,00,000</td>
+<td style="text-align: right;">3,50,000</td>
+<td style="text-align: right;">3,00,000</td>
+<td style="text-align: right;">9,50,000</td>
+</tr>
+<tr>
+<td>Equipment, non-recurring (IR thermometer, SPAD meter, GreenSeeker, seed counter, deep freezer)</td>
+<td style="text-align: right;">8,00,000</td>
+<td style="text-align: right;">1,00,000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9,00,000</td>
+</tr>
+<tr>
+<td>Field and trial costs (land preparation, labour, irrigation, harvesting across sites and two dates)</td>
+<td style="text-align: right;">1,50,000</td>
+<td style="text-align: right;">2,00,000</td>
+<td style="text-align: right;">2,00,000</td>
+<td style="text-align: right;">5,50,000</td>
+</tr>
+<tr>
+<td>Travel (multi-location trial visits, germplasm and data collection)</td>
+<td style="text-align: right;">1,00,000</td>
+<td style="text-align: right;">1,00,000</td>
+<td style="text-align: right;">1,00,000</td>
+<td style="text-align: right;">3,00,000</td>
+</tr>
+<tr>
+<td>Contingency</td>
+<td style="text-align: right;">1,00,000</td>
+<td style="text-align: right;">1,00,000</td>
+<td style="text-align: right;">1,00,000</td>
+<td style="text-align: right;">3,00,000</td>
+</tr>
+<tr>
+<td><strong>Sub-total</strong></td>
+<td style="text-align: right;"><strong>21,94,000</strong></td>
+<td style="text-align: right;"><strong>15,94,000</strong></td>
+<td style="text-align: right;"><strong>15,40,000</strong></td>
+<td style="text-align: right;"><strong>53,28,000</strong></td>
+</tr>
+<tr>
+<td>Institutional overheads (on base excluding equipment and travel)</td>
+<td style="text-align: right;">1,30,000</td>
+<td style="text-align: right;">1,40,000</td>
+<td style="text-align: right;">1,45,000</td>
+<td style="text-align: right;">4,15,000</td>
+</tr>
+<tr>
+<td><strong>Grand total</strong></td>
+<td style="text-align: right;"><strong>23,24,000</strong></td>
+<td style="text-align: right;"><strong>17,34,000</strong></td>
+<td style="text-align: right;"><strong>16,85,000</strong></td>
+<td style="text-align: right;"><strong>57,43,000</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Head-wise justification (illustrative).</strong></p>
+<ul>
+<li><strong>Manpower:</strong> Two research fellows drive screening, phenotyping and molecular work. Both begin as JRF and one or both upgrade to SRF in Year 3 as per ICAR fellowship norms.</li>
+<li><strong>Consumables:</strong> Peaks in Year 2 when molecular genotyping of the panel is concentrated; covers seed, fertiliser, agrochemicals and DNA and PCR reagents.</li>
+<li><strong>Equipment:</strong> Front-loaded in Year 1 to equip physiological phenotyping; the small Year 2 provision covers a supplementary instrument.</li>
+<li><strong>Field and trial costs:</strong> Rise from Year 2 as trials expand from single-site screening to three Tarai locations under two sowing dates.</li>
+<li><strong>Travel:</strong> Steady across years for trial monitoring and germplasm and data collection across the Tarai.</li>
+<li><strong>Contingency:</strong> Held constant for unforeseen field and laboratory costs.</li>
+<li><strong>Institutional overheads:</strong> Applied at the standard rate on the eligible base, which excludes equipment and travel per ICAR norms.</li>
+</ul>
+<h3 id="34-outcomes-and-deliverables">3.4 Outcomes and deliverables</h3>
+<p><strong>Gemini prompt</strong></p>
+<pre><code>CONTEXT: Same DPR. Objectives, methodology and budget are drafted (pasted below). I
+need the expected outcomes and deliverables section, and a short milestone timeline.
+
+ROLE: Act as an ICAR reviewer who wants outcomes stated as measurable indicators,
+not aspirations.
+
+TASK: Convert the objectives and methodology into expected outcomes expressed as
+measurable indicators, each with a target and the year by which it is expected. Then
+list the concrete deliverables. Then give a compact year-wise milestone timeline that
+matches the methodology and budget. Mark all targets illustrative.
+
+FORMAT: Three parts under sub-headings: measurable outcomes as a table (indicator,
+target, year), a bulleted deliverables list, and a milestone timeline as a short
+table. Formal Indian academic English, British spellings, no dashes as connectors.
+
+OBJECTIVES, METHODOLOGY AND BUDGET:
+[paste the three drafted sections]</code></pre>
+<p><strong>Drafted output</strong></p>
+<p><strong>Expected outcomes (measurable indicators, all targets illustrative)</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Outcome indicator</th>
+<th>Target</th>
+<th>Expected by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Germplasm panel characterised for terminal heat tolerance</td>
+<td>Approx. 200 genotypes phenotyped across two sowing dates</td>
+<td>End of Year 1</td>
+</tr>
+<tr>
+<td>Validated donor lines identified</td>
+<td>8 to 12 donors selected on HSI, STI and GMP</td>
+<td>End of Year 1</td>
+</tr>
+<tr>
+<td>Crosses made and populations advanced</td>
+<td>30 to 40 crosses; populations advanced to F4 or F5</td>
+<td>Years 2 to 3</td>
+</tr>
+<tr>
+<td>Molecular markers validated for MAS</td>
+<td>2 to 3 markers validated in Tarai germplasm</td>
+<td>End of Year 2</td>
+</tr>
+<tr>
+<td>Superior heat-tolerant pre-breeding lines identified</td>
+<td>5 to 8 lines with 8 to 12 per cent yield advantage over the susceptible check under late sowing</td>
+<td>End of Year 3</td>
+</tr>
+<tr>
+<td>Research capacity built</td>
+<td>2 fellows trained; 2 to 3 research publications</td>
+<td>End of Year 3</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Deliverables.</strong></p>
+<ul>
+<li>A characterised germplasm panel and a documented set of validated terminal-heat-tolerance donors for the Tarai.</li>
+<li>Segregating populations and five to eight advanced, heat-tolerant pre-breeding lines available for further station and coordinated testing.</li>
+<li>A validated set of markers and a marker-assisted selection protocol for terminal heat tolerance.</li>
+<li>One to two promising lines nominated to the relevant AICRP coordinated trial for wider evaluation.</li>
+<li>Two to three peer-reviewed publications and two trained research fellows.</li>
+</ul>
+<p><strong>Milestone timeline (illustrative)</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Period</th>
+<th>Milestones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Year 1 (rabi 2026-27)</td>
+<td>Assemble and multiply germplasm; first two-date screening at Pantnagar; phenotyping and indices; select donors; initiate crosses.</td>
+</tr>
+<tr>
+<td>Year 2 (rabi 2027-28)</td>
+<td>Advance F1 to F2 and F2 to F3 under late sowing; molecular genotyping of the panel; begin multi-location advanced trials; validate markers.</td>
+</tr>
+<tr>
+<td>Year 3 (rabi 2028-29)</td>
+<td>Advance to F4 or F5; complete multi-location and multi-season evaluation; identify superior lines; nominate to coordinated trials; publish.</td>
+</tr>
+</tbody>
+</table></div>
+<hr />
+<h2 id="4-the-iterative-refinement">4. The iterative refinement</h2>
+<p>Drafting is not one-shot. The professor checks the ICAR call and confirms the ceiling: this scheme funds up to Rs 50,00,000, but the drafted budget stands at Rs 57,43,000 (illustrative), roughly Rs 7.4 lakh over. Rather than re-costing by hand, the professor asks Gemini to bring the budget under the ceiling while protecting the science, then checks every trimmed line.</p>
+<p><strong>Follow-up prompt</strong></p>
+<pre><code>CONTEXT: My drafted three-year budget (pasted below) totals Rs 57,43,000, but the
+ICAR call ceiling is Rs 50,00,000. I must bring it under the ceiling without weakening
+the methodology.
+
+ROLE: Continue as the ICAR budget administrator.
+
+TASK: Revise the budget to fall under Rs 50,00,000. Protect the two fellowships and
+the core screening and trial work in full, because they deliver the objectives. Find
+the savings in equipment first (assume some instruments can be shared from central and
+departmental facilities), then trim consumables, travel and contingency modestly. Keep
+all heads present. Show a compact before-and-after comparison by head and state the
+new grand total. Keep every figure illustrative.
+
+FORMAT: A comparison table (head, before, after) plus a two-line note on what changed.
+
+BUDGET:
+[paste the drafted budget table]</code></pre>
+<p><strong>Before and after (illustrative)</strong></p>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Budget head</th>
+<th style="text-align: right;">Before</th>
+<th style="text-align: right;">After</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manpower</td>
+<td style="text-align: right;">22,68,000</td>
+<td style="text-align: right;">22,68,000</td>
+</tr>
+<tr>
+<td>Consumables</td>
+<td style="text-align: right;">9,50,000</td>
+<td style="text-align: right;">8,00,000</td>
+</tr>
+<tr>
+<td>Equipment (non-recurring)</td>
+<td style="text-align: right;">9,00,000</td>
+<td style="text-align: right;">6,00,000</td>
+</tr>
+<tr>
+<td>Field and trial costs</td>
+<td style="text-align: right;">5,50,000</td>
+<td style="text-align: right;">5,00,000</td>
+</tr>
+<tr>
+<td>Travel</td>
+<td style="text-align: right;">3,00,000</td>
+<td style="text-align: right;">2,40,000</td>
+</tr>
+<tr>
+<td>Contingency</td>
+<td style="text-align: right;">3,00,000</td>
+<td style="text-align: right;">2,40,000</td>
+</tr>
+<tr>
+<td>Sub-total</td>
+<td style="text-align: right;">53,28,000</td>
+<td style="text-align: right;">46,48,000</td>
+</tr>
+<tr>
+<td>Institutional overheads</td>
+<td style="text-align: right;">4,15,000</td>
+<td style="text-align: right;">3,43,000</td>
+</tr>
+<tr>
+<td><strong>Grand total</strong></td>
+<td style="text-align: right;"><strong>57,43,000</strong></td>
+<td style="text-align: right;"><strong>49,91,000</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>What changed and why.</strong> The two fellowships and the core screening and trial costs are untouched, since they deliver the objectives directly. The saving comes chiefly from equipment, on the assumption that the deep freezer and one physiological instrument are drawn from the department's central instrumentation facility rather than purchased, with modest trims to consumables, travel and contingency. The grand total now falls to Rs 49,91,000, inside the Rs 50,00,000 ceiling. The professor must confirm that the shared instruments are genuinely available before relying on this saving.</p>
+<hr />
+<h2 id="5-demo-talking-points">5. Demo talking points</h2>
+<ul>
+<li><strong>Show the raw notes first, then the objectives, side by side.</strong> The audience sees eight scrappy fragments become four numbered, measurable objectives. That contrast is the fastest way to make the value land.</li>
+<li><strong>Point to the running thread.</strong> Objectives feed methodology, methodology is costed in the budget, and outcomes restate the objectives as measurable targets. Because each prompt was given the previous sections, the DPR hangs together. This is the moment that lands the idea: Gemini is not writing four disconnected passages, it is building one coherent document where every section answers to the one before it.</li>
+<li><strong>Read the role line in each prompt aloud.</strong> Asking Gemini to act as an ICAR reviewer, a wheat breeder, a biometrician or a budget administrator is what shifts the output from generic to committee-ready. This is the CRTF pattern from Session 1 doing real work.</li>
+<li><strong>Run the refinement live.</strong> Change the ceiling from Rs 50 lakh, ask Gemini to fit the budget, and show the before and after in one pass. It demonstrates that a DPR is drafted iteratively, and that the tool absorbs a constraint in seconds that would take an evening by hand.</li>
+<li><strong>Flag the placeholders on screen.</strong> Every "to be confirmed" and every "illustrative" figure is deliberate. The tool marks exactly where the expert must step in, which is the bridge to the verification note.</li>
+</ul>
+<hr />
+<h2 id="6-the-verification-note">6. The verification note</h2>
+<p>Gemini has structured and phrased this DPR. It has not supplied the science, and it must not be trusted to. The discipline from Sessions 2 and 3 carries through in full: the AI drafts and organises, the expert supplies and verifies the substance.</p>
+<p>Concretely, before this DPR is submitted, the professor must own and check every one of the following. The budget figures and the overhead rate must match the current ICAR call and institutional norms; they are illustrative here and nowhere near submission-ready. The sample sizes, the panel composition, the choice of checks, the number of crosses and the mating design are breeding decisions that only the investigator can fix. The methodological specifics, stress timing, trait list, indices, trial sites and analysis, must reflect what is actually feasible on the Pantnagar farm and at the collaborating locations. The timelines and generation advance must be realistic for the Tarai cropping calendar. Every figure in this document is illustrative and every placeholder marked "to be confirmed" is a genuine gap for the expert to close. Any yield-advantage target, marker location or citation the tool offers is a starting point to be checked against the literature and the professor's own data, never a fact to be accepted as written.</p>
+<p>Sources consulted for the standard DPR structure and budget heads: <a href="https://cafri.res.in/wp-content/uploads/2022/06/Proforma-for-filing-RPP.pdf" target="_blank" rel="noopener noreferrer">ICAR RPP proforma, ICAR-CAFRI</a>; <a href="https://old.nau.in/pagefiles/5059_RPP%20Guide%20Lines.pdf" target="_blank" rel="noopener noreferrer">NAU research project proposal guidelines</a>; <a href="https://icar.org.in/sites/default/files/2023-05/Call%20X%20invitation%20English%20Hindi.pdf" target="_blank" rel="noopener noreferrer">ICAR extramural research call</a>; <a href="https://www.nabard.org/content.aspx?id=649&amp;catid=633&amp;mid=288" target="_blank" rel="noopener noreferrer">NABARD research funding norms</a>.</p>
+
+</article>
+</body></html>

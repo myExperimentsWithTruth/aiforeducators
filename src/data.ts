@@ -171,12 +171,44 @@ export const SESSIONS: Session[] = [
   },
   {
     n: 4,
-    slug: null,
+    slug: 'session-4',
     title: 'Communication and reports',
-    tag: 'Sharper writing and reporting, built to carry weight.',
+    tag: 'From raw notes to a funded Detailed Project Report.',
     blurb:
-      'Sharper writing and reporting with AI, building to a full-length report.',
-    outcome: 'A top-notch reporting workflow you can reuse.',
+      'Using AI to find a fundable thrust area, speak the funding agency’s language, and turn raw notes into a structured Detailed Project Report.',
+    outcome: 'A proposal-writing workflow you can reuse for any funding call.',
+    covered: [
+      'Finding a thrust area where agency priorities, literature gaps and your expertise meet.',
+      'Building a reusable alignment guide from a funding agency’s own initiative.',
+      'Turning raw, messy notes into a structured Detailed Project Report.',
+      'Verifying every figure, citation and claim before it reaches a proposal.',
+    ],
+    artefacts: [
+      {
+        kind: 'Worked example',
+        title: 'Finding the thrust area',
+        blurb:
+          'How to use Gemini to scan real agency calls, literature gaps and funded projects, and land on a fundable theme that matches your expertise.',
+        href: `${BASE}session-4/thrust-areas.html`,
+        cta: 'View the walkthrough',
+      },
+      {
+        kind: 'Worked example',
+        title: 'Speaking the agency’s language',
+        blurb:
+          'Research one agency initiative in depth, distil it into a reusable alignment guide, then use that guide to align any proposal to its objectives.',
+        href: `${BASE}session-4/alignment.html`,
+        cta: 'View the walkthrough',
+      },
+      {
+        kind: 'Worked example',
+        title: 'Drafting the DPR',
+        blurb:
+          'A full fictitious Detailed Project Report built section by section from raw notes: objectives, methodology, budget and outcomes, refined iteratively.',
+        href: `${BASE}session-4/dpr-drafting.html`,
+        cta: 'View the walkthrough',
+      },
+    ],
   },
   {
     n: 5,

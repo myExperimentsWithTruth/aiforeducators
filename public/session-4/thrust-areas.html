@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finding the thrust area · Session 4 · AI for Educators</title>
+
+<style>
+:root{color-scheme:dark;
+  --void:#05050A; --panel:#0E0E16; --panel2:#14141D; --code:#08080E;
+  --ember:#FF5A36; --ember2:#FF7A56; --gold:#FFC857; --cyan:#34E5FF;
+  --mist:#F4F4F8; --muted:#A2A2B0; --line:#2B2B37; --line2:#24242F;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--void);color:var(--mist);font-family:var(--font);
+  font-size:16px;line-height:1.72;letter-spacing:-.006em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:0 0 80px;}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:5px;}
+.s4back{position:fixed;left:16px;top:14px;z-index:50;font-size:12px;font-weight:600;
+  color:var(--ember);background:rgba(14,14,22,.92);border:1px solid var(--line);
+  border-radius:999px;padding:7px 15px;text-decoration:none;backdrop-filter:blur(10px);
+  box-shadow:0 2px 12px rgba(0,0,0,.5);transition:border-color .2s,background .2s;}
+.s4back:hover{border-color:var(--ember);background:#1B1113;}
+.s4doc{max-width:min(900px,92vw);margin:64px auto 0;padding:44px clamp(20px,5vw,52px) 52px;
+  background:var(--panel);border:1px solid var(--line2);border-radius:20px;
+  box-shadow:0 16px 60px rgba(0,0,0,.5);}
+.s4doc>h1:first-child{margin-top:0;}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);font-weight:700;letter-spacing:-.03em;
+  line-height:1.08;margin:0 0 .5em;color:var(--mist);}
+h2{font-size:clamp(1.35rem,2.8vw,1.85rem);font-weight:700;letter-spacing:-.02em;
+  color:var(--ember);margin:2.4em 0 .6em;padding-top:1.2em;border-top:1px solid var(--line2);}
+h3{font-size:1.18rem;font-weight:600;letter-spacing:-.01em;color:var(--gold);margin:1.8em 0 .5em;}
+h4{font-size:1rem;font-weight:600;color:var(--mist);margin:1.4em 0 .4em;}
+p{margin:0 0 1.05em;}
+a{color:var(--ember);text-decoration:none;border-bottom:1px solid rgba(255,90,54,.35);}
+a:hover{border-bottom-color:var(--ember);}
+strong{color:var(--mist);font-weight:650;}
+em{color:var(--muted);}
+ul,ol{margin:0 0 1.1em;padding-left:1.4em;}
+li{margin:.3em 0;}
+li::marker{color:var(--ember);}
+hr{border:none;border-top:1px solid var(--line2);margin:2.4em 0;}
+/* Inline code */
+code{font-family:var(--mono);font-size:.86em;color:var(--gold);
+  background:rgba(255,200,87,.08);border:1px solid var(--line2);border-radius:5px;padding:.08em .4em;}
+/* Prompt blocks: the stars of this page */
+pre{position:relative;background:var(--code);border:1px solid var(--line);
+  border-left:3px solid var(--ember);border-radius:12px;
+  padding:20px 22px;margin:1.4em 0;overflow-x:auto;
+  font-family:var(--mono);font-size:13.5px;line-height:1.65;}
+pre code{background:none;border:none;color:#E8E8F0;padding:0;font-size:inherit;}
+pre::before{content:"PROMPT";position:absolute;top:10px;right:14px;
+  font-family:var(--font);font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  color:var(--ember);opacity:.75;}
+/* Blockquotes: what Gemini returns */
+blockquote{margin:1.4em 0;padding:4px 22px;background:rgba(255,255,255,.025);
+  border-left:3px solid var(--gold);border-radius:0 12px 12px 0;color:var(--mist);}
+blockquote p{margin:.7em 0;}
+blockquote h3,blockquote h4{color:var(--gold);}
+/* Tables: budgets and outcome indicators */
+.tablewrap{overflow-x:auto;margin:1.4em 0;border:1px solid var(--line2);border-radius:12px;}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px;}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line2);}
+th{background:rgba(255,90,54,.1);color:var(--ember);font-weight:600;
+  letter-spacing:.01em;border-bottom:1px solid var(--line);}
+td[align=right],th[align=right]{text-align:right;font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+@media print{
+  body{background:#fff;color:#111;padding:0;}
+  .s4back{display:none;}
+  .s4doc{max-width:none;margin:0;border:none;box-shadow:none;background:#fff;}
+  pre,blockquote,.tablewrap{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<a class="s4back" href="../#/session-4">Back to Session 4</a>
+<article class="s4doc">
+<h1 id="session-4-worked-example-identifying-thrust-areas-with-gemini">Session 4, Worked Example: Identifying Thrust Areas with Gemini</h1>
+<p><em>A how-to a faculty member could run tomorrow morning. Gemini Pro is one tool inside the process, not the whole process. Every portal, scheme, and figure named here should be confirmed live before the session, since links and call dates change.</em></p>
+<h2 id="1-the-scenario">1. The scenario</h2>
+<p>Dr. Meena is an Associate Professor in the Department of Genetics and Plant Breeding, College of Agriculture, GBPUAT. She is confident about her expertise, marker-assisted selection and field phenotyping in bread wheat, and about her region, the rice-wheat Tarai of Uttarakhand, but she has not yet decided which specific theme to commit a proposal to. She wants to spend two focused mornings finding the theme where a real funding priority, a genuine research gap, and her own strength actually meet, before she writes a single line of a proposal.</p>
+<h2 id="2-identify-the-agency-and-its-calls">2. Identify the agency and its calls</h2>
+<p>The mistake to avoid is writing a proposal and then hunting for a scheme to fit it. The discipline is the reverse: read the live calls first, then shape the idea to a real one. For a wheat breeder at GBPUAT there are four realistic funders, in roughly descending order of natural fit.</p>
+<p><strong>ICAR (Indian Council of Agricultural Research), the primary home for this work.</strong> Look in three real places. First, the main ICAR site (icar.org.in), specifically the notices and the Education Division guidelines and circulars pages, where the periodic call for ICAR Extramural Research Projects appears; these are principal-investigator-led competitive grants. Second, ICAR-IIWBR, the Indian Institute of Wheat and Barley Research at Karnal (its institute site, commonly under the icar.gov.in family; confirm the current address), which is the nodal institute for wheat and signals the national wheat priorities. Third, and most useful for feasibility, the All India Coordinated Research Project on Wheat and Barley (aicrpwheatbarleyicar.in). GBPUAT Pantnagar is a long-standing AICRP wheat centre, which is a concrete, nameable feasibility asset she can point to. ICAR also runs the National Fellow, National Professor and Emeritus Professor schemes, listed on icar.org.in, for a more individual track.</p>
+<p><strong>ANRF (Anusandhan National Research Foundation), which has now subsumed the former DST-SERB.</strong> Scheme information sits on the ANRF and DST sites (anrf.gov.in and dst.gov.in), and proposals are submitted through the Electronic Project Proposal Management System at anrfonline.in. The relevant current instruments are the Advanced Research Grant (ARG) and ARG-MATRICS, which carry forward the earlier SERB Core Research Grant and MATRICS lines, and there is a women-in-science track (the POWER grant) worth checking if eligible. As an illustrative example of timing, in 2026 the ARG and ARG-MATRICS pre-proposal and full-proposal window ran across the middle of the year; she must read the current window on the portal rather than assume it. ANRF funds fundamental and applied science, so a wheat proposal here should lead with mechanism and genetics, not only variety release.</p>
+<p><strong>DBT (Department of Biotechnology).</strong> Calls are listed on dbt.gov.in (the offerings and call-for-proposals pages) and dbtindia.gov.in, and proposals go through eProMIS at dbtepromis.nic.in, which notably accepts proposals round the year rather than only in a fixed window. For a plant breeder, the natural DBT fit is molecular and genomic work, marker development, or the farmer-facing Biotech-KISAN programme.</p>
+<p><strong>NABARD and RKVY, mentioned in passing.</strong> NABARD's farm-sector and rural-innovation funds, and the Rashtriya Krishi Vikas Yojana routed through the State Department of Agriculture, suit applied, deployment-oriented work more than upstream genetics. The same workflow adapts to them.</p>
+<p><strong>How she reads a call to judge fit and feasibility.</strong> She opens the call or scheme PDF and reads for four things: eligibility (her designation and institution must qualify), thematic scope (does climate resilience or abiotic-stress tolerance in cereals appear in the stated priorities), scale and duration (does a three-year single-centre project fit), and deliverable type (does the funder want mechanism and publications, as ANRF tends to, or field-ready technology, as ICAR and NABARD tend to). Here Gemini earns its place as a reading aid, not an oracle. She pastes the text of the call page into Gemini Pro and asks it to extract the eligibility conditions, the priority keywords, and the expected deliverables, and to say plainly where her profile fits and where it does not. She then confirms every extracted point against the original PDF, because a misread eligibility clause is a wasted proposal.</p>
+<h2 id="3-find-the-literature-gaps">3. Find the literature gaps</h2>
+<p>A gap is not something Gemini can know; it is something the published record shows and Gemini can help her see faster. The method is: she gathers the real literature, Gemini clusters it, and she goes back to the literature to confirm each proposed gap. Gemini proposes; the real literature confirms.</p>
+<p><strong>Search the real scholarly sources systematically.</strong> Google Scholar (scholar.google.com) is the working tool; the AICRP wheat progress reports, the Indian Journal of Genetics and Plant Breeding, and CIMMYT and BISA (Borlaug Institute for South Asia) publications add depth. She runs a small set of deliberate queries rather than one vague search:</p>
+<ul>
+<li><code>"terminal heat stress" wheat India grain filling</code> to find the core agronomic and physiological work.</li>
+<li><code>wheat "heat tolerance" QTL OR marker-assisted "bread wheat"</code> to find the genetic and breeding side that matches her method.</li>
+<li><code>wheat "early sowing" "heat escape" South Asia juvenile heat tolerance</code> to probe the adaptation-strategy angle.</li>
+<li><code>wheat "canopy temperature" OR "stay-green" heat tolerance breeding</code> for the phenotyping traits she can actually score in the field.</li>
+<li><code>Aegilops introgression heat tolerance wheat pre-breeding</code> for the wild-relatives thrust.</li>
+<li><code>wheat "North Eastern Plains Zone" OR Tarai terminal heat</code> to pull anything specific to her zone.</li>
+</ul>
+<p>She uses Scholar's habits deliberately: filter to the last three or four years to see the current front, sort by date to catch the newest, follow the Cited by and Related articles links from the two or three most relevant papers to map the cluster, and set a Scholar Alert on her best query so new work reaches her while the proposal is being written. She saves fifteen to twenty abstracts that genuinely bear on her area.</p>
+<p><strong>Then let Gemini cluster, not invent.</strong> She pastes those real abstracts, the ones she actually collected, into Gemini Pro and asks it to group them into themes, to state what most of the papers address, and to name what is under-studied by contrast. Gemini is fast at seeing, for example, that most heat-tolerance QTLs in her set were mapped in durum or in Delhi-zone backgrounds and few were validated in late-sown eastern-plains bread wheat, or that adult-plant terminal-heat tolerance is well covered while seedling-stage tolerance under early October sowing is thin. These become candidate gaps. The non-negotiable next step is that she returns to Scholar and tries to disprove each one: if a targeted search shows the gap is already filled, it is struck off. A gap that survives her attempt to disprove it is real; a gap that Gemini asserted and she never checked is a liability.</p>
+<h2 id="4-check-what-is-already-funded">4. Check what is already funded</h2>
+<p>A theme can be a genuine priority and still be a poor bet because ten centres are already funded on it. Before committing, she checks the funded landscape in the real Indian project databases so she neither duplicates nor walks into a crowded field.</p>
+<ul>
+<li><strong>ANRF and former SERB grants.</strong> The SERB funded-project listing (historically the PRISM funding-details page under serbonline.in; confirm the current ANRF equivalent) lets her search sanctioned grants by keyword such as wheat heat tolerance and see principal investigators, institutions, and years.</li>
+<li><strong>DST sanctioned projects.</strong> The DST site (dst.gov.in/sanctioned-projects) and the annual DST Directory of Extramural R&amp;D Projects list sanctioned work across departments; she opens the relevant PDF and searches within it for wheat.</li>
+<li><strong>DBT funded projects.</strong> The eProMIS portal (dbtepromis.nic.in) publishes current-year sanctioned projects she can scan for cereal and abiotic-stress work.</li>
+<li><strong>ICAR's own record.</strong> The KRISHI portal, ICAR's research data and knowledge repository (krishi.icar.gov.in; confirm the current address), together with the AICRP on Wheat and Barley progress reports, shows the ongoing coordinated projects and which centres run them. The AICRP reports are especially telling because they list centre-wise activity, so she can see what Pantnagar and neighbouring centres already do.</li>
+<li><strong>The ISTI portal</strong> (indiascienceandtechnology.gov.in) aggregates sanctioned research proposals across agencies as a cross-check.</li>
+<li><strong>Who works on what.</strong> The Vidwan expert directory (vidwan.inflibnet.ac.in) and institutional research-information pages help her see which groups are active on a theme, which is a proxy for how crowded it is.</li>
+</ul>
+<p>She copies the funded-project titles her searches return and, again, uses Gemini only to organise them: she asks it to cluster the titles by theme and tell her which themes look crowded and which look sparse. Gemini's clustering is a reading aid over data she supplied; the judgement of crowded versus open is hers, made against titles she can see are real.</p>
+<h2 id="5-the-synthesis-prompt">5. The synthesis prompt</h2>
+<p>Now, and only now, she brings the three streams together, the fitting calls, the confirmed gaps, and the funded landscape, and asks Gemini to rank candidate thrust areas. The prompt follows the Context, Role, Task, Format pattern from Session 1.</p>
+<blockquote>
+<p><strong>Context:</strong> I am an Associate Professor of Genetics and Plant Breeding at G.B. Pant University of Agriculture and Technology, Pantnagar. My strengths are marker-assisted selection and field-based phenotyping in bread wheat. My region is the rice-wheat Tarai of Uttarakhand, in the North Eastern Plains Zone, where wheat is sown late after paddy harvest and grain filling meets rising March temperatures, so the crop faces terminal heat stress. GBPUAT is an AICRP wheat centre.</p>
+<p>I have already done the groundwork. Target agencies and their fit: ICAR Extramural Research and AICRP on Wheat and Barley for applied, field-ready work; ANRF Advanced Research Grant for mechanism-led genetics; DBT for molecular and marker work. Confirmed gaps from my own Google Scholar reading: (a) most published heat-tolerance QTLs were mapped in durum or Delhi-zone backgrounds and few are validated in late-sown NEPZ bread wheat; (b) seedling-stage juvenile heat tolerance under early October sowing is under-studied compared with adult-plant terminal-heat tolerance; (c) heat tolerance is usually bred in isolation from the foliar-blight pressure that co-occurs in the warm humid Tarai. Funded landscape from PRISM, DST, DBT and KRISHI: adult-plant terminal-heat QTL mapping looks crowded; early-sowing juvenile tolerance and stacked heat-plus-disease selection look sparse.</p>
+<p><strong>Role:</strong> Act as a senior agricultural research strategist who helps faculty choose a thrust area before they write a proposal.</p>
+<p><strong>Task:</strong> Using only the context I have supplied, rank 3 to 4 candidate thrust areas at the intersection of these agency priorities, these confirmed gaps, and my expertise and location. Rank by feasibility for a single department over a three-year project, not by ambition. For each, give a short title, then three one-liners: Priority (why an agency currently cares), Feasible here (why GBPUAT specifically can do it), Gap (the confirmed open space). Name the best-fit agency for each. Mark clearly any claim I would still need to verify.</p>
+<p><strong>Format:</strong> A numbered, ranked list, tight, with the labelled one-liners and the agency named for each item.</p>
+</blockquote>
+<p>If the first answer drifts toward generic ambition, she sends one refining follow-up: <em>Re-rank strictly by what a single AICRP centre can field in three years with marker-assisted selection and field phenotyping only, no controlled-environment facility. For the top two, name the specific trait or marker class I would select on.</em></p>
+<h2 id="6-what-gemini-returns">6. What Gemini returns</h2>
+<p><em>(Abridged, realistic output. Variety names, agency-fit labels, and any figures are illustrative and must be verified against the sources in Part 4.)</em></p>
+<p><strong>Ranked shortlist: terminal-heat-tolerant wheat for the rice-wheat Tarai</strong></p>
+<p><strong>1. Breeding for early-sowing adaptation and juvenile heat tolerance, to escape terminal heat (best fit: ICAR Extramural or AICRP; secondary ANRF)</strong></p>
+<ul>
+<li>Priority: Shifting sowing into October to escape terminal heat is a live adaptation strategy for the rice-wheat plains, but current varieties establish poorly under warm October conditions, so the escape is not yet reliable.</li>
+<li>Feasible here: The Pantnagar Tarai station and AICRP centre let you test October establishment directly in the target environment, with the field phenotyping you already do.</li>
+<li>Gap: Seedling-stage juvenile heat tolerance under early sowing is far less characterised than adult-plant terminal-heat tolerance, and your funded-project scan showed it sparse.</li>
+</ul>
+<p><strong>2. Marker-assisted introgression of terminal-heat tolerance from wild relatives into NEPZ-adapted backgrounds (best fit: DBT or ICAR Extramural)</strong></p>
+<ul>
+<li>Priority: ICAR is explicitly pushing pre-breeding with wild relatives such as Aegilops to bring in heat and drought tolerance, so this sits inside a stated national thrust.</li>
+<li>Feasible here: It matches your marker-assisted selection strength and uses locally adapted late-sown cultivars as recurrent parents rather than unadapted material.</li>
+<li>Gap: Your reading confirmed that most published heat-tolerance QTLs sit in durum or Delhi-zone backgrounds and few are validated in late-sown eastern-plains bread wheat.</li>
+</ul>
+<p><strong>3. Stacking terminal-heat tolerance with foliar-blight resistance for the warm humid Tarai (best fit: ICAR Extramural or AICRP)</strong></p>
+<ul>
+<li>Priority: In the Tarai, terminal heat co-occurs with foliar blight and spot blotch, and ICAR surveillance treats these as live threats, so heat tolerance alone does not deliver a usable variety.</li>
+<li>Feasible here: Pantnagar has a long record as a natural foliar-blight screening site, so both stresses can be selected in the same field.</li>
+<li>Gap: Heat tolerance is usually bred in isolation, and your funded scan showed stacked heat-plus-disease selection for the eastern plains under-served.</li>
+</ul>
+<p><strong>4. Biofortified iron and zinc wheat that holds micronutrient content under terminal heat (best fit: ICAR; secondary DBT)</strong></p>
+<ul>
+<li>Priority: Biofortification is a major ICAR mandate with a large share of wheat area already covered (figure illustrative; verify), and pairing it with heat tolerance extends that thrust.</li>
+<li>Feasible here: It uses standard breeding and grain-analysis infrastructure and needs no new facility.</li>
+<li>Gap: Terminal heat during grain filling can disturb grain weight and micronutrient loading, yet few released lines combine stable iron and zinc with proven terminal-heat tolerance for late-sown conditions.</li>
+</ul>
+<h2 id="7-demo-talking-points">7. Demo talking points</h2>
+<ul>
+<li>Show the sequence, not the shortcut. The ranked list at the end is only as good as the three real streams that fed it: the live calls she read on the ICAR, ANRF, and DBT portals, the abstracts she pulled from Google Scholar, and the funded titles she found in PRISM and KRISHI. Gemini did not find any of these; she did.</li>
+<li>Point out where Gemini actually sits. In this workflow it does three narrow jobs well: it reads a call PDF and extracts eligibility and scope, it clusters real abstracts into candidate gaps, and it clusters real funded titles into crowded versus open. In all three, she supplied the material and she checks the result.</li>
+<li>Name the refrain aloud: Gemini proposes, the real literature and the real databases confirm. Say it at the gap step and again at the funded-landscape step.</li>
+<li><strong>The moment that lands the idea:</strong> read the top item's Feasible-here line, then the funded-landscape line beside it. Gemini has connected a live ICAR adaptation priority to Pantnagar's own AICRP Tarai station and to a gap her funded-project scan showed was genuinely open. That triangulation, priority and feasibility and open gap meeting on one line, in minutes rather than weeks, is the whole value of doing this before committing.</li>
+<li>Close on the discipline from Sessions 2 and 3. Everything upstream of the synthesis prompt is human-supplied and human-verified. AI compressed the reading; it did not replace it.</li>
+</ul>
+<h2 id="8-the-verification-note">8. The verification note</h2>
+<p>This theme is where fabrication is most likely and most costly. Asked for currently funded ICAR projects or recent papers on a gap, Gemini will readily produce confident, well-formatted project titles, principal investigators, journals, and years, and some of them will not exist. A shortlist justified by an invented funded project or a hallucinated citation is worse than no shortlist, because it reads as researched.</p>
+<p>So the standing rule for this stage: nothing Gemini names is a fact until it is found in a real source. Every funded project is checked in the ANRF and former SERB listing, the DST sanctioned-projects directory, DBT eProMIS, and ICAR's KRISHI portal and AICRP wheat reports. Every paper and every claimed gap is confirmed on Google Scholar by opening the actual publication, not by trusting a title. Every variety name, notification year, and figure is verified before it reaches a proposal.</p>
+<p>This is exactly where the NotebookLM grounding from Session 3 returns. Rather than asking open Gemini to recall priorities from memory, she loads the documents she can trust, the current ICAR or ANRF call PDF, the ICAR-IIWBR annual report, and the AICRP on Wheat and Barley progress report, into NotebookLM, and asks her questions against that grounded set, where the answers carry citations back to the source pages. The pattern holds across DST-SERB now ANRF, DBT, and NABARD or RKVY alike: let AI read faster and organise the thinking, and let the human supply and verify every fact before a candidate thrust area becomes a commitment.</p>
+
+</article>
+</body></html>
