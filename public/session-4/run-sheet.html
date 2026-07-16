@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 4 run sheet · Session 4 · AI for Educators</title>
+
+<style>
+:root{color-scheme:dark;
+  --void:#05050A; --panel:#0E0E16; --panel2:#14141D; --code:#08080E;
+  --ember:#FF5A36; --ember2:#FF7A56; --gold:#FFC857; --cyan:#34E5FF;
+  --mist:#F4F4F8; --muted:#A2A2B0; --line:#2B2B37; --line2:#24242F;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{margin:0;background:var(--void);color:var(--mist);font-family:var(--font);
+  font-size:16px;line-height:1.72;letter-spacing:-.006em;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:0 0 80px;}
+:focus-visible{outline:2px solid var(--ember);outline-offset:3px;border-radius:5px;}
+.s4back{position:fixed;left:16px;top:14px;z-index:50;font-size:12px;font-weight:600;
+  color:var(--ember);background:rgba(14,14,22,.92);border:1px solid var(--line);
+  border-radius:999px;padding:7px 15px;text-decoration:none;backdrop-filter:blur(10px);
+  box-shadow:0 2px 12px rgba(0,0,0,.5);transition:border-color .2s,background .2s;}
+.s4back:hover{border-color:var(--ember);background:#1B1113;}
+.s4doc{max-width:min(900px,92vw);margin:64px auto 0;padding:44px clamp(20px,5vw,52px) 52px;
+  background:var(--panel);border:1px solid var(--line2);border-radius:20px;
+  box-shadow:0 16px 60px rgba(0,0,0,.5);}
+.s4doc>h1:first-child{margin-top:0;}
+h1{font-size:clamp(1.9rem,4.4vw,2.9rem);font-weight:700;letter-spacing:-.03em;
+  line-height:1.08;margin:0 0 .5em;color:var(--mist);}
+h2{font-size:clamp(1.35rem,2.8vw,1.85rem);font-weight:700;letter-spacing:-.02em;
+  color:var(--ember);margin:2.4em 0 .6em;padding-top:1.2em;border-top:1px solid var(--line2);}
+h3{font-size:1.18rem;font-weight:600;letter-spacing:-.01em;color:var(--gold);margin:1.8em 0 .5em;}
+h4{font-size:1rem;font-weight:600;color:var(--mist);margin:1.4em 0 .4em;}
+p{margin:0 0 1.05em;}
+a{color:var(--ember);text-decoration:none;border-bottom:1px solid rgba(255,90,54,.35);}
+a:hover{border-bottom-color:var(--ember);}
+strong{color:var(--mist);font-weight:650;}
+em{color:var(--muted);}
+ul,ol{margin:0 0 1.1em;padding-left:1.4em;}
+li{margin:.3em 0;}
+li::marker{color:var(--ember);}
+hr{border:none;border-top:1px solid var(--line2);margin:2.4em 0;}
+/* Inline code */
+code{font-family:var(--mono);font-size:.86em;color:var(--gold);
+  background:rgba(255,200,87,.08);border:1px solid var(--line2);border-radius:5px;padding:.08em .4em;}
+/* Prompt blocks: the stars of this page */
+pre{position:relative;background:var(--code);border:1px solid var(--line);
+  border-left:3px solid var(--ember);border-radius:12px;
+  padding:20px 22px;margin:1.4em 0;overflow-x:auto;
+  font-family:var(--mono);font-size:13.5px;line-height:1.65;}
+pre code{background:none;border:none;color:#E8E8F0;padding:0;font-size:inherit;}
+pre::before{content:"PROMPT";position:absolute;top:10px;right:14px;
+  font-family:var(--font);font-size:9.5px;font-weight:700;letter-spacing:.14em;
+  color:var(--ember);opacity:.75;}
+/* Blockquotes: what Gemini returns */
+blockquote{margin:1.4em 0;padding:4px 22px;background:rgba(255,255,255,.025);
+  border-left:3px solid var(--gold);border-radius:0 12px 12px 0;color:var(--mist);}
+blockquote p{margin:.7em 0;}
+blockquote h3,blockquote h4{color:var(--gold);}
+/* Tables: budgets and outcome indicators */
+.tablewrap{overflow-x:auto;margin:1.4em 0;border:1px solid var(--line2);border-radius:12px;}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:520px;}
+th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line2);}
+th{background:rgba(255,90,54,.1);color:var(--ember);font-weight:600;
+  letter-spacing:.01em;border-bottom:1px solid var(--line);}
+td[align=right],th[align=right]{text-align:right;font-variant-numeric:tabular-nums;}
+tr:last-child td{border-bottom:none;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+@media print{
+  body{background:#fff;color:#111;padding:0;}
+  .s4back{display:none;}
+  .s4doc{max-width:none;margin:0;border:none;box-shadow:none;background:#fff;}
+  pre,blockquote,.tablewrap{break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+<a class="s4back" href="../#/session-4">Back to Session 4</a>
+<article class="s4doc">
+<h1 id="ai-for-educators--session-4--instructor-run-sheet">AI for Educators — Session 4 · Instructor Run Sheet</h1>
+<p><strong>Communication and reports: building a research funding proposal with Google Gemini, to a Detailed Project Report (DPR)</strong></p>
+<div class="tablewrap"><table>
+<tbody>
+<tr>
+<td><strong>Session</strong></td>
+<td>4 of 6, "Communication and reports"</td>
+</tr>
+<tr>
+<td><strong>Tool on screen</strong></td>
+<td>Google Gemini (Gemini Pro). Not Claude, not NotebookLM.</td>
+</tr>
+<tr>
+<td><strong>Audience</strong></td>
+<td>GBPUAT faculty across agriculture, veterinary, food technology and allied streams</td>
+</tr>
+<tr>
+<td><strong>Total time</strong></td>
+<td>100 to 110 minutes</td>
+</tr>
+<tr>
+<td><strong>Format</strong></td>
+<td>You demonstrate each step on a shared screen; faculty repeat it on their own laptops straight after</td>
+</tr>
+<tr>
+<td><strong>What faculty need open</strong></td>
+<td>1. Gemini Pro, signed in, text zoomed so it is legible on a call. 2. A browser with tabs ready for the live portals: icar.org.in, the AICRP on Wheat and Barley pages, anrf.gov.in, dbt.gov.in, Google Scholar, ICAR KRISHI, DBT eProMIS. 3. Their own rough research notes for their own discipline, kept to one side.</td>
+</tr>
+<tr>
+<td><strong>The running example</strong></td>
+<td>One story, threaded through all three themes: an Associate Professor of Genetics and Plant Breeding, College of Agriculture, GBPUAT, developing climate-resilient, terminal-heat-tolerant wheat for the rice-wheat Tarai of Uttarakhand, applying to ICAR. The same workflow adapts to DST-SERB/ANRF, DBT, or NABARD/RKVY, and you say so at each step.</td>
+</tr>
+<tr>
+<td><strong>The single rule for the whole session</strong></td>
+<td>Gemini structures and phrases. The expert supplies and verifies the substance.</td>
+</tr>
+</tbody>
+</table></div>
+<p>All figures in this session are illustrative. Faculty rebuild every number against real institutional rates and current agency norms before anything reaches a proposal.</p>
+<hr />
+<h2 id="opening--set-the-scene-and-connect-to-sessions-1-to-3">Opening — set the scene and connect to Sessions 1 to 3</h2>
+<p><strong>Time box: 8 minutes (running clock 0:00 to 0:08)</strong></p>
+<p><strong>What you are doing and why.</strong> You are placing this session inside the arc the room already knows, and naming the one shift: today the tool is a general assistant, Gemini, with no grounded notebook underneath it, so the discipline the faculty carry matters more, not less.</p>
+<p><strong>Say, roughly:</strong></p>
+<ul>
+<li>In Session 1 we learned to ask for what we want with Context, Role, Task and Format. Every prompt today is built that way, and I will name the four parts aloud each time.</li>
+<li>In Sessions 2 and 3 we grounded our material in NotebookLM and verified every citation against its source. Today we are in Gemini, which does not sit on top of your sources the way NotebookLM does. That means Gemini can read fast, cluster, structure and phrase, but it can also state something as fact that it has merely inferred. So the verification habit from Sessions 2 and 3 is the thing that keeps us safe.</li>
+<li>Today's job is the one every one of us does every year and dreads: turning a research idea into a funded proposal. We will do it in three moves. First, find a fundable thrust area. Second, learn to speak a funding agency's language and keep that skill for reuse. Third, turn raw, messy notes into a structured Detailed Project Report with a costed budget.</li>
+<li>We will follow one story the whole way through, so the moves connect. A colleague in Genetics and Plant Breeding here at GBPUAT wants to breed wheat that holds its yield through the terminal heat that hits the late-sown Tarai crop in March. We will take that from a vague ambition to a costed DPR ready for ICAR. Whatever your discipline, the same three moves apply; swap wheat for your mastitis vaccine, your millet processing line, your soil-carbon protocol.</li>
+</ul>
+<p><strong>The point that lands.</strong> Gemini does not replace the researcher. It compresses the weeks of structuring and phrasing so that your judgement, which is the scarce thing, is spent where it counts.</p>
+<hr />
+<h2 id="theme-1--finding-the-thrust-area">Theme 1 — Finding the thrust area</h2>
+<p><strong>Time box: 30 minutes (running clock 0:08 to 0:38)</strong></p>
+<p>This is the front of the funnel, before a single line of the proposal is written. The order matters, because each stream feeds the synthesis at the end: read the live agency calls, find the literature gaps, check what is already funded, then bring all three together.</p>
+<h3 id="1a-read-the-live-agency-calls-first-8-min">1a. Read the live agency calls first (8 min)</h3>
+<p><strong>What you are showing and why.</strong> That the calls come from the agencies, not from Gemini. You open the real portals on screen so the room sees where a fundable question actually begins.</p>
+<p><strong>Do it live.</strong> Open, in turn:</p>
+<ul>
+<li><strong>icar.org.in</strong> and the <strong>AICRP on Wheat and Barley</strong> pages, for field-ready, multi-location breeding work. Point out that GBPUAT is itself an AICRP wheat centre, which is a genuine advantage for this colleague.</li>
+<li><strong>anrf.gov.in</strong>, and say plainly that the Anusandhan National Research Foundation now subsumes what faculty still call DST-SERB, so mechanism-led, hypothesis-driven genetics goes here.</li>
+<li><strong>dbt.gov.in</strong>, for molecular and biotechnology-heavy work.</li>
+</ul>
+<p><strong>Say:</strong> notice that each agency wants a different kind of science in different language. ICAR wants a field-ready deliverable. ANRF wants a mechanism and a hypothesis. DBT wants the molecular pipeline. The same wheat idea has three different front doors, and choosing the door is part of the work.</p>
+<p><strong>Responsible use, stated here.</strong> Nothing on this screen came from Gemini. If you had asked Gemini "what is ICAR funding this year", it could have given you a confident, plausible, and out-of-date answer. Live calls change; the model's memory does not. Read the portal.</p>
+<h3 id="1b-find-the-literature-gaps-deliberate-scholar-queries-then-let-gemini-cluster-8-min">1b. Find the literature gaps: deliberate Scholar queries, then let Gemini cluster (8 min)</h3>
+<p><strong>What you are showing and why.</strong> That the faculty member does the searching and reading; Gemini does the clustering. You run two or three deliberate Google Scholar queries yourself, on screen, then hand the real abstracts to Gemini to group.</p>
+<p><strong>Do it live.</strong> In Google Scholar, run queries a domain expert would write, for example: <em>terminal heat tolerance QTL bread wheat late sown</em>, then <em>heat tolerance North Eastern Plains Zone wheat</em>, then <em>juvenile heat tolerance early sowing wheat</em>. Copy a set of real abstracts from results you can actually see.</p>
+<p><strong>Type this into Gemini (illustrative; the full clustering prompt is on the worked-example page, "Finding the thrust area"):</strong></p>
+<pre><code>CONTEXT: I am an Associate Professor of Genetics and Plant Breeding at GBPUAT.
+Below are real abstracts I collected from Google Scholar on heat tolerance in
+wheat. [paste the abstracts]
+ROLE: Act as a research analyst who clusters a body of literature.
+TASK: Group these abstracts into themes. For each theme, state what is well
+established and what is thin or missing. Do not add findings that are not in the
+abstracts I pasted. Flag any abstract you are unsure you have read correctly.
+FORMAT: Themes as headings, each with an &#39;Established&#39; line and a &#39;Thin or
+missing&#39; line.</code></pre>
+<p><strong>What to point at in the output.</strong> The theme where the "Thin or missing" line is longest. That is the candidate gap. Point out that Gemini only clustered abstracts you supplied; it did not go and find new papers, and you would not trust it if it claimed to.</p>
+<h3 id="1c-check-what-is-already-funded-6-min">1c. Check what is already funded (6 min)</h3>
+<p><strong>What you are showing and why.</strong> That a gap in the literature is not a gap in the funding. Something can be unpublished yet already sanctioned to three groups.</p>
+<p><strong>Do it live.</strong> Open the real databases and search the theme: <strong>ANRF/SERB project listings</strong>, <strong>DST sanctioned projects</strong>, <strong>DBT eProMIS</strong>, <strong>ICAR KRISHI</strong>, and the <strong>AICRP wheat progress reports</strong>. Show the room that adult-plant terminal-heat QTL mapping already appears in several sanctioned lists, whereas early-sowing juvenile tolerance and stacked heat-plus-disease selection barely appear.</p>
+<p><strong>Responsible use, stated here.</strong> If you ask Gemini "is this already funded", it will guess. The funded landscape lives in these portals, not in the model. You check; Gemini does not.</p>
+<h3 id="1d-the-synthesis--bring-the-three-streams-together-6-min">1d. The synthesis — bring the three streams together (6 min)</h3>
+<p><strong>What you are showing and why.</strong> This is the pivotal prompt of the theme. You have three streams: agency priorities, confirmed literature gaps, your own expertise and location. This prompt asks Gemini to find the fundable intersection and rank it by feasibility, using only what you supplied.</p>
+<p><strong>Type this into Gemini, verbatim:</strong></p>
+<pre><code>CONTEXT: I am an Associate Professor of Genetics and Plant Breeding at GBPUAT,
+Pantnagar. My strengths are marker-assisted selection and field-based phenotyping
+in bread wheat. My region is the rice-wheat Tarai of Uttarakhand, North Eastern
+Plains Zone, where wheat is sown late after paddy and grain filling meets rising
+March temperatures, so the crop faces terminal heat stress. GBPUAT is an AICRP
+wheat centre. I have already done the groundwork: target agencies and fit (ICAR
+Extramural and AICRP for field-ready work, ANRF Advanced Research Grant for
+mechanism-led genetics, DBT for molecular work); confirmed gaps from my own
+Scholar reading (most heat-tolerance QTLs were mapped in durum or Delhi-zone
+backgrounds and few are validated in late-sown NEPZ bread wheat; seedling-stage
+juvenile heat tolerance under early October sowing is under-studied; heat
+tolerance is usually bred in isolation from the foliar blight that co-occurs in
+the warm humid Tarai); funded landscape (adult-plant terminal-heat QTL mapping
+looks crowded, early-sowing juvenile tolerance and stacked heat-plus-disease
+selection look sparse). ROLE: Act as a senior agricultural research strategist
+who helps faculty choose a thrust area before they write a proposal. TASK: Using
+only the context I supplied, rank 3 to 4 candidate thrust areas at the
+intersection of these agency priorities, these confirmed gaps, and my expertise
+and location. Rank by feasibility for a single department over three years, not
+ambition. For each, give a short title, then three one-liners: Priority, Feasible
+here, Gap. Name the best-fit agency for each. Flag any claim I must verify.
+FORMAT: a numbered ranked list, tight, with labelled one-liners and the agency
+named for each item.</code></pre>
+<p><strong>What to point at in the output.</strong> Read the top-ranked item aloud. Point at its three one-liners and check each against what the room just saw: the Priority against the live call in 1a, the Gap against the "Thin or missing" line in 1b, the Feasible-here against the fact that GBPUAT is an AICRP centre with the phenotyping platform. Then point at the "Flag any claim I must verify" line and read one flag aloud. That flag is Gemini telling you where it is least sure.</p>
+<h3 id="1e-the-one-line-refinement-2-min">1e. The one-line refinement (2 min)</h3>
+<p><strong>Say:</strong> the first ranking is often too ambitious. We tighten it to what a single centre can actually field.</p>
+<p><strong>Type this into Gemini:</strong></p>
+<pre><code>Re-rank strictly by what a single AICRP centre can field in three years with
+marker-assisted selection and field phenotyping only, and name the specific trait
+or marker for the top two.</code></pre>
+<p><strong>What to point at.</strong> The named trait or marker on the top two. That specificity is what turns a thrust area into a project. Note that this same refinement pattern, "re-rank by what my unit can actually do", works for a veterinary or food-technology colleague just as well.</p>
+<blockquote>
+<p><strong>The point that lands (Theme 1).</strong> AI did not find the calls, the gaps, or the funded projects. The faculty member did, in the portals and in Scholar. Gemini reads faster and clusters cleanly; the human supplies the material and verifies the flags.</p>
+</blockquote>
+<blockquote>
+<p><strong>Responsible use (Theme 1).</strong> Gemini's failure mode here is presenting an inference as a fact: calling a region "under-studied" or an agency "the best fit" with more confidence than the evidence carries. The defence is the one you just watched. Every input was gathered by the researcher from a live source, and every claim Gemini added is corralled into the "must verify" line for you to check.</p>
+</blockquote>
+<hr />
+<h2 id="theme-2--speaking-the-agencys-language">Theme 2 — Speaking the agency's language</h2>
+<p><strong>Time box: 27 minutes (running clock 0:38 to 1:05)</strong></p>
+<p>Now the colleague has a thrust area. The next job is to make the proposal read the way the agency reads. We do this once, properly, and keep the result as a reusable skill.</p>
+<h3 id="2a-pick-one-initiative-and-study-it-6-min">2a. Pick one initiative and study it (6 min)</h3>
+<p><strong>What you are showing and why.</strong> That alignment starts from a real, specific document, not a vibe. You choose one ICAR initiative, <strong>NICRA, the National Innovations in Climate Resilient Agriculture</strong>, and read its stated objectives on screen for two or three minutes.</p>
+<p><strong>Say:</strong> we are not going to guess what NICRA wants. We are going to read what it says it wants, then teach Gemini to hold that standard for us, so every future NICRA proposal we write aligns in minutes rather than days.</p>
+<h3 id="2b-distil-nicra-into-a-reusable-nicra-alignment-skill-9-min">2b. Distil NICRA into a reusable "NICRA Alignment Skill" (9 min)</h3>
+<p><strong>What you are showing and why.</strong> Two Gemini passes turn a long initiative document into a compact, reusable rubric. Pass one extracts; pass two hardens it into a skill with an accountability check.</p>
+<p><strong>Pass one, extraction.</strong> You paste the NICRA objectives you just read and ask Gemini to pull out its priority themes, its preferred vocabulary, what it rewards, and what it ignores.</p>
+<p><strong>Pass two, hardening into a skill.</strong> You ask Gemini to turn that extract into a compact rubric with five parts: priority themes, preferred vocabulary, what it rewards, what it ignores, and transformation rules, plus one accountability check, that every aligned claim must name the specific NICRA priority it connects to.</p>
+<p><strong>Type this into Gemini (illustrative shape of pass two; the full two-pass set is on the worked-example page, "Speaking the agency's language"):</strong></p>
+<pre><code>CONTEXT: Below is my extract of NICRA&#39;s objectives, vocabulary, rewards and blind
+spots. [paste the pass-one extract]
+ROLE: Act as a grant strategist building a reusable alignment rubric.
+TASK: Turn this into a compact &#39;NICRA Alignment Skill&#39; with five parts: priority
+themes; preferred vocabulary; what it rewards; what it ignores; transformation
+rules for rewriting plain research into NICRA framing. Add one accountability
+check: every aligned claim must name the NICRA priority it connects to. Invent
+nothing that is not in my extract.
+FORMAT: five labelled sections, then the accountability check as a single rule.</code></pre>
+<p><strong>What to point at in the output.</strong> The transformation rules and the accountability check. Say: this block of text is now an asset. Save it. The next time this colleague, or any colleague, writes for NICRA, they paste this in and the alignment is done. We built it once.</p>
+<h3 id="2c-apply-the-skill-to-a-plain-research-story-9-min">2c. Apply the skill to a plain research story (9 min)</h3>
+<p><strong>What you are showing and why.</strong> This is the pivotal prompt of the theme. You take a plain, unframed research story, one with no agency language in it at all, and let the skill transform it, with every aligned claim held accountable to a real NICRA priority.</p>
+<p><strong>Say:</strong> watch what alignment is and is not. It is going to rename and reframe what is already true in this story. It is not going to invent a single new fact. If it tries to, the accountability check catches it.</p>
+<p><strong>Type this into Gemini, verbatim (paste the skill from 2b and a plain synthetic research story where the prompt marks them):</strong></p>
+<pre><code>CONTEXT: Below is my NICRA Alignment Skill, followed by a plain research story
+with no agency framing. [paste the alignment skill] [paste the story] ROLE: Act
+as an experienced agricultural grant writer applying the skill. TASK: Rewrite the
+story so it aligns with NICRA&#39;s objectives and vocabulary, following the skill&#39;s
+transformation rules exactly. Keep every claim faithful to the story; add nothing
+the story does not support. Apply the skill&#39;s accountability check to each aligned
+objective and outcome. FORMAT: a short aligned narrative, then an Objectives list
+and an Expected outcomes list, each numbered, with an &#39;Aligns with:&#39; line under
+each item.</code></pre>
+<p><strong>What to point at in the output.</strong> Read one objective and its "Aligns with:" line aloud, then do the check in front of the room, out loud, both directions. First, is the NICRA priority it names a real NICRA priority? Second, is the claim it makes actually supported by the plain story we pasted? Only if both hold does the alignment stand. Do this for one item slowly; it teaches the whole discipline.</p>
+<blockquote>
+<p><strong>The point that lands (Theme 2).</strong> The skill is built once, then every future proposal for that agency aligns in minutes. Alignment reveals the fit that was already there between your science and the agency's mission; it does not invent a fit that is absent.</p>
+</blockquote>
+<blockquote>
+<p><strong>Responsible use (Theme 2).</strong> Gemini's failure mode here is flattery to the agency: dressing a claim in NICRA language until it promises more than the science supports, or bolting an objective onto a NICRA priority that it does not truly serve. The accountability check exists precisely to catch this. You read each "Aligns with:" line and confirm both ends are true, the priority is real and the claim is supported. An aligned proposal that overstates is worse than an unaligned one, because the reviewer will test it.</p>
+</blockquote>
+<hr />
+<h2 id="theme-3--drafting-the-dpr">Theme 3 — Drafting the DPR</h2>
+<p><strong>Time box: 33 minutes (running clock 1:05 to 1:38)</strong></p>
+<p>The colleague now has an aligned thrust area. The final move is the Detailed Project Report itself, built from raw notes, section by section, each section carrying forward the ones already agreed.</p>
+<h3 id="3a-start-from-the-mess-3-min">3a. Start from the mess (3 min)</h3>
+<p><strong>What you are showing and why.</strong> That you never start a DPR from a blank page. You start from your own untidy notes and let Gemini give them shape.</p>
+<p><strong>Do it live.</strong> Paste a genuinely messy block of notes into Gemini: half-sentences about germplasm lines, sowing dates, phenotyping traits, a rough sense of the budget, the multi-location idea. Say: this is what everyone actually has in a drawer. This is the raw material. Watch it become a DPR.</p>
+<h3 id="3b-build-the-objectives-8-min">3b. Build the objectives (8 min)</h3>
+<p><strong>What you are showing and why.</strong> This is the first pivotal prompt. The objectives set the spine; every later section will refer back to them.</p>
+<p><strong>Type this into Gemini, verbatim (paste your messy notes where the prompt marks them):</strong></p>
+<pre><code>CONTEXT: I am preparing an ICAR proposal on terminal-heat-tolerant wheat for the
+late-sown Tarai; my rough notes are pasted below. ROLE: Act as an experienced
+agricultural research proposal writer familiar with ICAR formats and wheat
+breeding. TASK: From my notes, draft 3 to 4 formal, specific, measurable research
+objectives for a 3-year project, each following logically from the last, together
+covering germplasm screening, donor identification and population development,
+physiological phenotyping, and multi-location evaluation. Do not invent numbers I
+have not given; leave clearly marked placeholders. FORMAT: a numbered list, one or
+two sentences each, formal Indian academic English, British spellings. NOTES:
+[paste notes]</code></pre>
+<p><strong>What to point at in the output.</strong> Two things. First, the logical build: objective two depends on objective one, objective three on two. Second, and this is the teaching moment, the square-bracket placeholders, for example <code>[number of accessions to be screened]</code>. Say: Gemini refused to make up that number. Those brackets are the decisions only you can make. They are a feature, not a gap.</p>
+<h3 id="3c-build-the-methodology-6-min">3c. Build the methodology (6 min)</h3>
+<p><strong>What you are showing and why.</strong> That each new section is told what the previous section already committed to, so the document stays coherent.</p>
+<p><strong>Type this into Gemini (illustrative; the full four-prompt sequence is on the worked-example page, "Drafting the DPR"):</strong></p>
+<pre><code>CONTEXT: Continuing the same ICAR DPR. Here are the objectives we agreed. [paste
+the objectives from 3b] ROLE: Continue as the ICAR-format proposal writer.
+TASK: Draft the methodology so that each objective is met by named activities:
+germplasm screening protocol, donor selection and crossing scheme, the
+marker-assisted selection strategy, the physiological phenotyping traits and
+instruments, and the multi-location trial design across AICRP sites. Do not invent
+figures; use marked placeholders. FORMAT: one subsection per objective, formal
+Indian academic English, British spellings.</code></pre>
+<p><strong>What to point at.</strong> That the methodology names each objective from 3b. The thread is unbroken. Note the placeholders again where instruments or site numbers should go.</p>
+<h3 id="3d-build-the-budget-7-min">3d. Build the budget (7 min)</h3>
+<p><strong>What you are showing and why.</strong> That Gemini can lay out a real, costed budget table across the standard heads, while you own every figure in it.</p>
+<p><strong>Type this into Gemini (illustrative):</strong></p>
+<pre><code>CONTEXT: Continuing the same ICAR DPR, with the objectives and methodology above.
+ROLE: Act as a research administrator preparing an ICAR budget. TASK: Build a
+3-year budget table across the standard heads: manpower, equipment, consumables,
+field operations, travel including multi-location, and contingency. Break it by
+year and give a grand total. Keep every figure illustrative and mark each as a
+placeholder I must confirm against current institutional rates and ICAR norms.
+FORMAT: a table with heads down the side and years across, a total column, and a
+grand total row.</code></pre>
+<p><strong>What to point at.</strong> The grand total row, and the standing instruction that every figure is a placeholder. Say clearly: these numbers are illustrative. Nobody submits these. You rebuild them against your institution's rates, current pay scales, and the ICAR head-wise norms. Gemini gave you the structure; you supply the money.</p>
+<h3 id="3e-build-the-outcomes-4-min">3e. Build the outcomes (4 min)</h3>
+<p><strong>What you are showing and why.</strong> That the outcomes tie back to the objectives and speak to what the agency will look for.</p>
+<p><strong>Type this into Gemini (illustrative):</strong></p>
+<pre><code>CONTEXT: Continuing the same ICAR DPR, all sections above. ROLE: Continue as the
+proposal writer. TASK: Draft Expected outcomes and deliverables that map one to
+one onto the objectives, plus the wider benefit to Tarai wheat growers. Claim
+nothing the methodology does not support. FORMAT: a numbered list, each item
+naming the objective it delivers.</code></pre>
+<p><strong>What to point at.</strong> That each outcome names the objective it comes from. The document now closes its own loop: objectives, methodology, budget, outcomes, all referring to one another.</p>
+<h3 id="3f-the-iterative-refinement--trim-the-budget-to-the-ceiling-5-min">3f. The iterative refinement — trim the budget to the ceiling (5 min)</h3>
+<p><strong>What you are showing and why.</strong> This is the second pivotal prompt and the real skill of proposal writing: the call caps the money and you must cut without wounding the science.</p>
+<p><strong>Say:</strong> the budget came out at Rs 31.74 lakh. The ICAR call caps this project at Rs 30 lakh. This is where most proposals get butchered. Watch how we cut with judgement instead.</p>
+<p><strong>Type this into Gemini, verbatim:</strong></p>
+<pre><code>CONTEXT: The budget you drafted totals Rs 31.74 lakh over three years. The ICAR
+call caps a project at Rs 30 lakh. ROLE: Continue as the research administrator.
+TASK: Bring the grand total under Rs 30 lakh with the smallest possible loss to
+the science. Protect manpower and multi-location travel in full. Suggest specific
+reductions in equipment, consumables, field operations and contingency, and state
+what each reduction assumes. FORMAT: a short list of changed heads with old and
+new totals, then the revised grand total. Keep figures illustrative.</code></pre>
+<p><strong>What to point at in the output.</strong> Two things. First, that it protected manpower and multi-location travel exactly as instructed, and cut only from equipment, consumables, field operations and contingency. Second, the "what each reduction assumes" line under each cut. That assumption is the judgement call, and it is yours to accept or reject. Read one aloud and ask the room: is that assumption safe for your science? That question is the whole skill.</p>
+<blockquote>
+<p><strong>The point that lands (Theme 3).</strong> Start from the mess, not the blank page. Each section feeds the next, so the document holds together. The square-bracket placeholders are the decisions Gemini refuses to make for you, and the expert owns every single figure.</p>
+</blockquote>
+<blockquote>
+<p><strong>Responsible use (Theme 3).</strong> Gemini's failure mode here is the confident number. Given half a chance it will fill a blank with a plausible figure, a sample size, a cost, a yield gain, and it will read as real. The placeholders are the guardrail; never let one reach a submitted proposal, and never trust a number Gemini volunteered. Check the arithmetic yourself, because models can misadd a column, and rebuild every rate against your institution's actual norms.</p>
+</blockquote>
+<hr />
+<h2 id="close--the-through-line-and-what-faculty-carry-out">Close — the through-line and what faculty carry out</h2>
+<p><strong>Time box: 7 minutes (running clock 1:38 to 1:45)</strong></p>
+<p><strong>Draw the through-line.</strong> Say: we did three things, and they are one motion. We <strong>identified</strong> a fundable thrust area where the agency's priorities, the literature gap, and this colleague's own strength met. We <strong>aligned</strong> it to the agency's language with a skill we built once and kept. We <strong>drafted</strong> the DPR from raw notes to a costed, capped budget. Identify, align, draft. That is the whole of proposal writing, and it works the same whether your wheat is a mastitis vaccine, a millet processing line, or a soil-carbon protocol, and whether your door is ICAR, ANRF, DBT, or NABARD.</p>
+<p><strong>Name the reusable assets they walk away with.</strong></p>
+<ul>
+<li><strong>The agency alignment skill.</strong> Built once for NICRA today; build one for each agency you write to, and every future proposal aligns in minutes.</li>
+<li><strong>The four-prompt DPR sequence.</strong> Objectives, methodology, budget, outcomes, each carrying the last forward, then refine against the cap. Keep the four prompts; change the science.</li>
+</ul>
+<p><strong>State the single rule, and let it be the last thing they hear.</strong> Gemini structures and phrases. The expert supplies and verifies the substance. Every call you read, every gap you confirmed, every figure in that budget, those are yours. Gemini gave you the hours back to spend on them.</p>
+<hr />
+<p><em>AI for Educators — Session 4 · Instructor run sheet · Google Gemini (Gemini Pro) · G.B. Pant University of Agriculture and Technology, Pantnagar. All figures illustrative; verify every source, claim and number before use.</em></p>
+
+</article>
+</body></html>

@@ -185,6 +185,14 @@ export const SESSIONS: Session[] = [
     ],
     artefacts: [
       {
+        kind: 'Run sheet',
+        title: 'The instructor run sheet',
+        blurb:
+          'The live delivery script for the whole session, timed and in order, with every Gemini prompt written out in Context, Role, Task, Format, and a cue for what to point at on screen.',
+        href: `${BASE}session-4/run-sheet.html`,
+        cta: 'View the run sheet',
+      },
+      {
         kind: 'Worked example',
         title: 'Finding the thrust area',
         blurb:
