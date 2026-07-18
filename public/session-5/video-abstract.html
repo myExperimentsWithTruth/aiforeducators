@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video abstracts, end to end · Session 5 · AI for Educators</title>
+<style>
+:root{color-scheme:dark;
+  --void:#05050A; --maroon:#FF5A36; --mink:#0A0A11; --rust:#FF6B6B; --gold:#FFC857; --agri:#3ED598;
+  --paper:#0E0E16; --paper2:#14141D; --line:#2B2B37; --lines:#24242F;
+  --ink:#F4F4F8; --graph:#B7B7C4; --mid:#8B8B99; --blue:#46C8FF; --mist:#F4F4F8; --muted:#A2A2B0; --code:#08080E;
+  --serif:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{background:var(--void);font-family:var(--sans);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:0 0 40px;}
+:focus-visible{outline:2px solid var(--maroon);outline-offset:3px;border-radius:5px;}
+.s5back{position:fixed;left:16px;top:14px;z-index:50;font-size:12px;font-weight:600;color:var(--maroon);background:rgba(14,14,22,.92);border:1px solid var(--line);border-radius:999px;padding:7px 15px;text-decoration:none;backdrop-filter:blur(10px);box-shadow:0 2px 12px rgba(0,0,0,.5);transition:border-color .2s,background .2s;}
+.s5back:hover{border-color:var(--maroon);background:#1B1113;}
+.doc{max-width:min(880px,94vw);margin:56px auto 40px;background:var(--paper);border:1px solid var(--lines);border-radius:16px;padding:14mm clamp(16px,5vw,16mm) 16mm;box-shadow:0 16px 60px rgba(0,0,0,.5);}
+.head{border-bottom:2px solid var(--maroon);padding-bottom:5mm;margin-bottom:6mm;}
+.head .eb{font-size:10pt;letter-spacing:2.4px;text-transform:uppercase;color:var(--maroon);}
+.head h1{font-family:var(--serif);font-weight:700;font-size:clamp(1.85rem,4.5vw,2.5rem);color:var(--mist);line-height:1.06;letter-spacing:-.02em;margin:3mm 0 2mm;}
+.head .sub{font-size:10.5pt;color:var(--graph);}
+.head .sub b{color:var(--maroon);}
+
+.golden{background:rgba(255,107,107,.08);border-left:3px solid var(--rust);padding:4mm 5mm;margin-bottom:5mm;font-size:10.3pt;border-radius:0 6px 6px 0;}
+.golden b{color:var(--rust);}
+.ask-rule{background:rgba(70,200,255,.08);border-left:3px solid var(--blue);padding:4mm 5mm;margin-bottom:5mm;font-size:10.3pt;border-radius:0 6px 6px 0;}
+.ask-rule b{color:var(--blue);}
+.venue{background:var(--paper2);border:1px solid var(--line);border-left:3px solid var(--gold);padding:4mm 5mm;margin-bottom:5mm;font-size:10pt;border-radius:0 6px 6px 0;}
+.venue b{color:var(--maroon);}
+.venue a{color:var(--blue);border-bottom:1px solid rgba(70,200,255,.35);text-decoration:none;}
+.venue a:hover{border-bottom-color:var(--blue);}
+.example{background:var(--paper2);border:1px solid var(--lines);border-left:3px solid var(--maroon);padding:4mm 5mm;margin-bottom:6mm;border-radius:0 6px 6px 0;}
+.example h2{font-size:11pt;color:var(--maroon);margin-bottom:2mm;font-family:var(--sans);}
+.example p{font-size:10.3pt;margin-bottom:2mm;}
+.example .dummy{font-size:9pt;color:var(--rust);background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.32);padding:1mm 2.5mm;border-radius:3px;display:inline-block;margin-top:1mm;}
+.flow{background:var(--mink);border:1px solid var(--lines);color:var(--mist);border-radius:10px;padding:5mm 5.5mm;margin-bottom:8mm;}
+.flow h2{font-family:var(--serif);font-size:13pt;color:var(--gold);margin-bottom:3mm;font-weight:600;}
+.flow ol{list-style:none;counter-reset:f;}
+.flow li{counter-increment:f;font-size:10pt;padding:1.6mm 0 1.6mm 9mm;position:relative;border-bottom:1px solid rgba(255,255,255,.08);}
+.flow li:last-child{border-bottom:none;}
+.flow li::before{content:counter(f);position:absolute;left:0;top:1.4mm;width:6mm;height:6mm;background:var(--gold);color:#1a1205;font-family:var(--sans);font-weight:700;font-size:9pt;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.flow li.rev::before{content:"R";background:var(--rust);color:#2a0808;}
+.flow li b{color:var(--mist);}
+.flow li span{color:var(--muted);}
+.step{margin-bottom:9mm;padding-bottom:7mm;border-bottom:1px solid var(--line);}
+.step .top{display:flex;align-items:baseline;gap:3mm;margin-bottom:2mm;flex-wrap:wrap;}
+.step .num{font-family:var(--serif);font-size:22pt;color:var(--maroon);font-weight:700;line-height:1;}
+.step h2{font-family:var(--serif);font-size:clamp(1.15rem,3vw,1.5rem);color:var(--mist);flex:1;font-weight:700;letter-spacing:-.01em;}
+.step .role{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;padding:1.4mm 2.6mm;border-radius:999px;color:var(--agri);background:rgba(62,213,152,.14);border:1px solid rgba(62,213,152,.4);white-space:nowrap;}
+.step.reviewer .num{color:var(--rust);}
+.step.reviewer .role{color:var(--rust);background:rgba(255,107,107,.14);border-color:rgba(255,107,107,.4);}
+.step .why{font-size:10.3pt;margin-bottom:3mm;color:var(--graph);}
+.step .why b{color:var(--maroon);}
+.step.reviewer .why b{color:var(--rust);}
+.runline{font-size:8.5pt;letter-spacing:.5px;text-transform:uppercase;color:var(--mid);font-weight:600;margin-bottom:3mm;}
+.runline b{color:var(--agri);}
+.lbl{font-size:7.5pt;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;margin:3mm 0 1mm;}
+.lbl.in{color:var(--gold);} .lbl.out{color:var(--agri);} .lbl.q{color:var(--blue);}
+.step.reviewer .lbl.out{color:var(--rust);}
+.prompt{font-family:var(--mono);font-size:9pt;line-height:1.6;background:var(--code);color:#E8E8F0;border:1px solid var(--line);border-left:3px solid var(--maroon);padding:4mm 4.5mm;border-radius:8px;white-space:pre-wrap;overflow-x:auto;}
+.prompt .k{color:var(--gold);font-weight:600;text-transform:uppercase;font-size:7.5pt;letter-spacing:1.2px;}
+.prompt .hi{color:var(--gold);}
+.prompt .seed{color:#8FE3B8;}
+.ask{border:1px dashed rgba(70,200,255,.5);background:rgba(70,200,255,.06);padding:3.5mm 4mm;border-radius:8px;font-size:9.5pt;color:var(--graph);margin-top:2.5mm;}
+.ask .qh{font-size:8pt;letter-spacing:1px;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:1.5mm;}
+.ask ol{margin:0 0 1.5mm 5mm;} .ask li{margin-bottom:1mm;}
+.ask .ans{color:var(--agri);font-style:italic;}
+.ocard{border:1px solid var(--lines);border-left:3px solid var(--agri);background:var(--paper2);padding:4mm 5mm;border-radius:8px;}
+.step.reviewer .ocard{border-left-color:var(--rust);}
+.ocard .nar{font-size:10pt;line-height:1.55;font-style:italic;color:var(--mist);margin-bottom:3mm;}
+.ocard .nar .d{font-style:normal;color:var(--rust);font-weight:600;}
+.ocard p{font-size:10pt;margin-bottom:2mm;color:var(--ink);}
+.ocard .pick{font-size:9.5pt;color:var(--agri);font-weight:600;margin-top:2mm;}
+.ang{margin-bottom:2.5mm;}
+.ang .an{font-weight:600;color:var(--maroon);font-size:10pt;}
+.ang .ad{font-size:9.5pt;color:var(--graph);}
+table{border-collapse:collapse;width:100%;font-size:9pt;margin-top:1mm;}
+th{background:rgba(255,90,54,.1);color:var(--maroon);text-align:left;padding:1.8mm 2.5mm;border-bottom:1px solid var(--line);font-weight:600;}
+td{padding:1.8mm 2.5mm;border-bottom:1px solid var(--lines);vertical-align:top;color:var(--graph);}
+.gap th{background:rgba(255,107,107,.12);color:var(--rust);}
+.gap td.f{color:var(--agri);}
+.beat{margin-bottom:2mm;}
+.beat .bn{font-weight:600;color:var(--maroon);font-size:9.7pt;}
+.beat .bd{font-size:9.5pt;color:var(--graph);}
+.panel{margin-bottom:2mm;}
+.panel .pn{font-weight:600;color:var(--maroon);font-size:9.8pt;}
+.panel .pd{font-size:9.5pt;color:var(--graph);}
+.panel .ic{font-size:9pt;color:var(--agri);}
+.note{font-size:9.5pt;color:var(--graph);margin-top:2.5mm;padding-left:3mm;border-left:2px solid var(--gold);}
+.note b{color:var(--gold);}
+.mock{margin:3mm 0 1mm;border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+.mock .cap{font-size:8pt;color:var(--muted);background:#1c1c26;padding:1.6mm 3mm;letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--line);}
+.mockrow{display:flex;align-items:stretch;background:#fff;}
+.mp{flex:1;padding:4mm 3mm;text-align:center;border-right:1px dashed #d9d2c4;}
+.mp:last-child{border-right:none;}
+.mp .icn{font-size:20pt;line-height:1;}
+.mp .t{font-size:8.5pt;font-weight:600;color:#1a1a20;margin-top:1.5mm;}
+.mp .s{font-size:7.5pt;color:#555;}
+.mp.res{background:#eef7f0;}
+.mp.res .big{font-size:15pt;font-weight:700;color:#1f8a54;}
+.arrowcell{display:flex;align-items:center;justify-content:center;color:#b0563a;font-size:14pt;padding:0 1mm;}
+.render{background:rgba(70,200,255,.06);border:1px solid var(--lines);border-left:3px solid var(--blue);padding:5mm 5.5mm;margin-bottom:9mm;border-radius:10px;}
+.render h2{font-family:var(--serif);font-size:15pt;color:var(--blue);margin-bottom:2mm;font-weight:700;}
+.render p{font-size:10.3pt;margin-bottom:2mm;}
+.render ol{margin:1mm 0 0 5mm;font-size:10pt;}
+.render li{margin-bottom:1.5mm;}
+.render b{color:var(--blue);}
+.gem{background:rgba(62,213,152,.06);border:1px solid var(--lines);border-left:3px solid var(--agri);padding:5mm 5.5mm;margin-bottom:9mm;border-radius:10px;}
+.gem h2{font-family:var(--serif);font-size:14pt;color:var(--agri);margin-bottom:2mm;font-weight:700;}
+.gem p{font-size:10.3pt;margin-bottom:2mm;}
+.gem p b{color:var(--agri);}
+.gem ul{list-style:none;margin-top:1mm;}
+.gem li{font-size:9.7pt;padding:1mm 0 1mm 6mm;position:relative;}
+.gem li::before{content:"\25C6";position:absolute;left:0;color:var(--agri);font-size:8pt;top:1.7mm;}
+.assign{background:var(--mink);border:1px solid var(--lines);color:var(--mist);border-radius:12px;padding:6mm 6mm;margin-bottom:4mm;}
+.assign .eb{font-size:9pt;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:1mm;}
+.assign h2{font-family:var(--serif);font-size:17pt;color:var(--mist);margin-bottom:2mm;font-weight:700;letter-spacing:-.01em;}
+.assign p{font-size:10pt;color:var(--muted);margin-bottom:3mm;}
+.assign ol{list-style:none;counter-reset:a;}
+.assign>ol>li{counter-increment:a;font-size:10pt;padding:2mm 0 2mm 9mm;position:relative;border-bottom:1px solid rgba(255,255,255,.08);}
+.assign>ol>li:last-child{border-bottom:none;}
+.assign>ol>li::before{content:counter(a);position:absolute;left:0;top:2mm;width:6mm;height:6mm;background:var(--gold);color:#1a1205;font-weight:700;font-size:9pt;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.assign>ol>li b{color:var(--mist);}
+.assign>ol>li span{color:var(--muted);}
+.assign .rem{background:rgba(70,200,255,.1);border-left:3px solid var(--blue);padding:3mm 4mm;margin-top:4mm;font-size:9.7pt;color:#CFE8F5;border-radius:2px;}
+.assign .rem b{color:var(--blue);}
+.foot{margin-top:8mm;border-top:1px solid var(--lines);padding-top:3mm;font-size:8.5pt;color:var(--mid);display:flex;justify-content:space-between;gap:4mm;flex-wrap:wrap;}
+@media(max-width:600px){.doc{padding:24px 18px;margin:52px 10px 30px;}}
+@media print{ body{background:#fff;color:#111;padding:0;} .s5back{display:none;} .doc{margin:0;box-shadow:none;max-width:none;border:none;background:#fff;padding:14mm;} @page{size:A4;margin:0;} }
+</style></head>
+<body>
+<a class="s5back" href="../#/session-5">Back to Session 5</a>
+<div class="doc">
+  <div class="head">
+    <div class="eb">AI for Educators · Session 5 · Video abstracts</div>
+    <h1>Build a video abstract, end to end — run it live, then hand it over</h1>
+    <div class="sub">Every step below is a <b>ready-to-paste Gemini prompt, already filled with our worked example</b>. Run them in order in front of the room to produce a complete ~2-minute video-abstract plan. Then attendees repeat the same steps on their own paper, using the blank assignment at the end.</div>
+  </div>
+
+  <div class="venue" style="border-left-color:var(--blue);"><b style="color:var(--blue);">What a video abstract is.</b> A short audio-and-visual summary of a paper, in the author's own words, telling people why they should read it — made to carry research beyond its own field and onto social channels. Publishers put the sweet spot at <b>about two minutes</b> (Taylor &amp; Francis: 2 minutes 20 seconds or less; SAGE: ~2-minute animation). A strong one answers three questions: <b>what did you investigate, how did you do it, and what did you conclude</b> — then points the viewer to the full article. Ours below follows exactly that arc. Reference: <a href="https://authorservices.taylorandfrancis.com/research-impact/creating-a-video-abstract-for-your-research/">Taylor &amp; Francis — creating a video abstract</a>.</div>
+
+  <div class="golden"><b>The golden rule — say it before you start.</b> Gemini only ever sees a plain, generic summary: aim, method in words, one headline result. Raw data, exact unpublished figures, and your novel design stay out. Every number here is a <b>dummy you swap for your own verified value</b> at the very end.</div>
+
+  <div class="ask-rule"><b>The habit we are teaching — let the model ask.</b> People forget to say who the audience is, which venue it is for, or how long it can be. So every prompt below <b>ends by telling Gemini to ask you for anything missing before it generates.</b> That one line turns a guessing model into a collaborator that gets it right the first time.</div>
+
+  <div class="venue"><b>Our target venue (real, worked example): a SAGE-style journal video abstract.</b> Roughly a two-minute animated video that highlights the article's key findings, with narration; the script is approved by the author and the video is peer-reviewed before publication; it is made for social dissemination and for reaching decision-makers. Watch real samples first: <a href="https://languageservices.sagepub.com/en/services/video-abstracts.html">languageservices.sagepub.com — video abstracts</a>.</div>
+
+  <div class="example">
+    <h2>The example finding (illustrative — everyone builds this one in class)</h2>
+    <p>Small farmers lose much of their tomato harvest to spoilage before sale, because there is no affordable cold storage. A <b>zero-energy cool chamber</b> — two brick walls with damp sand between them, no electricity — keeps tomatoes cooler and more humid, so they stay market-ready for extra days.</p>
+    <p><b>Headline result (plain):</b> the chamber cut spoilage by roughly <b>60%</b> over ten days versus open storage.</p>
+    <div class="dummy">⚠ 60% is a dummy figure for teaching. Swap in your own real, verified number before you publish anything.</div>
+  </div>
+
+  <div class="flow">
+    <h2>The six steps you will run</h2>
+    <ol>
+      <li><b>Brainstorm the angle.</b> <span>Generate several ways to open; pick the strongest hook.</span></li>
+      <li><b>Lock the venue spec.</b> <span>Turn the SAGE guidelines into a concrete build spec — audience, tone, 2-minute length, must-haves.</span></li>
+      <li><b>Break up the story and its elements.</b> <span>Map the narrative arc and the visual and number for each beat.</span></li>
+      <li><b>Storyboard.</b> <span>Scene by scene, timed to two minutes: shot, on-screen text, narration beat, seconds.</span></li>
+      <li><b>Frame and script.</b> <span>The full ~2-minute narration and the shot framing for each scene.</span></li>
+      <li class="rev"><b>Reviewer pass — change the role.</b> <span>A fresh, independent reviewer does a gap analysis against the SAGE criteria. You fix and finalise.</span></li>
+    </ol>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="top"><span class="num">1</span><h2>Brainstorm the angle</h2><span class="role">Gemini · creative partner</span></div>
+    <div class="runline">Run this live · <b>paste as-is</b> — it is already seeded with our example</div>
+    <div class="why">A video abstract lives or dies on its opening. Do not settle on the first idea — ask for several, then choose. Notice this prompt gives the finding but <b>not</b> the audience or venue on purpose, so you can watch Gemini ask for them.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  <span class="seed">I have a paper on cutting post-harvest tomato losses for small farmers.
+Plain summary, no sensitive data — aim: help smallholders store tomatoes without
+electricity; method: a low-cost evaporative cool chamber (two brick walls with
+damp sand between them); headline result: spoilage cut by about 60% over ten days
+versus open storage (dummy figure). I am making a ~2-minute video abstract.</span>
+<span class="k">Role</span>  You are a science-storytelling partner who makes research memorable.
+<span class="k">Task</span>  Give me 4 distinct angles for the video, each opening on a different hook
+(a human moment, a surprising number, a question, a visual contrast). For each:
+the hook line, the through-line, and who it lands with best.
+<span class="k">Format</span>  Four short blocks; end with a one-line recommendation.
+<span class="hi">Before you generate: if the target venue, the audience, or the length is unclear
+or missing, ask me those questions first and wait for my answers.</span></div>
+
+    <div class="lbl q">▸ What Gemini does first — it asks</div>
+    <div class="ask">
+      <div class="qh">Gemini replies with questions before drafting</div>
+      <ol>
+        <li>Which venue is this for, so I match its length and style?</li>
+        <li>Who is the primary audience — researchers, practitioners, funders, or students?</li>
+        <li>Is ~2 minutes a hard limit, or a target?</li>
+      </ol>
+      <div class="ans">You answer: a SAGE journal video abstract; audience is mixed researchers and practitioners; two minutes is the target. → Gemini now proceeds.</div>
+    </div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <div class="ang"><span class="an">A · The human moment.</span> <span class="ad">Open on a farmer watching tomatoes rot. Through-line: dignity and lost income. Lands with practitioners and funders.</span></div>
+      <div class="ang"><span class="an">B · The surprising number.</span> <span class="ad">Open on "~60% less spoilage — with zero electricity." Through-line: big result, near-zero cost. Lands with a results-driven research audience.</span></div>
+      <div class="ang"><span class="an">C · The question.</span> <span class="ad">Open on "Can you refrigerate food with no power at all?" Through-line: simple physics answering a real problem. Lands with a general and student audience.</span></div>
+      <div class="ang"><span class="an">D · The contrast.</span> <span class="ad">Open on two tomatoes at Day 10, side by side. Through-line: seeing is believing. Lands where visual proof matters most.</span></div>
+      <div class="pick">Recommended: open on A (human moment) for SAGE's decision-maker reach, but bring the ~60% result in within the first 20 seconds.</div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="top"><span class="num">2</span><h2>Lock the venue spec</h2><span class="role">Gemini · analyst</span></div>
+    <div class="runline">Run this live · <b>SAGE guidelines already pasted in</b></div>
+    <div class="why">The same finding is pitched differently to a journal, a conference, and a funder. Here we <b>turn SAGE's real guidelines into a written build spec</b> so every later step is tuned to it.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  I am submitting this video abstract to a SAGE journal. Its guidelines,
+in my words: <span class="seed">a ~2-minute animated video that highlights the article's key findings,
+with narration; the script is approved by me before animation; the video is
+peer-reviewed before publication; it is meant for social dissemination and for
+reaching decision-makers.</span>
+Chosen angle from Step 1: <span class="seed">open on the human moment, bring the ~60% result in early.</span>
+<span class="k">Role</span>  You are an analyst who turns a call for entries into a build spec.
+<span class="k">Task</span>  Produce a one-page spec: Audience, Tone, Length, Must-have elements, and
+what this format is judged/valued on. Then say how my chosen angle should adapt.
+<span class="k">Format</span>  A labelled spec, then a short "how to adapt the angle" note.
+<span class="hi">If anything you need is not in my summary, ask me before you generate.</span></div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <p><b>Audience:</b> researchers and practitioners; secondarily decision-makers on social channels.<br>
+      <b>Tone:</b> credible and warm — evidence first, human impact close behind; accessible, minimal jargon.<br>
+      <b>Length:</b> about 2 minutes (~240–260 narration words).<br>
+      <b>Must-have:</b> the key finding stated clearly, the method shown, real-world relevance, author-approved script.<br>
+      <b>Valued on:</b> clarity, scientific soundness, relevance and reach, production quality.</p>
+      <p class="pick">Adapt the angle: open on the human moment for reach, but state the ~60% result plainly within the first 20 seconds to satisfy scientific soundness; keep the method visibly animated.</p>
+      <div class="note"><b>This is the hyper-personalisation.</b> Every step from here is built to this spec, not to a generic idea of a good video.</div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="top"><span class="num">3</span><h2>Break up the story and its elements</h2><span class="role">Gemini · story editor</span></div>
+    <div class="runline">Run this live · <b>feed it Steps 1–2 output</b></div>
+    <div class="why">Before storyboarding, split the piece into a <b>narrative arc</b>, and for each beat name the concrete element that carries it — the visual, the on-screen number, the one message.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  For the tomato cool-chamber finding (spoilage down ~60% over ten days,
+<span class="hi">dummy</span>), using the chosen angle and the SAGE spec from Steps 1–2 (paste them
+below this line if starting a fresh chat).
+<span class="k">Role</span>  You are a story editor for short science films.
+<span class="k">Task</span>  Break the ~2 minutes into a beat sheet: hook, problem, approach, how it
+works, result, impact, close. For each beat give the single message, the visual
+element, and any on-screen number. One idea per beat.
+<span class="k">Format</span>  Seven beats, each: Message · Visual · On-screen. End with the one line the
+viewer should remember.
+<span class="hi">If the angle or spec is missing, ask me for it before you generate.</span></div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <div class="beat"><span class="bn">Hook —</span> <span class="bd">Message: every harvest, food is lost. Visual: farmer beside softening tomatoes. On-screen: "Part of every harvest — lost".</span></div>
+      <div class="beat"><span class="bn">Problem —</span> <span class="bd">Message: the cause is no cold storage. Visual: empty farm, no power line. On-screen: "No electricity, no cold storage".</span></div>
+      <div class="beat"><span class="bn">Approach —</span> <span class="bd">Message: a chamber cooled by evaporation. Visual: bricks, sand, water packed in. On-screen: "A zero-energy cool chamber".</span></div>
+      <div class="beat"><span class="bn">How it works —</span> <span class="bd">Message: evaporation carries heat away. Visual: animated arrows, water leaving, heat out. On-screen: "Evaporation = cooling".</span></div>
+      <div class="beat"><span class="bn">Result —</span> <span class="bd">Message: it works, by a lot. Visual: Day-10 side by side. On-screen: "Day 10 · ~60% less spoilage · vs open storage".</span></div>
+      <div class="beat"><span class="bn">Impact —</span> <span class="bd">Message: more days to sell, more income. Visual: farmer selling fresh fruit. On-screen: "Less waste. More income."</span></div>
+      <div class="beat"><span class="bn">Close —</span> <span class="bd">Message: simple physics, near-zero cost. Visual: finished chamber on the farm. On-screen: title + affiliation.</span></div>
+      <p class="pick">Remember-line: a refrigerator with no electricity — built from a farm's own materials.</p>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="top"><span class="num">4</span><h2>Storyboard</h2><span class="role">Gemini · storyboard artist</span></div>
+    <div class="runline">Run this live · <b>feed it the beat sheet</b></div>
+    <div class="why">Turn the beat sheet into a <b>shot-by-shot storyboard</b> whose timings add up to two minutes. This is what you actually animate or shoot.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  Turn the beat sheet below into a storyboard for a ~2-minute (120s) SAGE
+video abstract. BEAT SHEET: <span class="seed">[paste from Step 3]</span>
+<span class="k">Role</span>  You are a storyboard artist for short animated explainers.
+<span class="k">Task</span>  One row per shot: shot/animation description, on-screen text, narration
+beat, and a second range. Timings must total ~120 seconds. Keep visuals simple to
+animate (flat shapes, simple diagrams).
+<span class="k">Format</span>  A table: Scene · On-screen text · Narration beat · Sec.
+<span class="hi">If the length or beat sheet is unclear, ask me before you generate.</span></div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <table>
+        <tr><th>Scene</th><th>On-screen text</th><th>Narration beat</th><th>Sec</th></tr>
+        <tr><td>Field of ripe tomatoes, then a crate softening</td><td>"Part of every harvest — lost"</td><td>Farmers grow plenty, then watch it rot before market.</td><td>0–16</td></tr>
+        <tr><td>Empty farm, no power line at dusk</td><td>"No electricity, no cold storage"</td><td>The problem is the waiting, not the growing.</td><td>16–30</td></tr>
+        <tr><td>Hands packing damp sand between two brick walls</td><td>"A zero-energy cool chamber"</td><td>Two brick walls, damp sand between them.</td><td>30–52</td></tr>
+        <tr><td>Animated diagram: water evaporates, heat arrows leave</td><td>"Evaporation = cooling"</td><td>As water dries, it carries heat away — a natural fridge.</td><td>52–70</td></tr>
+        <tr><td>Split screen: chamber tomato vs open tomato, Day 10</td><td>"Day 10 · ~60% less spoilage"</td><td>Measured over ten days, the difference was striking.</td><td>70–92</td></tr>
+        <tr><td>Farmer selling firm red tomatoes at market</td><td>"Less waste. More income."</td><td>More days to sell, more income, near-zero cost.</td><td>92–108</td></tr>
+        <tr><td>Pull back from the finished chamber on the farm</td><td>Title · authors · affiliation</td><td>Simple physics, applied where it is needed most.</td><td>108–120</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="top"><span class="num">5</span><h2>Frame and script</h2><span class="role">Gemini · scriptwriter</span></div>
+    <div class="runline">Run this live · <b>feed it the storyboard</b></div>
+    <div class="why">Finally, the <b>spoken narration</b> and a <b>framing note per scene</b> — so whoever animates or shoots knows exactly what to capture, timed to two minutes.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  From the storyboard below, write the final narration and framing.
+STORYBOARD: <span class="seed">[paste from Step 4]</span>
+<span class="k">Role</span>  You are a scriptwriter and director of photography for short films.
+<span class="k">Task</span>  Write a ~250-word narration (about 2 minutes spoken) in plain language, and
+for each scene a one-line framing note (angle, what fills the frame). Keep the
+~60% result <span class="hi">(dummy)</span> as the emotional peak.
+<span class="k">Format</span>  The narration as a paragraph, then a short framing list, scene by scene.
+<span class="hi">If the storyboard or target length is missing, ask me before you generate.</span></div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <div class="nar">"Across India, small farmers grow tomatoes in abundance — and then watch a large share of that harvest rot before it ever reaches a buyer. The problem is not the growing. It is the waiting. Without cold storage, a ripe tomato has only a few days before it softens, and for a smallholder with no electricity, cold storage is simply out of reach. So we asked a simple question: could you keep tomatoes cool using no electricity at all? Our answer is the zero-energy cool chamber — two brick walls with a layer of damp sand packed between them. As water evaporates from the sand, it draws heat away from the space inside, the same physics that cools your skin as sweat dries. A refrigerator, in effect, built from materials already on the farm. To test it, we stored freshly picked tomatoes inside and compared them with tomatoes left in open storage, measuring both over ten days. The result was striking: the chamber cut spoilage by around <span class="d">sixty percent</span>, keeping the fruit firm, red and market-ready for days longer. For a smallholder, those extra days change everything — less waste, a wider window to sell, and more income, from a structure that costs almost nothing. This is not advanced technology. It is careful physics, applied where it is needed most."</div>
+      <div class="beat"><span class="bn">Framing —</span> <span class="bd">Hook: close on soft fruit, farmer soft-focus behind. Problem: wide empty farm at dusk. Approach: mid shots of hands and sand. Diagram: clean full-frame animation. Result: locked-off two-shot, identical framing on both tomatoes. Impact: warm market shot, real sale. Close: slow pull-back from the finished chamber.</span></div>
+      <div class="note"><b>You do the rest:</b> this script and storyboard now go into your video tool (next box). Gemini only ever saw the plain summary — never your raw data.</div>
+    </div>
+  </div>
+
+  <!-- REVIEWER PASS -->
+  <div class="step reviewer">
+    <div class="top"><span class="num">R</span><h2>Reviewer pass — change the role, find the gaps</h2><span class="role">Gemini · independent reviewer</span></div>
+    <div class="runline">Run this live · <b>open a fresh chat and change the role</b></div>
+    <div class="why">Now <b>change the role deliberately.</b> In a new chat, tell Gemini it is an independent reviewer seeing this for the first time — not the author. Fresh eyes catch the unclear hook, the jargon, the late result, the missing must-have. This adversarial pass lifts the piece from good to competitive.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  Below is a video-abstract storyboard and script, and the SAGE spec it
+must satisfy. You did not write it and know nothing about the project beyond this.
+SPEC: <span class="seed">[paste from Step 2]</span>   STORYBOARD + SCRIPT: <span class="seed">[paste from Steps 4–5]</span>
+<span class="k">Role</span>  You are an independent reviewer and journal editor, slightly sceptical,
+scoring this against the venue's stated criteria.
+<span class="k">Task</span>  Do a gap analysis. For each criterion, say where it falls short and what is
+missing, unclear, jargon-heavy, or overclaimed. Flag any claim I have not
+evidenced. Be specific and blunt.
+<span class="k">Format</span>  A table: Criterion · Gap found · Fix. End with the single highest-priority
+change.
+<span class="hi">If the spec or the draft is incomplete, ask me for it before you review.</span></div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <table class="gap">
+        <tr><th>Criterion</th><th>Gap found</th><th>Fix</th></tr>
+        <tr><td>Clarity</td><td>"Evaporation = cooling" assumes the viewer knows why.</td><td class="f">Keep the one narration line about heat leaving as water dries.</td></tr>
+        <tr><td>Scientific soundness</td><td>"~60%" needs its comparison and duration on screen, not only spoken.</td><td class="f">On-screen: "vs open storage · 10 days".</td></tr>
+        <tr><td>Relevance/reach</td><td>Income claim is asserted, not shown.</td><td class="f">Show a real sale in the market shot.</td></tr>
+        <tr><td>Production quality</td><td>Result lands at ~70s — a touch late for a 2-minute cut.</td><td class="f">Tease "~60% less spoilage, no electricity" in the first 15 seconds.</td></tr>
+      </table>
+      <p class="pick">Highest priority: put the result and its baseline on screen early — that one change protects both clarity and scientific-soundness.</p>
+      <div class="note"><b>Close the loop:</b> take these fixes back to Step 4 or 5 and revise. One or two review-and-fix rounds is usually enough — you own every final decision.</div>
+    </div>
+  </div>
+
+  <div class="render">
+    <h2>Turn the script into an actual video</h2>
+    <p>Gemini has given you a finished script and storyboard. It does not render the video itself, so the last step uses a video tool. Any of these works — pick what your team has:</p>
+    <ol>
+      <li><b>Google Vids or Canva:</b> create a scene per storyboard row, drop in the on-screen text, add simple visuals, then add the narration as a voiceover track.</li>
+      <li><b>NotebookLM Video Overview:</b> load your safe summary and script as sources and generate a narrated video from them — grounded in exactly what you provided.</li>
+      <li><b>Any AI clip tool (e.g. Veo in the Gemini app):</b> generate short clips scene by scene from the storyboard, then stitch and narrate.</li>
+    </ol>
+    <p style="margin-top:2mm;"><b>Then record the narration</b> (or use text-to-speech), lay it over the visuals, and check it against the reviewer's fixes. That is your video abstract.</p>
+    <p style="margin-top:2mm;font-size:9.5pt;color:var(--graph);"><b>Export settings publishers expect:</b> 16:9 landscape, at least 720p, 24–30 fps, saved as .mp4 (.mov or .mpg also accepted), kept under about 2 minutes 20 seconds. End on a line that points the viewer to the full article.</p>
+  </div>
+
+  <div class="gem">
+    <h2>Save the whole flow as a Gem in Gemini</h2>
+    <p>Do not rebuild this by hand each time. In Gemini, a <b>Gem</b> is a saved assistant with standing instructions — set it up once, reuse it for every paper.</p>
+    <ul>
+      <li>Create a Gem named "Video-abstract builder".</li>
+      <li>Paste the flow as its instructions: the golden rule, then the six steps with their CRTF structure.</li>
+      <li>Tell it to run one step at a time, to ask for anything missing before each step, and to mark unverified facts and dummy numbers.</li>
+      <li>For a new paper, open the Gem, paste your safe summary and the venue's guidelines, and walk the steps.</li>
+    </ul>
+    <p style="margin-top:2mm;"><b>Why it matters:</b> the Gem locks in the discipline — decomposition, venue-tuning, the asking habit, and the independent review — so quality does not depend on remembering the process.</p>
+  </div>
+
+  <!-- ASSIGNMENT -->
+  <div class="assign">
+    <div class="eb">Now hand it over · your turn</div>
+    <h2>Assignment — build a video abstract for your own paper</h2>
+    <p>Run the same six steps you just watched, on one of your own findings. Use a plain, generic summary only — no raw data, no exact unpublished numbers, a dummy figure where needed. Where a step needs the previous step's output, paste it in.</p>
+    <ol>
+      <li><b>Brainstorm the angle.</b> <span>Paste your plain summary and ask for 4 angles with different hooks. Do not name the audience or venue — let Gemini ask you.</span></li>
+      <li><b>Lock the venue spec.</b> <span>Name your target venue (SAGE, a conference, a funder) and paste its guidelines; ask Gemini to turn them into a build spec and adapt your chosen angle.</span></li>
+      <li><b>Break up the story.</b> <span>Ask for a beat sheet — hook to close — with a message, a visual, and a number for each beat.</span></li>
+      <li><b>Storyboard.</b> <span>Ask for a shot-by-shot table timed to your venue's length.</span></li>
+      <li><b>Frame and script.</b> <span>Ask for the narration and a framing note per scene.</span></li>
+      <li><b>Reviewer pass.</b> <span>In a fresh chat, make Gemini an independent reviewer and ask for a gap analysis against your spec. Apply the fixes.</span></li>
+    </ol>
+    <div class="rem"><b>Remember:</b> end every prompt with "if anything you need is missing, ask me before you generate" — that is the habit. And keep the golden rule: only the plain summary goes in, your real verified numbers go on at the very end, in your own file.</div>
+  </div>
+
+  <div class="foot"><span>AI for Educators · Session 5 · Video abstracts — Video abstract, end to end</span><span>Tool: Gemini (Pro) · Venue: SAGE-style · Dummy data — swap your verified values</span></div>
+</div>
+</body></html>

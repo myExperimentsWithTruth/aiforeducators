@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 5 · Video &amp; graphical abstracts · AI for Educators</title>
+<style>
+:root{color-scheme:dark;
+  --void:#05050A; --maroon:#FF5A36; --mink:#0A0A11; --rust:#FF6B6B; --gold:#FFC857; --agri:#3ED598;
+  --paper:#0E0E16; --paper2:#14141D; --line:#2B2B37; --lines:#24242F;
+  --ink:#F4F4F8; --graph:#B7B7C4; --mid:#8B8B99; --blue:#46C8FF; --mist:#F4F4F8; --muted:#A2A2B0; --code:#08080E;
+  --serif:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{background:var(--void);font-family:var(--sans);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:0 0 40px;}
+:focus-visible{outline:2px solid var(--maroon);outline-offset:3px;border-radius:5px;}
+.s5back{position:fixed;left:16px;top:14px;z-index:50;font-size:12px;font-weight:600;color:var(--maroon);background:rgba(14,14,22,.92);border:1px solid var(--line);border-radius:999px;padding:7px 15px;text-decoration:none;backdrop-filter:blur(10px);box-shadow:0 2px 12px rgba(0,0,0,.5);transition:border-color .2s,background .2s;}
+.s5back:hover{border-color:var(--maroon);background:#1B1113;}
+.doc{max-width:min(880px,94vw);margin:56px auto 40px;background:var(--paper);border:1px solid var(--lines);border-radius:16px;padding:14mm clamp(16px,5vw,16mm) 16mm;box-shadow:0 16px 60px rgba(0,0,0,.5);}
+.head{border-bottom:2px solid var(--maroon);padding-bottom:5mm;margin-bottom:6mm;}
+.head .eb{font-size:10pt;letter-spacing:2.4px;text-transform:uppercase;color:var(--maroon);}
+.head h1{font-family:var(--serif);font-weight:700;font-size:clamp(1.85rem,4.5vw,2.5rem);color:var(--mist);line-height:1.06;letter-spacing:-.02em;margin:3mm 0 2mm;}
+.head .sub{font-size:10.5pt;color:var(--graph);}
+.head .sub b{color:var(--maroon);}
+
+.rule{background:var(--paper2);border:1px solid var(--lines);border-left:3px solid var(--maroon);padding:4mm 5mm;margin-bottom:7mm;font-size:11pt;border-radius:0 6px 6px 0;}
+.rule b{color:var(--maroon);}
+.tech{margin-bottom:8mm;padding-bottom:6mm;border-bottom:1px solid var(--line);}
+.tech:last-of-type{border-bottom:none;}
+.tech .top{display:flex;align-items:baseline;gap:3mm;margin-bottom:2mm;flex-wrap:wrap;}
+.tech .num{font-family:var(--serif);font-size:20pt;color:var(--maroon);font-weight:700;line-height:1;}
+.tech h2{font-family:var(--serif);font-size:clamp(1.15rem,3vw,1.45rem);color:var(--mist);flex:1;font-weight:700;letter-spacing:-.01em;}
+.tech .tag{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;padding:1.4mm 2.6mm;border-radius:999px;white-space:nowrap;border:1px solid;}
+.tag.gem{color:var(--agri);background:rgba(62,213,152,.14);border-color:rgba(62,213,152,.4);}
+.tag.rule{color:var(--maroon);background:rgba(255,90,54,.14);border-color:rgba(255,90,54,.4);}
+.tech .intro{font-size:10.5pt;margin-bottom:3mm;color:var(--graph);} .tech .intro b{color:var(--maroon);}
+.steps{list-style:none;counter-reset:s;margin:2mm 0 3mm;}
+.steps li{counter-increment:s;position:relative;padding:1.8mm 0 1.8mm 9mm;font-size:10.2pt;border-bottom:1px solid var(--lines);color:var(--graph);}
+.steps li:last-child{border-bottom:none;}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1.6mm;width:6mm;height:6mm;background:var(--maroon);color:#2a0a04;font-family:var(--sans);font-size:8.5pt;font-weight:700;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.steps li b{color:var(--mist);}
+.steps li .self{color:var(--agri);font-weight:600;}
+.lbl{font-size:7.5pt;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;color:var(--gold);margin:3mm 0 1mm;}
+.prompt{font-family:var(--mono);font-size:9pt;line-height:1.6;background:var(--code);color:#E8E8F0;border:1px solid var(--line);border-left:3px solid var(--maroon);padding:4mm 4.5mm;border-radius:8px;white-space:pre-wrap;overflow-x:auto;}
+.prompt .k{color:var(--gold);font-weight:600;text-transform:uppercase;font-size:7.5pt;letter-spacing:1.2px;}
+.prompt .hi{color:var(--gold);}
+.caution{font-size:9.5pt;color:var(--graph);margin-top:2.5mm;padding-left:3mm;border-left:2px solid var(--rust);}
+.caution b{color:var(--rust);}
+.safe{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin:3mm 0;}
+.safe .col{border:1px solid var(--lines);background:var(--paper2);padding:3.5mm 4mm;border-radius:8px;}
+.safe .col.ok{border-top:3px solid var(--agri);}
+.safe .col.no{border-top:3px solid var(--rust);}
+.safe h3{font-size:10.5pt;margin-bottom:2mm;}
+.safe .ok h3{color:var(--agri);} .safe .no h3{color:var(--rust);}
+.safe ul{list-style:none;}
+.safe li{font-size:9.3pt;padding:1.3mm 0 1.3mm 5mm;position:relative;line-height:1.35;color:var(--graph);}
+.safe .ok li::before{content:"\2713";position:absolute;left:0;color:var(--agri);font-weight:700;}
+.safe .no li::before{content:"\2715";position:absolute;left:0;color:var(--rust);font-weight:700;}
+@media(max-width:700px){.safe{grid-template-columns:1fr;}}
+.close{background:var(--paper2);border:1px solid var(--lines);border-top:3px solid var(--maroon);padding:5mm 6mm;margin-top:3mm;border-radius:0 0 10px 10px;}
+.close h2{font-family:var(--serif);font-size:15pt;color:var(--mist);margin-bottom:2mm;font-weight:700;}
+.close ul{list-style:none;}
+.close li{font-size:10pt;padding:1mm 0 1mm 6mm;position:relative;color:var(--graph);}
+.close li::before{content:"\2713";position:absolute;left:0;color:var(--agri);font-weight:700;}
+.close li b{color:var(--maroon);}
+.foot{margin-top:8mm;border-top:1px solid var(--lines);padding-top:3mm;font-size:8.5pt;color:var(--mid);display:flex;justify-content:space-between;gap:4mm;flex-wrap:wrap;}
+@media(max-width:600px){.doc{padding:24px 18px;margin:52px 10px 30px;}}
+@media print{ body{background:#fff;color:#111;padding:0;} .s5back{display:none;} .doc{margin:0;box-shadow:none;max-width:none;border:none;background:#fff;padding:14mm;} @page{size:A4;margin:0;} }
+</style></head>
+<body>
+<a class="s5back" href="../#/session-5">Back to Session 5</a>
+<div class="doc">
+  <div class="head">
+    <div class="eb">AI for Educators · Session 5</div>
+    <h1>Video &amp; graphical abstracts — safely, with Gemini</h1>
+    <div class="sub">Use <b>Gemini</b> to make your research travel — a video abstract that plays at a conference, a graphical abstract that lands a paper. The one condition: your <b>data and IP never enter the chat</b>.</div>
+  </div>
+
+  <div class="rule"><b>The rule that runs through today:</b> placeholder in, real values out. Gemini writes and structures; <b>you record, build, and keep your data.</b> Raw datasets, unpublished results and proprietary methods stay out of the chat entirely — you substitute your real, sensitive values yourself, outside the conversation.</div>
+
+  <!-- TASK 1 -->
+  <div class="tech">
+    <div class="top"><span class="num">1</span><h2>Video abstracts for conferences and papers</h2><span class="tag gem">Gemini</span></div>
+    <p class="intro">Let Gemini write the <b>script/narration and the storyboard</b>; you do the <b>recording and the visuals</b> yourself. Gemini only ever sees a generic description — never raw datasets, unpublished results, or proprietary methods.</p>
+    <ol class="steps">
+      <li>Say the finding in <b>one plain line</b> — the message, with no sensitive numbers.</li>
+      <li>Give Gemini a <b>generic summary</b> (aim, method in general terms, the headline result in words or a placeholder) and ask for a 60–90 second narration script.</li>
+      <li>Ask for a <b>scene-by-scene storyboard</b> — shot, on-screen text, narration line, seconds.</li>
+      <li>Refine length and tone iteratively (tighter, warmer, simpler).</li>
+      <li><span class="self">You:</span> record the narration and build the visuals yourself — your slides, your figures, your voice. Gemini never touches the real assets.</li>
+      <li>Optional: ask Gemini for a title, a caption and keywords for the upload.</li>
+    </ol>
+    <div class="lbl">▸ Prompt — Context · Role · Task · Format</div>
+    <div class="prompt"><span class="k">Context</span>  I have a paper on [general topic]. Generic summary, no sensitive data:
+aim — [plain words]; method — [general approach]; headline finding — [plain words or a
+placeholder number]. I need a video abstract of about 75 seconds for a conference.
+<span class="k">Role</span>  You are a science communicator who writes tight video-abstract scripts.
+<span class="k">Task</span>  Write a ~75-second narration (about 140 words) in plain language, then a
+scene-by-scene storyboard.
+<span class="k">Format</span>  Script first; then a storyboard table (shot · on-screen text · narration ·
+seconds). <span class="hi">Do not ask me for raw data — work only from the generic summary.</span></div>
+    <div class="caution"><b>Keep out:</b> the raw dataset, unpublished results, and any proprietary method. The script works from your message, not your data.</div>
+  </div>
+
+  <!-- TASK 2 -->
+  <div class="tech">
+    <div class="top"><span class="num">2</span><h2>Protecting your data and IP</h2><span class="tag rule">The rule</span></div>
+    <p class="intro">This is what makes tasks 1 and 3 safe. A public AI chat is not a private vault — so <b>share only what is already public or safely generic</b>, and keep everything sensitive out.</p>
+    <div class="safe">
+      <div class="col ok"><h3>Safe to share</h3><ul>
+        <li>The research question, in general terms</li>
+        <li>Already-published findings (cite them)</li>
+        <li>A generic description of the method — the approach, not the secret recipe</li>
+        <li>Placeholder / dummy numbers</li>
+        <li>The format or structure you want</li>
+        <li>Public background and context</li>
+      </ul></div>
+      <div class="col no"><h3>Keep out entirely</h3><ul>
+        <li>Raw datasets</li>
+        <li>Unpublished results and figures</li>
+        <li>Exact values that are not yet public</li>
+        <li>Novel or proprietary methodology</li>
+        <li>Anything under embargo or NDA</li>
+        <li>Identifiable participant data</li>
+      </ul></div>
+    </div>
+    <ol class="steps">
+      <li>Ask Session 1's test first: <b>is this public, or mine to protect?</b></li>
+      <li>Replace every sensitive value or method detail with a <b>placeholder</b> — [X], "Method A", "Site 1".</li>
+      <li>Prompt with the placeholder version <b>only</b>.</li>
+      <li><span class="self">You:</span> substitute your real values yourself, offline, in your own document.</li>
+      <li>If a task genuinely needs the real data to run, use a <b>private or institutional tool</b>, not a public chat.</li>
+    </ol>
+  </div>
+
+  <!-- TASK 3 -->
+  <div class="tech">
+    <div class="top"><span class="num">3</span><h2>Designing graphical abstracts</h2><span class="tag gem">Gemini</span></div>
+    <p class="intro">Ask Gemini for the <b>layout logic, visual flow and iconography</b> — using dummy / placeholder labels — then build the real graphic and drop in your sensitive values yourself, outside the conversation.</p>
+    <ol class="steps">
+      <li>Describe the story generically: <b>problem → approach → result</b>, with dummy labels.</li>
+      <li>Ask for <b>layout logic and visual flow</b> — how the panels should read left to right at a glance.</li>
+      <li>Ask for <b>iconography and metaphor suggestions</b> for each concept (still dummy labels).</li>
+      <li>Ask for a simple <b>colour and hierarchy</b> scheme.</li>
+      <li><span class="self">You:</span> build the graphic in your own tool (PowerPoint, Inkscape, BioRender, Canva) and substitute your real values and figures.</li>
+      <li>Iterate the layout with Gemini using placeholders only — never the real numbers.</li>
+    </ol>
+    <div class="lbl">▸ Prompt — Context · Role · Task · Format</div>
+    <div class="prompt"><span class="k">Context</span>  I am designing a graphical abstract for a paper on [general topic].
+The story, with dummy labels: problem — [generic]; approach — [generic];
+result — [placeholder]. It must read left to right in one glance.
+<span class="k">Role</span>  You are a scientific illustration designer.
+<span class="k">Task</span>  Propose a three-panel layout (problem → approach → result): what each panel
+shows, the visual flow between them, and icon or metaphor ideas for each concept.
+Suggest a simple colour hierarchy.
+<span class="k">Format</span>  A panel-by-panel plan, plus the icon ideas and the colour note.
+<span class="hi">Use my dummy labels; do not ask for the real data.</span></div>
+    <div class="caution"><b>Keep out:</b> the real figures, exact values and any unpublished visual. Gemini designs the frame; you place the sensitive content inside it yourself.</div>
+  </div>
+
+  <div class="close">
+    <h2>The safe-sharing checklist</h2>
+    <ul>
+      <li><b>Public or placeholder in; real values out</b> — every time.</li>
+      <li>Gemini writes and structures; <b>you record, build and verify.</b></li>
+      <li>Real figures, raw data and unpublished methods → private/institutional tools only.</li>
+      <li>Cite published findings; keep unpublished work out of the chat.</li>
+      <li>Disclose AI assistance per your institution's norms — the output goes out under your name.</li>
+    </ul>
+  </div>
+
+  <div class="foot"><span>AI for Educators · Session 5 · Video &amp; graphical abstracts</span><span>Tool: Gemini · G.B. Pant University of Agriculture &amp; Technology</span></div>
+</div>
+</body></html>

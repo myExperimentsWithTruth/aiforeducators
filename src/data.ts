@@ -220,21 +220,44 @@ export const SESSIONS: Session[] = [
   },
   {
     n: 5,
-    slug: null,
-    title: 'Course materials and assessment',
-    tag: 'Outlines, materials and assessment, grounded in your sources.',
+    slug: 'session-5',
+    title: 'Video and graphical abstracts',
+    tag: 'Making your research travel: a video abstract and a graphical abstract, built safely with Gemini.',
     blurb:
-      'Build outlines, materials and assessments faster, grounded in your sources.',
-    outcome: 'A course toolkit you can apply to your own paper.',
-  },
-  {
-    n: 6,
-    slug: null,
-    title: 'Responsible use and action planning',
-    tag: 'Privacy, disclosure and accountability, turned into a plan.',
-    blurb:
-      'Data privacy, disclosure, verification and accountability, turned into a plan.',
-    outcome: 'A personal, responsible AI plan for your department.',
+      'Turn a finding into a two-minute video abstract and a single-image graphical abstract with Gemini, keeping your data and IP out of the chat.',
+    outcome: 'A video abstract and a graphical abstract you can make for your own paper.',
+    covered: [
+      'Writing a video-abstract script and storyboard, then recording the narration and building the visuals yourself.',
+      'Designing a graphical abstract: the one message, the layout and flow, the icons and a colourblind-safe palette, then the image in your own tool.',
+      'Letting the model ask for what it needs, and using a fresh reviewer pass to lift the draft against the journal’s own criteria.',
+      'Keeping data and IP out of the chat: placeholder in, real values out. Session 1’s guardrails go deeper.',
+    ],
+    artefacts: [
+      {
+        kind: 'One-pager',
+        title: 'The session on one page',
+        blurb:
+          'The whole session on a single sheet: both techniques, the ready-to-paste prompts, and the safe-sharing checklist that runs through them.',
+        href: `${BASE}session-5/overview.html`,
+        cta: 'View the one-pager',
+      },
+      {
+        kind: 'Walkthrough',
+        title: 'Video abstracts, end to end',
+        blurb:
+          'Six steps from a plain summary to a finished two-minute video-abstract script and storyboard: brainstorm the angle, lock the venue spec, storyboard, script, then a reviewer pass. Every prompt is ready to paste.',
+        href: `${BASE}session-5/video-abstract.html`,
+        cta: 'View the walkthrough',
+      },
+      {
+        kind: 'Walkthrough',
+        title: 'Graphical abstracts, end to end',
+        blurb:
+          'Design a single-image graphical abstract the same way: nail the one message, fit the journal’s spec, choose the layout, set the visual flow, then the icons and a colourblind-safe palette, with a reviewer pass to finish.',
+        href: `${BASE}session-5/graphical-abstract.html`,
+        cta: 'View the walkthrough',
+      },
+    ],
   },
 ]
 

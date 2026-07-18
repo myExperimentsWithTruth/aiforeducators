@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphical abstracts, end to end · Session 5 · AI for Educators</title>
+<style>
+:root{color-scheme:dark;
+  --void:#05050A; --maroon:#FF5A36; --mink:#0A0A11; --rust:#FF6B6B; --gold:#FFC857; --agri:#3ED598;
+  --paper:#0E0E16; --paper2:#14141D; --line:#2B2B37; --lines:#24242F;
+  --ink:#F4F4F8; --graph:#B7B7C4; --mid:#8B8B99; --blue:#46C8FF; --mist:#F4F4F8; --muted:#A2A2B0; --code:#08080E;
+  --serif:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","Segoe UI",Roboto,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{background:var(--void);font-family:var(--sans);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;padding:0 0 40px;}
+:focus-visible{outline:2px solid var(--maroon);outline-offset:3px;border-radius:5px;}
+.s5back{position:fixed;left:16px;top:14px;z-index:50;font-size:12px;font-weight:600;color:var(--maroon);background:rgba(14,14,22,.92);border:1px solid var(--line);border-radius:999px;padding:7px 15px;text-decoration:none;backdrop-filter:blur(10px);box-shadow:0 2px 12px rgba(0,0,0,.5);transition:border-color .2s,background .2s;}
+.s5back:hover{border-color:var(--maroon);background:#1B1113;}
+.doc{max-width:min(880px,94vw);margin:56px auto 40px;background:var(--paper);border:1px solid var(--lines);border-radius:16px;padding:14mm clamp(16px,5vw,16mm) 16mm;box-shadow:0 16px 60px rgba(0,0,0,.5);}
+.head{border-bottom:2px solid var(--maroon);padding-bottom:5mm;margin-bottom:6mm;}
+.head .eb{font-size:10pt;letter-spacing:2.4px;text-transform:uppercase;color:var(--maroon);}
+.head h1{font-family:var(--serif);font-weight:700;font-size:clamp(1.85rem,4.5vw,2.5rem);color:var(--mist);line-height:1.06;letter-spacing:-.02em;margin:3mm 0 2mm;}
+.head .sub{font-size:10.5pt;color:var(--graph);}
+.head .sub b{color:var(--maroon);}
+
+.golden{background:rgba(255,107,107,.08);border-left:3px solid var(--rust);padding:4mm 5mm;margin-bottom:5mm;font-size:10.3pt;border-radius:0 6px 6px 0;}
+.golden b{color:var(--rust);}
+.ask-rule{background:rgba(70,200,255,.08);border-left:3px solid var(--blue);padding:4mm 5mm;margin-bottom:5mm;font-size:10.3pt;border-radius:0 6px 6px 0;}
+.ask-rule b{color:var(--blue);}
+.venue{background:var(--paper2);border:1px solid var(--line);border-left:3px solid var(--gold);padding:4mm 5mm;margin-bottom:5mm;font-size:10pt;border-radius:0 6px 6px 0;}
+.venue b{color:var(--maroon);}
+.venue a{color:var(--blue);border-bottom:1px solid rgba(70,200,255,.35);text-decoration:none;}
+.venue a:hover{border-bottom-color:var(--blue);}
+.example{background:var(--paper2);border:1px solid var(--lines);border-left:3px solid var(--maroon);padding:4mm 5mm;margin-bottom:6mm;border-radius:0 6px 6px 0;}
+.example h2{font-size:11pt;color:var(--maroon);margin-bottom:2mm;font-family:var(--sans);}
+.example p{font-size:10.3pt;margin-bottom:2mm;}
+.example .dummy{font-size:9pt;color:var(--rust);background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.32);padding:1mm 2.5mm;border-radius:3px;display:inline-block;margin-top:1mm;}
+.flow{background:var(--mink);border:1px solid var(--lines);color:var(--mist);border-radius:10px;padding:5mm 5.5mm;margin-bottom:8mm;}
+.flow h2{font-family:var(--serif);font-size:13pt;color:var(--gold);margin-bottom:3mm;font-weight:600;}
+.flow ol{list-style:none;counter-reset:f;}
+.flow li{counter-increment:f;font-size:10pt;padding:1.6mm 0 1.6mm 9mm;position:relative;border-bottom:1px solid rgba(255,255,255,.08);}
+.flow li:last-child{border-bottom:none;}
+.flow li::before{content:counter(f);position:absolute;left:0;top:1.4mm;width:6mm;height:6mm;background:var(--gold);color:#1a1205;font-family:var(--sans);font-weight:700;font-size:9pt;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.flow li.rev::before{content:"R";background:var(--rust);color:#2a0808;}
+.flow li b{color:var(--mist);}
+.flow li span{color:var(--muted);}
+.step{margin-bottom:9mm;padding-bottom:7mm;border-bottom:1px solid var(--line);}
+.step .top{display:flex;align-items:baseline;gap:3mm;margin-bottom:2mm;flex-wrap:wrap;}
+.step .num{font-family:var(--serif);font-size:22pt;color:var(--maroon);font-weight:700;line-height:1;}
+.step h2{font-family:var(--serif);font-size:clamp(1.15rem,3vw,1.5rem);color:var(--mist);flex:1;font-weight:700;letter-spacing:-.01em;}
+.step .role{font-size:7.5pt;letter-spacing:1px;text-transform:uppercase;padding:1.4mm 2.6mm;border-radius:999px;color:var(--agri);background:rgba(62,213,152,.14);border:1px solid rgba(62,213,152,.4);white-space:nowrap;}
+.step.reviewer .num{color:var(--rust);}
+.step.reviewer .role{color:var(--rust);background:rgba(255,107,107,.14);border-color:rgba(255,107,107,.4);}
+.step .why{font-size:10.3pt;margin-bottom:3mm;color:var(--graph);}
+.step .why b{color:var(--maroon);}
+.step.reviewer .why b{color:var(--rust);}
+.runline{font-size:8.5pt;letter-spacing:.5px;text-transform:uppercase;color:var(--mid);font-weight:600;margin-bottom:3mm;}
+.runline b{color:var(--agri);}
+.lbl{font-size:7.5pt;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;margin:3mm 0 1mm;}
+.lbl.in{color:var(--gold);} .lbl.out{color:var(--agri);} .lbl.q{color:var(--blue);}
+.step.reviewer .lbl.out{color:var(--rust);}
+.prompt{font-family:var(--mono);font-size:9pt;line-height:1.6;background:var(--code);color:#E8E8F0;border:1px solid var(--line);border-left:3px solid var(--maroon);padding:4mm 4.5mm;border-radius:8px;white-space:pre-wrap;overflow-x:auto;}
+.prompt .k{color:var(--gold);font-weight:600;text-transform:uppercase;font-size:7.5pt;letter-spacing:1.2px;}
+.prompt .hi{color:var(--gold);}
+.prompt .seed{color:#8FE3B8;}
+.ask{border:1px dashed rgba(70,200,255,.5);background:rgba(70,200,255,.06);padding:3.5mm 4mm;border-radius:8px;font-size:9.5pt;color:var(--graph);margin-top:2.5mm;}
+.ask .qh{font-size:8pt;letter-spacing:1px;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:1.5mm;}
+.ask ol{margin:0 0 1.5mm 5mm;} .ask li{margin-bottom:1mm;}
+.ask .ans{color:var(--agri);font-style:italic;}
+.ocard{border:1px solid var(--lines);border-left:3px solid var(--agri);background:var(--paper2);padding:4mm 5mm;border-radius:8px;}
+.step.reviewer .ocard{border-left-color:var(--rust);}
+.ocard .nar{font-size:10pt;line-height:1.55;font-style:italic;color:var(--mist);margin-bottom:3mm;}
+.ocard .nar .d{font-style:normal;color:var(--rust);font-weight:600;}
+.ocard p{font-size:10pt;margin-bottom:2mm;color:var(--ink);}
+.ocard .pick{font-size:9.5pt;color:var(--agri);font-weight:600;margin-top:2mm;}
+.ang{margin-bottom:2.5mm;}
+.ang .an{font-weight:600;color:var(--maroon);font-size:10pt;}
+.ang .ad{font-size:9.5pt;color:var(--graph);}
+table{border-collapse:collapse;width:100%;font-size:9pt;margin-top:1mm;}
+th{background:rgba(255,90,54,.1);color:var(--maroon);text-align:left;padding:1.8mm 2.5mm;border-bottom:1px solid var(--line);font-weight:600;}
+td{padding:1.8mm 2.5mm;border-bottom:1px solid var(--lines);vertical-align:top;color:var(--graph);}
+.gap th{background:rgba(255,107,107,.12);color:var(--rust);}
+.gap td.f{color:var(--agri);}
+.beat{margin-bottom:2mm;}
+.beat .bn{font-weight:600;color:var(--maroon);font-size:9.7pt;}
+.beat .bd{font-size:9.5pt;color:var(--graph);}
+.panel{margin-bottom:2mm;}
+.panel .pn{font-weight:600;color:var(--maroon);font-size:9.8pt;}
+.panel .pd{font-size:9.5pt;color:var(--graph);}
+.panel .ic{font-size:9pt;color:var(--agri);}
+.note{font-size:9.5pt;color:var(--graph);margin-top:2.5mm;padding-left:3mm;border-left:2px solid var(--gold);}
+.note b{color:var(--gold);}
+.mock{margin:3mm 0 1mm;border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+.mock .cap{font-size:8pt;color:var(--muted);background:#1c1c26;padding:1.6mm 3mm;letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--line);}
+.mockrow{display:flex;align-items:stretch;background:#fff;}
+.mp{flex:1;padding:4mm 3mm;text-align:center;border-right:1px dashed #d9d2c4;}
+.mp:last-child{border-right:none;}
+.mp .icn{font-size:20pt;line-height:1;}
+.mp .t{font-size:8.5pt;font-weight:600;color:#1a1a20;margin-top:1.5mm;}
+.mp .s{font-size:7.5pt;color:#555;}
+.mp.res{background:#eef7f0;}
+.mp.res .big{font-size:15pt;font-weight:700;color:#1f8a54;}
+.arrowcell{display:flex;align-items:center;justify-content:center;color:#b0563a;font-size:14pt;padding:0 1mm;}
+.render{background:rgba(70,200,255,.06);border:1px solid var(--lines);border-left:3px solid var(--blue);padding:5mm 5.5mm;margin-bottom:9mm;border-radius:10px;}
+.render h2{font-family:var(--serif);font-size:15pt;color:var(--blue);margin-bottom:2mm;font-weight:700;}
+.render p{font-size:10.3pt;margin-bottom:2mm;}
+.render ol{margin:1mm 0 0 5mm;font-size:10pt;}
+.render li{margin-bottom:1.5mm;}
+.render b{color:var(--blue);}
+.gem{background:rgba(62,213,152,.06);border:1px solid var(--lines);border-left:3px solid var(--agri);padding:5mm 5.5mm;margin-bottom:9mm;border-radius:10px;}
+.gem h2{font-family:var(--serif);font-size:14pt;color:var(--agri);margin-bottom:2mm;font-weight:700;}
+.gem p{font-size:10.3pt;margin-bottom:2mm;}
+.gem p b{color:var(--agri);}
+.gem ul{list-style:none;margin-top:1mm;}
+.gem li{font-size:9.7pt;padding:1mm 0 1mm 6mm;position:relative;}
+.gem li::before{content:"\25C6";position:absolute;left:0;color:var(--agri);font-size:8pt;top:1.7mm;}
+.assign{background:var(--mink);border:1px solid var(--lines);color:var(--mist);border-radius:12px;padding:6mm 6mm;margin-bottom:4mm;}
+.assign .eb{font-size:9pt;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:1mm;}
+.assign h2{font-family:var(--serif);font-size:17pt;color:var(--mist);margin-bottom:2mm;font-weight:700;letter-spacing:-.01em;}
+.assign p{font-size:10pt;color:var(--muted);margin-bottom:3mm;}
+.assign ol{list-style:none;counter-reset:a;}
+.assign>ol>li{counter-increment:a;font-size:10pt;padding:2mm 0 2mm 9mm;position:relative;border-bottom:1px solid rgba(255,255,255,.08);}
+.assign>ol>li:last-child{border-bottom:none;}
+.assign>ol>li::before{content:counter(a);position:absolute;left:0;top:2mm;width:6mm;height:6mm;background:var(--gold);color:#1a1205;font-weight:700;font-size:9pt;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.assign>ol>li b{color:var(--mist);}
+.assign>ol>li span{color:var(--muted);}
+.assign .rem{background:rgba(70,200,255,.1);border-left:3px solid var(--blue);padding:3mm 4mm;margin-top:4mm;font-size:9.7pt;color:#CFE8F5;border-radius:2px;}
+.assign .rem b{color:var(--blue);}
+.foot{margin-top:8mm;border-top:1px solid var(--lines);padding-top:3mm;font-size:8.5pt;color:var(--mid);display:flex;justify-content:space-between;gap:4mm;flex-wrap:wrap;}
+@media(max-width:600px){.doc{padding:24px 18px;margin:52px 10px 30px;}}
+@media print{ body{background:#fff;color:#111;padding:0;} .s5back{display:none;} .doc{margin:0;box-shadow:none;max-width:none;border:none;background:#fff;padding:14mm;} @page{size:A4;margin:0;} }
+</style></head>
+<body>
+<a class="s5back" href="../#/session-5">Back to Session 5</a>
+<div class="doc">
+  <div class="head">
+    <div class="eb">AI for Educators · Session 5 · Graphical abstracts</div>
+    <h1>Design a graphical abstract, end to end — run it live, then hand it over</h1>
+    <div class="sub">Every step below is a <b>ready-to-paste Gemini prompt, already filled with our worked example</b>. Run them in order in front of the room to design a complete, single-image graphical abstract. Then attendees repeat the same steps on their own paper, using the blank assignment at the end.</div>
+  </div>
+
+  <div class="venue" style="border-left-color:var(--blue);"><b style="color:var(--blue);">What a graphical abstract is.</b> A single image that gives a concise visual summary of a paper's main finding — it sits at the top of the article and in the table of contents, and it is what a reader sees before deciding to read on. It must be <b>one panel, self-contained, and read cleanly from left to right or top to bottom</b>, staying legible even when shrunk to a thumbnail. Reference (and our target spec): <a href="https://www.elsevier.com/authors/tools-and-resources/visual-abstract">Elsevier — graphical abstract guidelines</a>.</div>
+
+  <div class="golden"><b>The golden rule — say it before you start.</b> Gemini only ever sees a plain, generic summary and <b>placeholder labels</b> — never your raw data, exact unpublished figures, or novel design. You ask it for layout, flow and icons on dummy labels, then <b>drop your real, verified values in yourself</b>, in your own design file. Every number here is a dummy.</div>
+
+  <div class="ask-rule"><b>The habit we are teaching — let the model ask.</b> People forget to say who the audience is, which journal it is for, or which single result matters most. So every prompt below <b>ends by telling Gemini to ask you for anything missing before it generates.</b> That one line turns a guessing model into a collaborator that gets it right the first time.</div>
+
+  <div class="venue"><b>Our target venue (real, worked example): an Elsevier journal graphical abstract.</b> A single image, minimum 1328 × 531 pixels (width × height) at 300 dpi, displayed as a small ~500 × 200 pixel thumbnail; a clear start and end reading left-to-right or top-to-bottom; no extra text, outline or synopsis beyond what is inside the image; fonts kept large enough to survive shrinking; made for an interdisciplinary audience.</div>
+
+  <div class="example">
+    <h2>The example finding (illustrative — everyone builds this one in class)</h2>
+    <p>Small farmers lose much of their tomato harvest to spoilage before sale, because there is no affordable cold storage. A <b>zero-energy cool chamber</b> — two brick walls with damp sand between them, no electricity — keeps tomatoes cooler and more humid, so they stay market-ready for extra days.</p>
+    <p><b>Headline result (plain):</b> the chamber cut spoilage by roughly <b>60%</b> over ten days versus open storage.</p>
+    <div class="dummy">⚠ 60% is a dummy figure for teaching. Swap in your own real, verified number before you publish anything.</div>
+  </div>
+
+  <div class="flow">
+    <h2>The six steps you will run</h2>
+    <ol>
+      <li><b>Nail the one message.</b> <span>A graphical abstract carries exactly one idea — decide which, and what to cut.</span></li>
+      <li><b>Lock the venue spec.</b> <span>Turn the Elsevier guidelines into a concrete build spec — size, reading direction, legibility, must-haves.</span></li>
+      <li><b>Choose the layout logic.</b> <span>Pick the structure that fits the message — process, problem-to-solution, or before/after.</span></li>
+      <li><b>Set the visual flow.</b> <span>Arrange the panels and arrows, fix the reading order, and make the result the largest element.</span></li>
+      <li><b>Iconography and colour.</b> <span>An icon per concept and a simple, colourblind-safe palette — all on placeholder labels.</span></li>
+      <li class="rev"><b>Reviewer pass — change the role.</b> <span>A fresh reviewer checks it against the Elsevier criteria. You fix and finalise.</span></li>
+    </ol>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step">
+    <div class="top"><span class="num">1</span><h2>Nail the one message</h2><span class="role">Gemini · editor</span></div>
+    <div class="runline">Run this live · <b>paste as-is</b> — it is already seeded with our example</div>
+    <div class="why">The commonest mistake is cramming the whole paper into the image. A graphical abstract lands <b>one idea</b>. First decide what that idea is — and, just as important, what to leave out. This prompt gives the finding but not the audience, so you can watch Gemini ask.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  <span class="seed">I have a paper on cutting post-harvest tomato losses for small farmers.
+Plain summary, no sensitive data — aim: help smallholders store tomatoes without
+electricity; method: a low-cost evaporative cool chamber (two brick walls with
+damp sand between them); headline result: spoilage cut by about 60% over ten days
+versus open storage (dummy figure). I am designing a single-image graphical
+abstract.</span>
+<span class="k">Role</span>  You are an editor who distils a paper into one clear visual idea.
+<span class="k">Task</span>  Give me the single sentence this graphic must land, plus 2 alternative
+phrasings. Then list what to leave out — anything that does not serve that one
+message.
+<span class="k">Format</span>  Recommended one-liner, 2 alternatives, and a short "leave out" list.
+<span class="hi">Before you generate: if the audience or the target journal is unclear, ask me
+first and wait for my answer.</span></div>
+
+    <div class="lbl q">▸ What Gemini does first — it asks</div>
+    <div class="ask">
+      <div class="qh">Gemini replies with questions before drafting</div>
+      <ol>
+        <li>Which journal or conference is this for, so I match its graphical-abstract rules?</li>
+        <li>Who is the primary audience — food scientists, agronomists, or a general interdisciplinary readership?</li>
+      </ol>
+      <div class="ans">You answer: an Elsevier journal; audience is interdisciplinary. → Gemini now proceeds.</div>
+    </div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <p><b>Recommended message:</b> a no-electricity cool chamber cut tomato spoilage by ~60% over ten days.</p>
+      <p><b>Alternatives:</b> "Damp sand and brick — a fridge with no power, ~60% less spoilage"; "Cooling tomatoes off-grid: ~60% less waste in ten days".</p>
+      <p><b>Leave out:</b> daily moisture and temperature logs; the exact tomato variety; step-by-step build dimensions; statistics and p-values; anything about future work. None of it serves the one message.</p>
+      <div class="note"><b>The discipline:</b> one message, one image. Everything you keep must earn its place against that sentence.</div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step">
+    <div class="top"><span class="num">2</span><h2>Lock the venue spec</h2><span class="role">Gemini · analyst</span></div>
+    <div class="runline">Run this live · <b>Elsevier guidelines already pasted in</b></div>
+    <div class="why">Journals have hard graphical-abstract rules. Here we <b>turn Elsevier's real spec into a build spec</b> so the layout you design will actually be accepted and stay legible as a thumbnail.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  I am submitting to an Elsevier journal. Its graphical-abstract rules, in
+my words: <span class="seed">a single image, minimum 1328 × 531 pixels (width × height) at 300 dpi,
+shown as a small ~500 × 200 thumbnail; a clear start and end, reading left-to-
+right or top-to-bottom; one panel only; no extra text, outline or synopsis beyond
+what sits inside the image; fonts large enough to survive shrinking; for an
+interdisciplinary audience.</span>
+My one message (from Step 1): <span class="seed">a no-electricity cool chamber cut tomato spoilage
+by ~60% over ten days.</span>
+<span class="k">Role</span>  You are an analyst who turns publisher rules into a build spec.
+<span class="k">Task</span>  Produce a one-page build spec: canvas and ratio, reading direction, the
+legibility floor at thumbnail size, must-have elements, and what to exclude. Then
+say how my one message fits this spec.
+<span class="k">Format</span>  A labelled spec, then a short "how the message fits" note.
+<span class="hi">If anything you need is not in my summary, ask me before you generate.</span></div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <p><b>Canvas:</b> 1328 × 531 px (≈ 2.5:1 landscape), 300 dpi; design so it still reads at ~500 × 200.<br>
+      <b>Reading direction:</b> left to right, one clear entry and one clear exit.<br>
+      <b>Legibility floor:</b> few words, short labels, large type — nothing that vanishes when shrunk.<br>
+      <b>Must-have:</b> the problem, the approach, and the ~60% result, in one panel.<br>
+      <b>Exclude:</b> methods detail, raw data, a "Graphical Abstract" heading, decorative clutter, tiny footnotes.</p>
+      <p class="pick">How the message fits: a three-beat left-to-right strip — problem → approach → result — lets an interdisciplinary reader grasp it in one glance, with the ~60% as the payoff on the right.</p>
+      <div class="note"><b>This is the personalisation.</b> Every step from here is built to this spec, not to a generic idea of a nice figure.</div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step">
+    <div class="top"><span class="num">3</span><h2>Choose the layout logic</h2><span class="role">Gemini · information designer</span></div>
+    <div class="runline">Run this live · <b>feed it Steps 1–2 output</b></div>
+    <div class="why">There is no single right layout — there are a few good patterns. Ask for options that fit <b>your</b> message and Elsevier's left-to-right rule, then choose.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  For the tomato message and the Elsevier build spec from Steps 1–2 (paste
+them below if starting a fresh chat).
+<span class="k">Role</span>  You are an information designer for scientific figures.
+<span class="k">Task</span>  Propose 3 candidate layouts that fit this message and read left to right —
+for example a linear process, a problem-to-solution split, or a before/after
+comparison. For each: the structure, when it works best, and why. Recommend one.
+<span class="k">Format</span>  Three short blocks, then a one-line recommendation.
+<span class="hi">If the message or spec is missing, ask me for it before you generate.</span></div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <div class="ang"><span class="an">A · Linear process (3 panels).</span> <span class="ad">Problem → approach → result, left to right. Works when there is a clear cause and effect. Simple and glanceable.</span></div>
+      <div class="ang"><span class="an">B · Before / after split.</span> <span class="ad">Open storage vs chamber at Day 10, side by side. Works when the contrast is the whole story. Strong visual punch.</span></div>
+      <div class="ang"><span class="an">C · Central hub.</span> <span class="ad">The chamber in the middle, benefits radiating out. Works for many outcomes — but weaker for a single before/after result.</span></div>
+      <div class="pick">Recommended: A, the linear three-panel process, with the before/after built into the third panel — it satisfies Elsevier's left-to-right rule and lands the ~60% as the payoff.</div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step">
+    <div class="top"><span class="num">4</span><h2>Set the visual flow</h2><span class="role">Gemini · layout designer</span></div>
+    <div class="runline">Run this live · <b>feed it the chosen layout</b></div>
+    <div class="why">Now fix <b>how the eye travels</b>: the panels, the arrows between them, where the reader starts, and which single element is largest — the result.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  Using the chosen linear 3-panel layout for the tomato message.
+<span class="k">Role</span>  You are a layout designer setting the visual flow of a figure.
+<span class="k">Task</span>  Lay out the three panels left to right with arrows and a clear start and
+end. Say what each panel shows (placeholder labels only), the reading order, where
+the eye should land first, and which element is the largest — it should be the
+~60% result <span class="hi">(dummy)</span>.
+<span class="k">Format</span>  Panel-by-panel description, then a one-line "focal point" note.
+<span class="hi">If the layout choice is unclear, ask me before you generate.</span></div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <div class="panel"><span class="pn">Panel 1 — Problem (left).</span> <span class="pd">A ripe tomato softening beside a crossed-out plug. Label: "No cold storage".</span></div>
+      <div class="panel"><span class="pn">Panel 2 — Approach (centre).</span> <span class="pd">A simple cutaway of the chamber: double brick wall, sand between, small arrows for heat leaving. Label: "Zero-energy cool chamber".</span></div>
+      <div class="panel"><span class="pn">Panel 3 — Result (right).</span> <span class="pd">Two tomatoes at Day 10, firm vs spoiled, with a large "~60% less spoilage". Label: "vs open storage · 10 days".</span></div>
+      <p class="pick">Focal point: the "~60%" in Panel 3 is the biggest element on the canvas; arrows carry the eye left to right into it.</p>
+      <div class="mock">
+        <div class="cap">Rough thumbnail — what the flow looks like at ~500 × 200</div>
+        <div class="mockrow">
+          <div class="mp"><div class="icn">🍅</div><div class="t">No cold storage</div><div class="s">tomatoes spoil</div></div>
+          <div class="arrowcell">→</div>
+          <div class="mp"><div class="icn">🧱💧</div><div class="t">Cool chamber</div><div class="s">brick + damp sand</div></div>
+          <div class="arrowcell">→</div>
+          <div class="mp res"><div class="big">~60%</div><div class="t">less spoilage</div><div class="s">vs open · 10 days</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step">
+    <div class="top"><span class="num">5</span><h2>Iconography and colour</h2><span class="role">Gemini · icon &amp; colour designer</span></div>
+    <div class="runline">Run this live · <b>feed it the visual flow</b></div>
+    <div class="why">Finally, the <b>icons and palette</b> — kept simple, legible at thumbnail size, and colourblind-safe. Still on placeholder labels; your real numbers go on later, in your own file.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  For the three-panel flow above (problem → approach → result), placeholder
+labels only.
+<span class="k">Role</span>  You are an icon and colour designer for scientific figures.
+<span class="k">Task</span>  For each panel suggest one simple icon per concept, and a small colourblind-
+safe palette with a single accent colour for the result. Keep everything legible
+when the image is shrunk to a thumbnail.
+<span class="k">Format</span>  Icon list per panel, then the palette (with the accent named).
+<span class="hi">If the flow or labels are unclear, ask me before you generate.</span></div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <div class="panel"><span class="pn">Panel 1 icons:</span> <span class="ic">a tomato with a small downward arrow; a crossed-out plug (no electricity).</span></div>
+      <div class="panel"><span class="pn">Panel 2 icons:</span> <span class="ic">a brick-wall cutaway; a water droplet; a thermometer pointing down.</span></div>
+      <div class="panel"><span class="pn">Panel 3 icons:</span> <span class="ic">two tomatoes (firm vs spoiled); a bold "~60%" as the hero number.</span></div>
+      <p style="margin-top:2mm;"><b>Palette:</b> warm neutral background; muted brick-brown for the chamber; a single strong green as the accent on the result. Green and brown stay distinguishable for the common colourblindness types; avoid a red/green pairing to carry meaning.</p>
+      <div class="note"><b>You do the rest:</b> this layout, flow, icons and palette now go into your design tool (next box). Gemini only ever saw placeholder labels — never your raw data.</div>
+    </div>
+  </div>
+
+  <!-- REVIEWER PASS -->
+  <div class="step reviewer">
+    <div class="top"><span class="num">R</span><h2>Reviewer pass — change the role, find the gaps</h2><span class="role">Gemini · independent reviewer</span></div>
+    <div class="runline">Run this live · <b>open a fresh chat and change the role</b></div>
+    <div class="why">Now <b>change the role deliberately.</b> In a new chat, tell Gemini it is an independent reviewer or production editor seeing this for the first time. Fresh eyes catch the label that vanishes at thumbnail size, the ambiguous arrow, the overclaim, the two colours fighting each other.</div>
+
+    <div class="lbl in">▸ Prompt to paste</div>
+    <div class="prompt"><span class="k">Context</span>  Below is a graphical-abstract layout, its visual flow, icons and palette,
+and the Elsevier spec it must satisfy. You did not design it and know nothing
+about the project beyond this.
+SPEC: <span class="seed">[paste from Step 2]</span>   LAYOUT + FLOW + ICONS: <span class="seed">[paste from Steps 3–5]</span>
+<span class="k">Role</span>  You are an independent reviewer and journal production editor, slightly
+sceptical, checking this against the venue's rules.
+<span class="k">Task</span>  Do a gap analysis. For each criterion — self-contained, legible at a ~500×200
+thumbnail, single clear start and end, jargon-free, not overclaiming, colourblind-
+safe, no stray text — say where it falls short and how to fix it.
+<span class="k">Format</span>  A table: Criterion · Gap found · Fix. End with the single highest-priority
+change.
+<span class="hi">If the spec or the design is incomplete, ask me for it before you review.</span></div>
+
+    <div class="lbl out">▸ Sample output from Gemini</div>
+    <div class="ocard">
+      <table class="gap">
+        <tr><th>Criterion</th><th>Gap found</th><th>Fix</th></tr>
+        <tr><td>Self-contained</td><td>"~60%" has no baseline on the image, only in the caption.</td><td class="f">Put "vs open storage · 10 days" inside Panel 3.</td></tr>
+        <tr><td>Legible at thumbnail</td><td>Panel labels may disappear when shrunk.</td><td class="f">Cut to 2–3 words each; increase type size.</td></tr>
+        <tr><td>Clear start/end</td><td>Arrows read, but the eye may land on the middle first.</td><td class="f">Make Panel 1 slightly heavier so entry is unambiguous.</td></tr>
+        <tr><td>Not overclaiming</td><td>"~60%" without "~" or a note reads as exact.</td><td class="f">Keep the "~" and your real, verified value.</td></tr>
+        <tr><td>Colourblind-safe</td><td>If red marks "spoiled" and green "fresh", meaning rides colour alone.</td><td class="f">Add a shape or label, not just colour, to carry it.</td></tr>
+      </table>
+      <p class="pick">Highest priority: make the result panel fully self-contained — result, baseline and duration all inside the image — so it stands alone in the table of contents.</p>
+      <div class="note"><b>Close the loop:</b> take these fixes back to Step 4 or 5 and revise. One or two rounds is enough — you own every final decision.</div>
+    </div>
+  </div>
+
+  <div class="render">
+    <h2>Build the image and drop in your real values</h2>
+    <p>Gemini has given you the message, layout, flow, icons and palette. It does not draw the final figure, so the last step is yours, in a design tool:</p>
+    <ol>
+      <li><b>PowerPoint or Canva:</b> quickest for most people — place three panels on a 2.5:1 canvas, add icons and short labels, export as an image.</li>
+      <li><b>Inkscape (free) or Adobe Illustrator:</b> for crisp vector icons and clean arrows.</li>
+      <li><b>BioRender:</b> for a science-icon library if your figure needs specific scientific imagery.</li>
+    </ol>
+    <p style="margin-top:2mm;"><b>Then substitute your real, verified values</b> — replace the dummy ~60% and any placeholder label with your own numbers, in your own file, and check it against the reviewer's fixes.</p>
+    <p style="margin-top:2mm;font-size:9.5pt;color:var(--graph);"><b>Export settings Elsevier expects:</b> a single image at least 1328 × 531 px (width × height), 300 dpi, text embedded in the file, saved as TIFF, EPS, PDF or an MS Office file. Check it still reads at ~500 × 200 before you submit.</p>
+  </div>
+
+  <div class="gem">
+    <h2>Save the whole flow as a Gem in Gemini</h2>
+    <p>Do not rebuild this by hand each time. In Gemini, a <b>Gem</b> is a saved assistant with standing instructions — set it up once, reuse it for every paper.</p>
+    <ul>
+      <li>Create a Gem named "Graphical-abstract designer".</li>
+      <li>Paste the flow as its instructions: the golden rule, then the five steps with their CRTF structure and the reviewer pass.</li>
+      <li>Tell it to run one step at a time, to ask for anything missing before each step, to use placeholder labels only, and to keep everything legible at thumbnail size.</li>
+      <li>For a new paper, open the Gem, paste your one-line message and the journal's rules, and walk the steps.</li>
+    </ul>
+    <p style="margin-top:2mm;"><b>Why it matters:</b> the Gem locks in the discipline — one message, venue-tuning, placeholder labels, the asking habit, and the independent review — so quality does not depend on remembering the process.</p>
+  </div>
+
+  <!-- ASSIGNMENT -->
+  <div class="assign">
+    <div class="eb">Now hand it over · your turn</div>
+    <h2>Assignment — design a graphical abstract for your own paper</h2>
+    <p>Run the same five steps and the reviewer pass on one of your own findings. Use a plain summary and placeholder labels only — no raw data, no exact unpublished numbers, a dummy figure where needed. Where a step needs the previous step's output, paste it in.</p>
+    <ol>
+      <li><b>Nail the one message.</b> <span>Paste your plain summary; ask for the single sentence and what to leave out. Do not name the audience — let Gemini ask.</span></li>
+      <li><b>Lock the venue spec.</b> <span>Name your target journal and paste its graphical-abstract rules; ask Gemini to turn them into a build spec.</span></li>
+      <li><b>Choose the layout logic.</b> <span>Ask for a few layouts that fit your message and read left to right; pick one.</span></li>
+      <li><b>Set the visual flow.</b> <span>Ask for the panels, arrows, reading order, and which element is largest.</span></li>
+      <li><b>Iconography and colour.</b> <span>Ask for an icon per concept and a colourblind-safe palette on placeholder labels.</span></li>
+      <li><b>Reviewer pass.</b> <span>In a fresh chat, make Gemini an independent reviewer and ask for a gap analysis against your spec. Apply the fixes, then build it and drop in your real values.</span></li>
+    </ol>
+    <div class="rem"><b>Remember:</b> end every prompt with "if anything you need is missing, ask me before you generate" — that is the habit. And keep the golden rule: only placeholder labels go in, your real verified numbers go on at the very end, in your own file.</div>
+  </div>
+
+  <div class="foot"><span>AI for Educators · Session 5 · Graphical abstracts — Graphical abstract, end to end</span><span>Tool: Gemini (Pro) · Venue: Elsevier spec · Dummy data — swap your verified values</span></div>
+</div>
+</body></html>
